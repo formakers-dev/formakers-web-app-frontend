@@ -1,0 +1,17 @@
+machine:
+  node:
+    version: 6.11.0
+
+dependencies:
+  pre:
+    - rm -rf ./node_modules
+  cache_directories:
+    - ~/.npm
+
+deployment:
+  pre:
+    - npm run build
+  staging:
+    branch: master
+    heroku:
+      appname: appbee-dragon
