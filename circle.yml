@@ -5,8 +5,6 @@ machine:
 dependencies:
   pre:
     - rm -rf ./node_modules
-  cache_directories:
-    - ~/.npm
 
 deployment:
   pre:
