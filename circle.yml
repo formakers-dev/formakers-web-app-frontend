@@ -8,7 +8,7 @@ dependencies:
   cache_directories:
     - ~/.npm
   override:
-    pwd: dist
+    pwd: ~/dist
 
 deployment:
   pre:
