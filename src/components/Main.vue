@@ -1,9 +1,14 @@
 <template>
   <div class="main">
     <input v-model="message" placeholder="앱 이름을 입력하세요"/>
-    <button>Search</button>
+    <button v-on:click="searchApps">Search</button>
     <p> {{message}}가 입력됨 </p>
     <p> 전체 사용자 수 {{count}}</p>
+    <ul>
+      <li v-for="app in apps" v-on:click="">
+        {{ app.appName }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -21,6 +26,8 @@ export default {
     return {
       message: '',
       count: 0,
+      apps: [],
+      selectedList: [],
     };
   },
   created() {
@@ -28,6 +35,15 @@ export default {
     this.$http.get(`${baseURL}/user/count`).then((result) => {
       this.count = result.data.count;
     });
+  },
+  methods: {
+    searchApps() {
+      const baseURL = 'http://localhost:8080';
+      const url = `${baseURL}/app?keyword=${this.message}`;
+      this.$http.get(url).then((result) => {
+        this.apps = result.data;
+      });
+    },
   },
 };
 </script>
@@ -38,15 +54,6 @@ export default {
     font-weight: normal;
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
 
   a {
     color: #42b983;
