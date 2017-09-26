@@ -7,7 +7,7 @@ dependencies:
     - rm -rf ./node_modules
 
 deployment:
-  staging:
+  development:
     branch: master
     heroku:
       appname: appbee-dragon
