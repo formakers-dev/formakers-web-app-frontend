@@ -6,7 +6,7 @@ dependencies:
   pre:
     - rm -rf ./node_modules
   override:
-    - npm install
+    - npm install --only=dev
 
 
 deployment:
