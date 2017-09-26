@@ -15,7 +15,7 @@
 <script>
 import Search from './Search';
 import List from './List';
-import config from '../../config';
+import HTTP from '../api/http-common';
 
 export default {
   name: 'main',
@@ -32,16 +32,13 @@ export default {
     };
   },
   created() {
-    const baseURL = config[process.env.NODE_ENV].baseUrl;
-    this.$http.get(`${baseURL}/user/count`).then((result) => {
+    HTTP.get('/user/count').then((result) => {
       this.count = result.data.count;
     });
   },
   methods: {
     searchApps() {
-      const baseURL = config[process.env.NODE_ENV].baseUrl;
-      const url = `${baseURL}/app?keyword=${this.message}`;
-      this.$http.get(url).then((result) => {
+      HTTP.get(`/app?keyword=${this.message}`).then((result) => {
         this.apps = result.data;
       });
     },
