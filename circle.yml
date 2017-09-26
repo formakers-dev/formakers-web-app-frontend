@@ -7,8 +7,6 @@ dependencies:
     - rm -rf ./node_modules
 
 deployment:
-  pre:
-    - npm run build
   staging:
     branch: master
     heroku:
