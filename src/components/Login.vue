@@ -7,45 +7,47 @@
 </template>
 
 <script>
-import Vue from 'vue';
+/* global gapi */
 export default {
   name: 'login',
+  mounted() {
+    window.addEventListener('google-loaded', this.renderGoogleLoginButton);
+  },
   data() {
     return {
       isLogin: false,
-      userName: ''
-    }
+      userName: '',
+    };
   },
   methods: {
-    onSignIn: function(googleUser) {
+    renderGoogleLoginButton() {
+      gapi.signin2.render('google-signin-btn', {
+        longtitle: true,
+        onsuccess: this.onSignIn,
+      });
+    },
+    onSignIn(googleUser) {
       const auth2 = gapi.auth2.init();
 
-      if(auth2.isSignedIn.get()) {
+      if (auth2.isSignedIn.get()) {
         const profile = googleUser.getBasicProfile();
-        this.isLogin = true;
-        //TODO: server로 idtoken 보내기
-        //TODO: 메인화면으로 이동 - user
+        // TODO: server로 idtoken 보내기
+        // TODO: 메인화면으로 이동 - user
         this.userName = profile.getName();
-      } else {
-        this.isLogin = false;
       }
+      this.toggleLogin();
     },
-    onSignOut: function() {
-      var auth2 = gapi.auth2.getAuthInstance();
+    onSignOut() {
+      const auth2 = gapi.auth2.getAuthInstance();
 
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
+      auth2.signOut().then(() => {
+        this.toggleLogin();
       });
-      //TODO : signOut 콜백 안에 넣기
-      this.isLogin = false;
+    },
+    toggleLogin() {
+      this.isLogin = !this.isLogin;
     },
   },
-  mounted() {
-    gapi.signin2.render('google-signin-btn', {
-      longtitle: true,
-      onsuccess: this.onSignIn
-    });
-  }
 };
 </script>
 
