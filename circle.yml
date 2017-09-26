@@ -5,12 +5,12 @@ machine:
 dependencies:
   pre:
     - rm -rf ./node_modules
-  override:
-    - npm install --only=dev
 
 
 deployment:
   development:
     branch: master
+    commands:
+      - npm install --only=dev
     heroku:
       appname: appbee-dragon
