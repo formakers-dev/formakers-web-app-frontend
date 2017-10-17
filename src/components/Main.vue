@@ -14,42 +14,45 @@
 </template>
 
 <script>
-  import Search from './Search';
-  import List from './List';
-  import HTTP from '../api/http-common';
+import Search from './Search';
+import List from './List';
+import HTTP from '../api/http-common';
 
-  export default {
-    name: 'main',
-    components: {
-      Search,
-      List,
-    },
-    data() {
-      return {
-        message: '',
-        count: 0,
-        apps: [],
-        selectedList: [],
-      };
-    },
-    created() {
-      HTTP.get('/user/count').then((result) => {
-        this.count = result.data.count;
+export default {
+  name: 'main',
+  components: {
+    Search,
+    List,
+  },
+  data() {
+    return {
+      message: '',
+      count: 0,
+      apps: [],
+      selectedList: [],
+    };
+  },
+  created() {
+    HTTP.get('/user/count').then((result) => {
+      this.count = result.data.count;
+    });
+  },
+  methods: {
+    searchApps() {
+      HTTP.get(`/app?keyword=${this.message}`).then((result) => {
+        this.apps = result.data;
       });
     },
-    methods: {
-      searchApps() {
-        HTTP.get(`/app?keyword=${this.message}`).then((result) => {
-          this.apps = result.data;
-        });
-      },
-      sendMessage() {
-        HTTP.post('/message').then((result) => {
-          console.log(result);
-        });
-      },
+    onSignOut() {
+      location.href = 'http://localhost:8080/logout';
     },
-  };
+    sendMessage() {
+      HTTP.post('/message').then((result) => {
+        console.log(result);
+      });
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -57,6 +60,7 @@
   h1, h2 {
     font-weight: normal;
   }
+
 
   a {
     color: #42b983;
