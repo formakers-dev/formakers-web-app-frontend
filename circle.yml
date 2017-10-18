@@ -13,4 +13,4 @@ deployment:
     commands:
       - npm install --only=dev
     heroku:
-      appname: appbee-dragon
+      appname: dragonwebapp
