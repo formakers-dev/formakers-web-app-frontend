@@ -5,6 +5,7 @@
 </template>
 
 <script>
+const BASE_URL = require('../../config')[process.env.NODE_ENV].baseUrl;
 
 export default {
   name: 'login',
@@ -14,7 +15,7 @@ export default {
   },
   methods: {
     onSignIn() {
-      location.href = 'http://localhost:8080/auth/google';
+      location.href = `${BASE_URL}/auth/google`;
     },
   },
 };

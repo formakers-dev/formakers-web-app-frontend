@@ -18,6 +18,8 @@ import Search from './Search';
 import List from './List';
 import HTTP from '../api/http-common';
 
+const BASE_URL = require('../../config')[process.env.NODE_ENV].baseUrl;
+
 export default {
   name: 'main',
   components: {
@@ -44,7 +46,7 @@ export default {
       });
     },
     onSignOut() {
-      location.href = 'http://localhost:8080/logout';
+      location.href = `${BASE_URL}/logout`;
     },
     sendMessage() {
       HTTP.post('/message').then((result) => {
