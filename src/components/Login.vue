@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const BASE_URL = require('../../config')[process.env.NODE_ENV].baseUrl;
+const BASE_URL = process.env.BASE_URL;
 
 export default {
   name: 'login',

@@ -19,7 +19,6 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
-    baseUrl: process.env.BASE_URL || "http://localhost:8080"
   },
   dev: {
     env: require('./dev.env'),
@@ -34,6 +33,5 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false,
-    baseUrl: process.env.BASE_URL || "http://localhost:8080"
   }
 }

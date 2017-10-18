@@ -18,7 +18,7 @@ import Search from './Search';
 import List from './List';
 import HTTP from '../api/http-common';
 
-const BASE_URL = require('../../config')[process.env.NODE_ENV].baseUrl;
+const BASE_URL = process.env.BASE_URL;
 
 export default {
   name: 'main',
