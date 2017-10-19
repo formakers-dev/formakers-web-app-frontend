@@ -49,7 +49,7 @@ export default {
       location.href = `${BASE_URL}/logout`;
     },
     sendMessage() {
-      HTTP.post('/message').then((result) => {
+      HTTP.post('/notification').then((result) => {
         console.log(result);
       });
     },
