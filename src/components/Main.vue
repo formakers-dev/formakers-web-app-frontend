@@ -14,18 +14,12 @@
 </template>
 
 <script>
-import Search from './Search';
-import List from './List';
 import HTTP from '../api/http-common';
 
 const BASE_URL = process.env.BASE_URL;
 
 export default {
   name: 'main',
-  components: {
-    Search,
-    List,
-  },
   data() {
     return {
       message: '',
