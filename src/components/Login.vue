@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import HTTP from '../api/http-common';
+
 const BASE_URL = process.env.BASE_URL;
 
 export default {
@@ -12,6 +14,11 @@ export default {
   data() {
     return {
     };
+  },
+  created() {
+    HTTP.get('/auth/check_login').then(() => {
+      location.href = '/my_page';
+    });
   },
   methods: {
     onSignIn() {
