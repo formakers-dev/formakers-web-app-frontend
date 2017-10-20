@@ -1,5 +1,6 @@
 <template>
-  <div class="main">
+  <div class="register-project" className="container">
+    <h1>프로젝트 등록</h1>
     <input v-model="message" placeholder="앱 이름을 입력하세요"/>
     <button v-on:click="searchApps">Search</button>
     <p> {{message}}가 입력됨 </p>
@@ -19,7 +20,7 @@ import HTTP from '../api/http-common';
 const BASE_URL = process.env.BASE_URL;
 
 export default {
-  name: 'main',
+  name: 'register-project',
   data() {
     return {
       message: '',

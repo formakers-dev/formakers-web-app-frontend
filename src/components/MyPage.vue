@@ -1,18 +1,22 @@
 <template>
   <div class="my-page" className="container">
-    마이페이지
+    <h1>마이페이지</h1>
+    <button v-on:click="onRegisterProject">프로젝트 등록</button>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'my-page',
-    data() {
-      return {};
+export default {
+  name: 'my-page',
+  data() {
+    return {};
+  },
+  methods: {
+    onRegisterProject() {
+      location.href = '/register_project';
     },
-    methods: {
-    },
-  };
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

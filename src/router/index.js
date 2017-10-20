@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Main from '../components/Main';
+import RegisterProject from '../components/RegisterProject';
 import Login from '../components/Login';
 import MyPage from '../components/MyPage';
 
@@ -20,9 +20,9 @@ export default new Router({
       component: MyPage,
     },
     {
-      path: '/main',
-      name: 'Main',
-      component: Main,
+      path: '/register_project',
+      name: 'RegisterProject',
+      component: RegisterProject,
     },
   ],
 });
