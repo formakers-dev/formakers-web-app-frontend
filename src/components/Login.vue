@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import HTTP from '../api/http-common';
+import HTTP from '../apis/http-common';
+import { setLogin } from '../utils/auth';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -17,7 +18,10 @@ export default {
   },
   created() {
     HTTP.get('/auth/check_login').then(() => {
+      setLogin(true);
       location.href = '/my_page';
+    }).catch(() => {
+      setLogin(false);
     });
   },
   methods: {

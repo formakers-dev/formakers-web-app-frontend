@@ -5,7 +5,7 @@ import axios from 'axios';
 import Buefy from 'buefy';
 import 'buefy/lib/buefy.css';
 import App from './App';
-import router from './router';
+import router from './routers';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;

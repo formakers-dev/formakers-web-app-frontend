@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import HTTP from '../api/http-common';
+import HTTP from '../apis/http-common';
+import { setLogin } from '../utils/auth';
 
 export default {
   name: 'my-page',
@@ -26,6 +27,7 @@ export default {
     onLogout() {
       HTTP.get('/auth/logout')
         .then(() => {
+          setLogin(false);
           location.href = '/';
         })
         .catch((err) => {

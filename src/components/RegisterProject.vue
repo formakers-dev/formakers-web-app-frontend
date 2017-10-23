@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import HTTP from '../api/http-common';
+import HTTP from '../apis/http-common';
 
 const BASE_URL = process.env.BASE_URL;
 
