@@ -1,0 +1,10 @@
+{
+  "firebase": {
+    "apiKey": "AIzaSyBa2LePtLF3dlU51TW9nfsJ_cPsFd7_0BA",
+    "authDomain": "dragonwebapp.firebaseapp.com",
+    "databaseURL": "https://dragonwebapp.firebaseio.com",
+    "projectId": "dragonwebapp",
+    "storageBucket": "",
+    "messagingSenderId": "131826141596"
+  }
+}

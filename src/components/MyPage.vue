@@ -22,13 +22,13 @@ export default {
   },
   methods: {
     onRegisterProject() {
-      location.href = '/register_project';
+      this.$router.push('register_project');
     },
     onLogout() {
       HTTP.get('/auth/logout')
         .then(() => {
           setLogin(false);
-          location.href = '/';
+          this.$router.push('/');
         })
         .catch((err) => {
           this.logoutErrorMsg = `${err} 로그아웃 실패`;

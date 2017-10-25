@@ -17,8 +17,6 @@
 <script>
 import HTTP from '../apis/http-common';
 
-const BASE_URL = process.env.BASE_URL;
-
 export default {
   name: 'register-project',
   data() {
@@ -39,9 +37,6 @@ export default {
       HTTP.get(`/app?keyword=${this.message}`).then((result) => {
         this.apps = result.data;
       });
-    },
-    onSignOut() {
-      location.href = `${BASE_URL}/logout`;
     },
     sendMessage() {
       HTTP.post('/notification').then((result) => {
