@@ -9,7 +9,8 @@
     "test": "karma start test/unit/karma.conf.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "heroku-prebuild": "npm install --only=dev"
+    "heroku-prebuild": "npm install --only=dev",
+    "serve": "http-server dist/ -p 3000"
   },
   "dependencies": {
     "axios": "^0.16.2",
