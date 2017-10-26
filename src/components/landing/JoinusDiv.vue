@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import FirebaseDao from '@/firebase/FirebaseDao';
+import HTTP from '../../apis/http-common';
 
 const emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -56,19 +56,19 @@ export default {
     addEmail() {
       if (this.isValid) {
         this.isWarn = false;
-        const dao = new FirebaseDao();
-        dao.addEmailAddress(this.newEmail, this.addEmailCallback);
+        HTTP.post('/email', {
+          email: this.newEmail.email,
+          isActive: true,
+        }).then((res) => {
+          this.isActive = !this.isActive;
+          console.log(res);
+        }).catch((err) => {
+          console.error(err);
+        });
       } else {
         this.isWarn = true;
       }
       this.newEmail.email = '';
-    },
-    addEmailCallback(err) {
-      if (err) {
-        console.error(err);
-      } else {
-        this.isActive = !this.isActive;
-      }
     },
   },
 };
