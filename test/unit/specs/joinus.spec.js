@@ -22,4 +22,12 @@ describe('JoinUs Div', () => {
     expect(JoinUsComponent.addEmail).to.be.a('function');
     sinon.assert.calledOnce(spy);
   }));
+
+  it('JoinUs Div가 렌더링 되었을 때 초기 데이터 확인', () => {
+    const defaultData = JoinUs.data();
+
+    expect(defaultData.newEmail.email).to.equal('');
+    expect(defaultData.isWarn).to.equal(false);
+    expect(defaultData.isActive).to.equal(true);
+  });
 });
