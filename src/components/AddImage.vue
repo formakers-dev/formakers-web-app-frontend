@@ -1,9 +1,8 @@
 <template>
   <div id="addButton">
-    <ul style="display: flex; flex-wrap: wrap">
+    <ul>
       <li v-if="fileMetadataList.length < 5">
-        <div style="width:240px; height:185px;">
-          <img style="width:240px; height:185px;" src="../assets/add_image.png" v-on:click="onPickFile"/>
+        <div class="add-image-button" v-on:click="onPickFile">
           <input type="file" style="display: none" ref="fileInput" accept="image/*" v-on:change="onFilePicked"/>
         </div>
       </li>
@@ -61,6 +60,15 @@ export default {
     right: 0;
     position: absolute;
     display: inherit;
+  }
+  .add-image-button {
+    width: 240px;
+    height: 185px;
+    background-image: url("../assets/add_image.png");
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
   }
   li {
     display: block;

@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 const firebaseConfig = process.env.firebase;
+const uuidv1 = require('uuid/v1');
 
 firebase.initializeApp(firebaseConfig);
 
@@ -12,7 +13,7 @@ export function removeFile(filename) {
 
 export function saveFile(file) {
   const storageRef = firebase.storage().ref();
-  const fileName = file.name;
+  const fileName = uuidv1();
 
   return storageRef.child(`images/${fileName}`).put(file);
 }

@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { removeFile, saveFile } from '../../../src/utils/firebase';
+import { removeFile, saveFile } from '../../../../src/utils/firebase';
 
 
 describe('Firebase Util', () => {
@@ -28,7 +28,7 @@ describe('Firebase Util', () => {
   });
 
   it('saveFile호출 시 firebase storage에 저장요청을 보낸다', (done) => {
-    childStub.withArgs('images/test.file').returns({ put: putStub });
+    childStub.returns({ put: putStub });
     putStub.returns(Promise.resolve());
 
     const file = {

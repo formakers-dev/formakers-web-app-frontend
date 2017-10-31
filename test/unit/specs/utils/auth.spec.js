@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { setLogin, isLoggedIn, requireAuth } from '../../../src/utils/auth';
+import { setLogin, isLoggedIn, requireAuth } from '../../../../src/utils/auth';
 
 describe('Auth Utils', () => {
   it('setLogin(true) 호출 시 SessionStorage에 KEY_IS_LOGIN Item을 생성한다', (done) => {

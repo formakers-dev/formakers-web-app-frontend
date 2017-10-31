@@ -4,7 +4,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Promise from 'es6-promise';
 
-import JoinUs from '../../../src/components/landing/JoinusDiv';
+import JoinUs from '../../../../src/components/landing/JoinusDiv';
 
 describe('JoinUs Div', () => {
   before((done) => {
