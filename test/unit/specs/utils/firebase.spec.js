@@ -1,17 +1,19 @@
 import sinon from 'sinon';
+import firebase from 'firebase';
 import { removeFile, saveFile } from '../../../../src/utils/firebase';
 
 
 describe('Firebase Util', () => {
-  const firebase = require('firebase');
-  const firebaseInitStub = sinon.stub(firebase, 'initializeApp');
-  const storageStub = sinon.stub(firebase, 'storage');
-  const refStub = sinon.stub();
-  const childStub = sinon.stub();
-  const deleteStub = sinon.stub();
-  const putStub = sinon.stub();
+  const sandbox = sinon.sandbox.create();
+  const refStub = sandbox.stub();
+  const childStub = sandbox.stub();
+  const deleteStub = sandbox.stub();
+  const putStub = sandbox.stub();
 
-  before(() => {
+  beforeEach(() => {
+    sandbox.stub(firebase, 'initializeApp');
+
+    const storageStub = sandbox.stub(firebase, 'storage');
     storageStub.returns({ ref: refStub });
     refStub.returns({ child: childStub });
   });
@@ -42,14 +44,6 @@ describe('Firebase Util', () => {
   });
 
   afterEach(() => {
-    putStub.reset();
-    deleteStub.reset();
-    childStub.reset();
-  });
-
-  after(() => {
-    refStub.reset();
-    firebaseInitStub.restore();
-    storageStub.restore();
+    sandbox.restore();
   });
 });
