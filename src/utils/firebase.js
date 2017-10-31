@@ -4,25 +4,15 @@ const firebaseConfig = process.env.firebase;
 
 firebase.initializeApp(firebaseConfig);
 
-export function removeStorage(index, filename, callback) {
+export function removeFile(filename) {
   const storageRef = firebase.storage().ref();
 
-  storageRef.child(`images/${filename}`).delete()
-    .then(() => {
-      callback(index);
-    });
+  return storageRef.child(`images/${filename}`).delete();
 }
 
-export function saveStorage(file, callback) {
+export function saveFile(file) {
   const storageRef = firebase.storage().ref();
   const fileName = file.name;
 
-  storageRef.child(`images/${fileName}`).put(file)
-    .then((snapshot) => {
-      callback({
-        url: snapshot.downloadURL,
-        name: fileName,
-      });
-    })
-    .catch(() => null);
+  return storageRef.child(`images/${fileName}`).put(file);
 }

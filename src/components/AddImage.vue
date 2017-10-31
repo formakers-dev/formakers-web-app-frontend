@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import { saveStorage, removeStorage } from '../utils/firebase';
+import { saveFile, removeFile } from '../utils/firebase';
 
 
 export default {
@@ -33,20 +33,24 @@ export default {
     onFilePicked(event) {
       const files = event.target.files;
       const filename = files[0].name;
+
       if (filename.lastIndexOf('.') <= 0) {
         console.log('Please add a valid file!');
       }
-      const callback = (fileMetadata) => {
-        this.fileMetadataList.push(fileMetadata);
+
+      saveFile(files[0]).then((snapshot) => {
+        this.fileMetadataList.push({
+          url: snapshot.downloadURL,
+          name: snapshot.metadata.name,
+        });
+
         this.$emit('update', this.fileMetadataList);
-      };
-      saveStorage(files[0], callback);
+      });
     },
     removeImage(index) {
-      const callback = (deletedFileIndex) => {
-        this.fileMetadataList.splice(deletedFileIndex, 1);
-      };
-      removeStorage(index, this.fileMetadataList[index].name, callback);
+      removeFile(this.fileMetadataList[index].name).then(() => {
+        this.fileMetadataList.splice(index, 1);
+      });
     },
   },
 };
