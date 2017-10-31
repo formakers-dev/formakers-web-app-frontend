@@ -28,7 +28,7 @@
     <input v-model="project.interview.end_date" placeholder=""/>
     <p>인터뷰 세부일정 입력</p>
     <br/>
-    <add-image></add-image>
+    <add-image v-on:update="updateFileData"></add-image>
     <br/>
     <button>임시저장</button>
     <button v-on:click="registerProject">프로젝트 등록</button>
@@ -102,6 +102,9 @@ export default {
       HTTP.post('/project', this.project).then((result) => {
         console.log(result);
       });
+    },
+    updateFileData(fileMetadataList) {
+      this.project.images = fileMetadataList;
     },
   },
 };

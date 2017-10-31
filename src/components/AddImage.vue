@@ -38,6 +38,7 @@ export default {
       }
       const callback = (fileMetadata) => {
         this.fileMetadataList.push(fileMetadata);
+        this.$emit('update', this.fileMetadataList);
       };
       saveStorage(files[0], callback);
     },
