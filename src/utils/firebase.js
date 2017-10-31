@@ -1,7 +1,7 @@
 import firebase from 'firebase';
+import uuidv1 from 'uuid/v1';
 
 const firebaseConfig = process.env.firebase;
-const uuidv1 = require('uuid/v1');
 
 firebase.initializeApp(firebaseConfig);
 

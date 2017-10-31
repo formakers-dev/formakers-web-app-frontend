@@ -49,6 +49,7 @@ export default {
     removeImage(index) {
       removeFile(this.fileMetadataList[index].name).then(() => {
         this.fileMetadataList.splice(index, 1);
+        this.$emit('update', this.fileMetadataList);
       });
     },
   },
