@@ -1,10 +1,6 @@
 import firebase from 'firebase';
-import config from '../../config';
 
-const firebaseConfig = config[process.env.NODE_ENV].firebase;
-
-console.log(process.env.NODE_ENV);
-console.log(firebaseConfig);
+const firebaseConfig = process.env.firebase;
 
 firebase.initializeApp(firebaseConfig);
 
