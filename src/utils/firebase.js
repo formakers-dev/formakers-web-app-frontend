@@ -1,25 +1,32 @@
 import firebase from 'firebase';
+import config from '../../config';
 
-const config = {
-  apiKey: 'AIzaSyBa2LePtLF3dlU51TW9nfsJ_cPsFd7_0BA',
-  authDomain: 'dragonwebapp.firebaseapp.com',
-  databaseURL: 'https://dragonwebapp.firebaseio.com',
-  projectId: 'dragonwebapp',
-  storageBucket: 'dragonwebapp.appspot.com',
-  messagingSenderId: '131826141596',
-};
+const firebaseConfig = config[process.env.NODE_ENV].firebase;
 
-firebase.initializeApp(config);
+console.log(process.env.NODE_ENV);
+console.log(firebaseConfig);
 
-export function test() {
-  console.log('Upload Completed');
+firebase.initializeApp(firebaseConfig);
+
+export function removeStorage(index, filename, callback) {
+  const storageRef = firebase.storage().ref();
+
+  storageRef.child(`images/${filename}`).delete()
+    .then(() => {
+      callback(index);
+    });
 }
 
-export function saveStorage(file, urls) {
-  console.log(firebase);
-  const storage = firebase.storage();
+export function saveStorage(file, callback) {
+  const storageRef = firebase.storage().ref();
+  const fileName = file.name;
 
-  storage.ref().child(`images/${file.name}`).put(file)
-    .then(snapshot => urls.push(snapshot.downloadURL))
+  storageRef.child(`images/${fileName}`).put(file)
+    .then((snapshot) => {
+      callback({
+        url: snapshot.downloadURL,
+        name: fileName,
+      });
+    })
     .catch(() => null);
 }

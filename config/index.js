@@ -20,6 +20,11 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
+    firebase: {
+      apiKey: process.env.FIREBASE_API_KEY,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    }
   },
   dev: {
     env: require('./dev.env'),
@@ -34,5 +39,10 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false,
+    firebase: {
+      apiKey: process.env.FIREBASE_API_KEY,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    }
   }
 }

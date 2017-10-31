@@ -27,12 +27,8 @@
     <input v-model="project.interview.start_date" placeholder=""/>
     <input v-model="project.interview.end_date" placeholder=""/>
     <p>인터뷰 세부일정 입력</p>
-    <div>
-      <button v-on:click="onPickFile"> 업로드 버튼 </button>
-      <input type="file" style="display: none" ref="fileInput" accept="image/*" v-on:change="onFilePicked">
-      <img v-bind:src="imageUrl" height="150">
-    </div>
-    <button v-on:click="saveImage">이미지 저장</button>
+    <br/>
+    <add-image></add-image>
     <br/>
     <button>임시저장</button>
     <button v-on:click="registerProject">프로젝트 등록</button>
@@ -54,10 +50,13 @@
 
 <script>
 import HTTP from '../apis/http-common';
-import { saveStorage } from '../utils/firebase';
+import AddImage from './AddImage';
 
 export default {
   name: 'register-project',
+  components: {
+    addImage: AddImage,
+  },
   data() {
     return {
       project: {
@@ -81,20 +80,12 @@ export default {
       message: '',
       count: 0,
       apps: [],
-      imageUrl: '',
-      image: null,
-      downloadUrl: [],
     };
   },
   created() {
     HTTP.get('/user/count').then((result) => {
       this.count = result.data.count;
     });
-  },
-  watch: {
-    downloadUrl() {
-      console.log(this.downloadUrl);
-    },
   },
   methods: {
     searchApps() {
@@ -111,25 +102,6 @@ export default {
       HTTP.post('/project', this.project).then((result) => {
         console.log(result);
       });
-    },
-    onPickFile() {
-      this.$refs.fileInput.click();
-    },
-    onFilePicked(event) {
-      const files = event.target.files;
-      const filename = files[0].name;
-      if (filename.lastIndexOf('.') <= 0) {
-        console.log('Please add a valid file!');
-      }
-      const fileReader = new FileReader();
-      fileReader.addEventListener('load', () => {
-        this.imageUrl = fileReader.result;
-      });
-      fileReader.readAsDataURL(files[0]);
-      this.image = files[0];
-    },
-    saveImage() {
-      saveStorage(this.image, this.downloadUrl);
     },
   },
 };
