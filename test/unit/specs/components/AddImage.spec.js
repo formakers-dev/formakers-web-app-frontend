@@ -1,29 +1,20 @@
-import Vue from 'vue';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import * as firebaseUtil from '../../../../src/utils/firebase';
 import AddImage from '../../../../src/components/AddImage';
+import { getVmInstance } from '../../testUtil';
 
 describe('AddImage Component', () => {
   const sandbox = sinon.sandbox.create();
+
   const preloadedImage = {
     url: '123',
     name: '123파일',
   };
 
-  let removeFileStub;
-  let saveFileStub;
-
-  beforeEach(() => {
-    removeFileStub = sandbox.stub(firebaseUtil, 'removeFile');
-    saveFileStub = sandbox.stub(firebaseUtil, 'saveFile');
-    removeFileStub.returns(Promise.resolve());
-  });
-
   it('추가버튼이 클릭되었을 때 onPickFile메소드를 호출한다', () => {
     const spyOnPickFile = sandbox.spy(AddImage.methods, 'onPickFile');
-    const Constructor = Vue.extend(AddImage);
-    const vm = new Constructor().$mount();
+    const vm = getVmInstance(AddImage);
     const addButton = vm.$el.querySelector('.add-image-button');
 
     addButton.click();
@@ -32,8 +23,7 @@ describe('AddImage Component', () => {
   });
 
   it('fileMetadataList에 데이터 추가 시 추가된 데이터들이 화면에 표시된다.', (done) => {
-    const Constructor = Vue.extend(AddImage);
-    const vm = new Constructor().$mount();
+    const vm = getVmInstance(AddImage);
 
     vm.$data.fileMetadataList.push(preloadedImage);
 
@@ -47,14 +37,17 @@ describe('AddImage Component', () => {
 
   describe('목록에 표시되는 이미지가 있는 상태에서', () => {
     let vm;
+    let removeFileStub;
 
     beforeEach(() => {
-      const Constructor = Vue.extend(AddImage);
-      vm = new Constructor({
+      vm = getVmInstance(AddImage, {
         data: {
           fileMetadataList: [preloadedImage],
         },
-      }).$mount();
+      });
+
+      removeFileStub = sandbox.stub(firebaseUtil, 'removeFile');
+      removeFileStub.returns(Promise.resolve());
     });
 
     it('삭제버튼을 클릭하면 해당 이미지를 삭제한다', (done) => {
@@ -78,6 +71,35 @@ describe('AddImage Component', () => {
 
       vm.$nextTick(() => {
         sinon.assert.calledWithExactly(spyUpdate, vm.$data.fileMetadataList);
+        done();
+      });
+    });
+
+    it('등록이미지가 5개 이상이면 추가버튼을 표시하지 않는다', (done) => {
+      vm.$data.fileMetadataList.push(preloadedImage);
+      vm.$data.fileMetadataList.push(preloadedImage);
+      vm.$data.fileMetadataList.push(preloadedImage);
+      vm.$data.fileMetadataList.push(preloadedImage);
+
+      vm.$nextTick(() => {
+        expect(vm.$el.querySelector('.add-image-button')).to.be.null;
+        expect(vm.$el.querySelectorAll('li').length).to.be.eql(5);
+        done();
+      });
+    });
+
+    it('등록이미지가 5개에서 1개 삭제되면 추가버튼을 다시 표시하지 않는다', (done) => {
+      vm.$data.fileMetadataList.push(preloadedImage);
+      vm.$data.fileMetadataList.push(preloadedImage);
+      vm.$data.fileMetadataList.push(preloadedImage);
+      vm.$data.fileMetadataList.push(preloadedImage);
+
+      const deleteButton = vm.$el.querySelector('.delete-image-button');
+      deleteButton.click();
+
+      vm.$nextTick(() => {
+        expect(vm.$el.querySelector('.add-image-button')).to.be.not.null;
+        expect(vm.$el.querySelectorAll('li').length).to.be.eql(5);
         done();
       });
     });
