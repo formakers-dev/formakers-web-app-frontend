@@ -1,9 +1,8 @@
 import sinon from 'sinon';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import Promise from 'es6-promise';
 import { getVmInstance } from '../../testUtil';
 import JoinUs from '../../../../src/components/landing/JoinusDiv';
+import HTTP from '../../../../src/apis/http-common';
 
 describe('JoinUs Div', () => {
   const sandbox = sinon.sandbox.create();
@@ -42,21 +41,26 @@ describe('JoinUs Div', () => {
     expect(vm.isWarn).to.equal(true);
   });
 
-  it('addEmail호출되었을 때 이메일이 유효하면 isWarn을 false로 변경하고 서버로 전송한 후 isActive를 true로 변경한다.', () => {
-    const mock = new MockAdapter(axios);
-    const email = 'validEmail@test.com';
-    mock.onPost('/email', {
-      email,
-      isActive: true,
-    }).reply(200, {});
+  it('addEmail호출되었을 때 이메일이 유효하면 isWarn을 false로 변경하고 서버로 전송한 후 isActive를 true로 변경한다.', (done) => {
+    const stub = sandbox.stub(HTTP, 'post');
+    stub.withArgs('/email').returns(Promise.resolve());
 
-    const vm = getVmInstance(JoinUs);
+    const vm = getVmInstance(JoinUs, {
+      data: {
+        newEmail: {
+          email: 'new@test.com',
+        },
+      },
+    });
 
-    vm.newEmail.email = email;
     vm.addEmail();
 
-    expect(vm.isWarn).to.equal(false);
-    expect(vm.isActive).to.equal(true);
+    vm.$nextTick(() => {
+      expect(vm.isWarn).to.equal(false);
+      expect(vm.isActive).to.equal(false);
+      expect(vm.newEmail.email).to.equal('');
+      done();
+    });
   });
 
   afterEach(() => {

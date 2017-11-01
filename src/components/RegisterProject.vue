@@ -100,14 +100,14 @@ export default {
     },
     tempRegisterProject() {
       this.project.status = 'temporary';
-      HTTP.post('/project', this.project).then((result) => {
-        console.log(result);
+      HTTP.post('/project', this.project).then(() => {
+        this.$router.push('my_page');
       });
     },
     registerProject() {
       this.project.status = 'registered';
-      HTTP.post('/project', this.project).then((result) => {
-        console.log(result);
+      HTTP.post('/project', this.project).then(() => {
+        this.$router.push('my_page');
       });
     },
     onUpdateFileData(fileMetadataList) {

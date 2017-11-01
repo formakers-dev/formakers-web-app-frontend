@@ -54,21 +54,17 @@ export default {
   },
   methods: {
     addEmail() {
-      if (this.isValid) {
-        this.isWarn = false;
+      this.isWarn = !this.isValid;
+
+      if (!this.isWarn) {
         HTTP.post('/email', {
           email: this.newEmail.email,
           isActive: true,
-        }).then((res) => {
-          this.isActive = !this.isActive;
-          console.log(res);
-        }).catch((err) => {
-          console.error(err);
+        }).then(() => {
+          this.isActive = false;
+          this.newEmail.email = '';
         });
-      } else {
-        this.isWarn = true;
       }
-      this.newEmail.email = '';
     },
   },
 };
@@ -107,7 +103,7 @@ export default {
 
   .joinus-title {
     height: 82px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-family: BMJUAOTF;
     font-size: 34px;
     line-height: 1.21;
@@ -116,7 +112,7 @@ export default {
 
   .joinus-description {
     margin-top: 8px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-family: NotoSansCJKkr;
     font-size: 17px;
     font-weight: 300;
