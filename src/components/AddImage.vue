@@ -31,11 +31,6 @@ export default {
     },
     onFilePicked(event) {
       const files = event.target.files;
-      const filename = files[0].name;
-
-      if (filename.lastIndexOf('.') <= 0) {
-        console.log('Please add a valid file!');
-      }
 
       saveFile(files[0]).then((snapshot) => {
         this.fileMetadataList.push({
