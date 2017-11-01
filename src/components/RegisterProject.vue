@@ -1,5 +1,5 @@
 <template>
-  <div class="register-project" className="container">
+  <div id="registerProject" class="container">
     <h1>프로젝트 등록</h1>
 
     <p>프로젝트 이름</p>
@@ -7,8 +7,9 @@
     <p>한줄 소개</p>
     <input v-model="project.introduce" placeholder=""/>
     <p>대표이미지</p>
-    <input v-model="project.images" placeholder=""/>
-    <input v-model="project.images" placeholder=""/>
+    <br/>
+    <add-image v-on:update-file-data="onUpdateFileData"></add-image>
+    <br/>
     <p>벤치 마킹 앱</p>
     <input v-model="project.apps" placeholder=""/>
     <input v-model="project.apps" placeholder=""/>
@@ -28,10 +29,8 @@
     <input v-model="project.interview.end_date" placeholder=""/>
     <p>인터뷰 세부일정 입력</p>
     <br/>
-    <add-image v-on:update="updateFileData"></add-image>
-    <br/>
-    <button>임시저장</button>
-    <button v-on:click="registerProject">프로젝트 등록</button>
+    <button class="temporary-save-button" v-on:click="tempRegisterProject">임시저장</button>
+    <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
     <br/>
     <br/>
     <br/>
@@ -53,7 +52,7 @@ import HTTP from '../apis/http-common';
 import AddImage from './AddImage';
 
 export default {
-  name: 'register-project',
+  name: 'registerProject',
   components: {
     addImage: AddImage,
   },
@@ -76,6 +75,7 @@ export default {
           end_date: '',
           plans: [],
         },
+        status: '',
       },
       message: '',
       count: 0,
@@ -98,12 +98,19 @@ export default {
         console.log(result);
       });
     },
-    registerProject() {
+    tempRegisterProject() {
+      this.project.status = 'temporary';
       HTTP.post('/project', this.project).then((result) => {
         console.log(result);
       });
     },
-    updateFileData(fileMetadataList) {
+    registerProject() {
+      this.project.status = 'registered';
+      HTTP.post('/project', this.project).then((result) => {
+        console.log(result);
+      });
+    },
+    onUpdateFileData(fileMetadataList) {
       this.project.images = fileMetadataList;
     },
   },
@@ -115,7 +122,6 @@ export default {
   h1, h2 {
     font-weight: normal;
   }
-
 
   a {
     color: #42b983;

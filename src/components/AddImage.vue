@@ -1,5 +1,5 @@
 <template>
-  <div id="addButton">
+  <div id="addImage">
     <ul>
       <li v-if="fileMetadataList.length < 5">
         <div class="add-image-button" v-on:click="onPickFile">
@@ -37,15 +37,17 @@ export default {
           url: snapshot.downloadURL,
           name: snapshot.metadata.name,
         });
-
-        this.$emit('update', this.fileMetadataList);
+        this.handleUpdate();
       });
     },
     removeImage(index) {
       removeFile(this.fileMetadataList[index].name).then(() => {
         this.fileMetadataList.splice(index, 1);
-        this.$emit('update', this.fileMetadataList);
+        this.handleUpdate();
       });
+    },
+    handleUpdate() {
+      this.$emit('update-file-data', this.fileMetadataList);
     },
   },
 };

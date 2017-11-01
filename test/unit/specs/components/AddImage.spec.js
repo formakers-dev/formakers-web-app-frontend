@@ -98,10 +98,10 @@ describe('AddImage Component', () => {
         });
       });
 
-      it('update 이벤트를 호출한다', (done) => {
+      it('update-file-data 이벤트를 호출한다', (done) => {
         const vm = getVmInstance(AddImage);
         const spyUpdate = sandbox.spy();
-        vm.$on('update', spyUpdate);
+        vm.$on('update-file-data', spyUpdate);
 
         vm.onFilePicked(fileInputChangeEvent);
 
@@ -140,9 +140,9 @@ describe('AddImage Component', () => {
       });
     });
 
-    it('삭제버튼을 클릭하면 update 이벤트를 호출한다', (done) => {
+    it('삭제버튼을 클릭하면 update-file-data 이벤트를 호출한다', (done) => {
       const spyUpdate = sandbox.spy();
-      vm.$on('update', spyUpdate);
+      vm.$on('update-file-data', spyUpdate);
 
       const deleteButton = vm.$el.querySelector('.delete-image-button');
       deleteButton.click();

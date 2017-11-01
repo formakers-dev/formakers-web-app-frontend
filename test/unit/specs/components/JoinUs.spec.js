@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Promise from 'es6-promise';
-import { performClick, getVmInstance } from '../../testUtil';
+import { getVmInstance } from '../../testUtil';
 import JoinUs from '../../../../src/components/landing/JoinusDiv';
 
 describe('JoinUs Div', () => {
@@ -14,11 +14,11 @@ describe('JoinUs Div', () => {
   });
 
   it('이메일 주소가 입력되었을 때 앱비 뉴스레터 받기 버튼을 클릭하면 addEmail함수가 실행된다', () => {
+    const spy = sandbox.spy(JoinUs.methods, 'addEmail');
     const vm = getVmInstance(JoinUs);
-    const spy = sandbox.spy(vm, 'addEmail');
     const button = vm.$el.querySelector('button.submit');
 
-    performClick(button, vm);
+    button.click();
 
     expect(vm.addEmail).to.be.a('function');
     sinon.assert.calledOnce(spy);
@@ -42,7 +42,7 @@ describe('JoinUs Div', () => {
     expect(vm.isWarn).to.equal(true);
   });
 
-  it('addEmail호출되었을 때 이메일이 유효하면 isWarn을 false로 변경한고 서버로 전송한 후 isActive를 true로 변경한다.', () => {
+  it('addEmail호출되었을 때 이메일이 유효하면 isWarn을 false로 변경하고 서버로 전송한 후 isActive를 true로 변경한다.', () => {
     const mock = new MockAdapter(axios);
     const email = 'validEmail@test.com';
     mock.onPost('/email', {
