@@ -6,15 +6,19 @@
     <div>
       {{logoutErrorMsg}}
     </div>
-    <div>{{projectList}}</div>
+    <div v-for="item in projectList">
+      <project-item v-bind:project=item></project-item>
+    </div>
   </div>
 </template>
 
 <script>
 import HTTP from '../apis/http-common';
 import { setLogin } from '../utils/auth';
+import ProjectItem from './ProjectItem';
 
 export default {
+  components: { ProjectItem },
   name: 'my-page',
   data() {
     return {
