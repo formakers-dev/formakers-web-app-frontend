@@ -1,11 +1,12 @@
 <template>
-  <div class="my-page" className="container">
+  <div id="my-page" class="container">
     <h1>마이페이지</h1>
     <button v-on:click="onRegisterProject">프로젝트 등록</button>
     <button v-on:click="onLogout">로그아웃</button>
     <div>
       {{logoutErrorMsg}}
     </div>
+    <div>{{projectList}}</div>
   </div>
 </template>
 
@@ -18,7 +19,13 @@ export default {
   data() {
     return {
       logoutErrorMsg: '',
+      projectList: '',
     };
+  },
+  created() {
+    HTTP.get('/projects').then((res) => {
+      this.projectList = res.data;
+    });
   },
   methods: {
     onRegisterProject() {

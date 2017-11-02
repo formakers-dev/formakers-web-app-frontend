@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       project: {
-        customerId: 'google115838807161306170827',
+        customerId: '',
         name: '',
         introduce: '',
         images: [],
