@@ -26,11 +26,31 @@
     <p>인터뷰 장소 선택</p>
     <input v-model="project.interview.location" placeholder=""/>
     <p>인터뷰 모집기간</p>
-    <input v-model="project.interview.open_date" placeholder=""/>
-    <input v-model="project.interview.close_date" placeholder=""/>
+    <b-field label="모집 시작일">
+      <b-datepicker
+        icon="today"
+        v-model="date_picker.open_date">
+      </b-datepicker>
+    </b-field>
+    <b-field label="모집 종료일">
+      <b-datepicker
+        icon="today"
+        v-model="date_picker.close_date">
+      </b-datepicker>
+    </b-field>
     <p>인터뷰 진행기간</p>
-    <input v-model="project.interview.start_date" placeholder=""/>
-    <input v-model="project.interview.end_date" placeholder=""/>
+    <b-field label="인터뷰 시작일">
+      <b-datepicker
+        icon="today"
+        v-model="date_picker.start_date">
+      </b-datepicker>
+    </b-field>
+    <b-field label="인터뷰 종료일">
+      <b-datepicker
+        icon="today"
+        v-model="date_picker.end_date">
+      </b-datepicker>
+    </b-field>
     <p>인터뷰 세부일정 입력</p>
     <br/>
     <button class="temporary-save-button" v-on:click="tempRegisterProject">임시저장</button>
@@ -50,8 +70,8 @@
     </ul>
   </div>
 </template>
-
 <script>
+import moment from 'moment';
 import HTTP from '../apis/http-common';
 import AddImage from './AddImage';
 
@@ -88,6 +108,12 @@ export default {
       message: '',
       count: 0,
       apps: [],
+      date_picker: {
+        open_date: new Date(),
+        close_date: new Date(),
+        start_date: new Date(),
+        end_date: new Date(),
+      },
     };
   },
   created() {
@@ -113,6 +139,10 @@ export default {
       });
     },
     registerProject() {
+      this.project.interview.open_date = this.dateFormatter(this.date_picker.open_date);
+      this.project.interview.close_date = this.dateFormatter(this.date_picker.close_date);
+      this.project.interview.start_date = this.dateFormatter(this.date_picker.start_date);
+      this.project.interview.end_date = this.dateFormatter(this.date_picker.end_date);
       this.project.status = 'registered';
       HTTP.post('/project', this.project).then(() => {
         this.$router.push('my_page');
@@ -123,6 +153,9 @@ export default {
     },
     onUpdateInterviewerImage(fileMetadata) {
       this.project.interviewer.url = fileMetadata[0].url;
+    },
+    dateFormatter(date = new Date()) {
+      return moment(date).format('YYYY-MM-DD');
     },
   },
 };

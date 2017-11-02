@@ -98,6 +98,12 @@ describe('RegisterProject Component', () => {
     expect(vm.project.interviewer.url).to.be.eql(mockFileMetadata[0].url);
   });
 
+  it('dateFormatter 호출 시, date형식 값을 YYYY-MM-DD 형식으로 리턴한다', () => {
+    const vm = getVmInstance(RegisterProject);
+    const date = new Date('Sat Jan 01 2011 09:00:00 GMT+0900 (KST)');
+    expect(vm.dateFormatter(date)).to.be.eql('2011-01-01');
+  });
+
   afterEach(() => {
     sandbox.restore();
   });

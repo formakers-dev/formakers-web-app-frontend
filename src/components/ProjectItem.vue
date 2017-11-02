@@ -30,7 +30,7 @@ export default {
           dd: 'D-%d',
         },
       });
-      return moment(this.project.interview.close_date, 'YYYYMMDD').endOf('day').fromNow();
+      return moment(this.project.interview.close_date, 'YYYY-MM-DD').endOf('day').fromNow();
     },
   },
 };
