@@ -13,8 +13,12 @@
     <p>벤치 마킹 앱</p>
     <input v-model="project.apps" placeholder=""/>
     <input v-model="project.apps" placeholder=""/>
+    <p>인터뷰 진행자 이름</p>
+    <input v-model="project.interviewer.name" placeholder=""/>
+    <p>인터뷰 진행자 사진</p>
+    <add-image v-on:update-file-data="onUpdateInterviewerImage"></add-image>
     <p>인터뷰 진행자 소개</p>
-    <input v-model="project.interviewer_introduce" placeholder=""/>
+    <input v-model="project.interviewer.introduce" placeholder=""/>
     <p>프로젝트 소개</p>
     <input v-model="project.description" placeholder=""/>
     <p>인터뷰 타입 선택</p>
@@ -64,7 +68,6 @@ export default {
         introduce: '',
         images: [],
         apps: [],
-        interviewer_introduce: '',
         description: '',
         interview: {
           type: '',
@@ -76,6 +79,11 @@ export default {
           plans: [],
         },
         status: '',
+        interviewer: {
+          name: '',
+          url: '',
+          introduce: '',
+        },
       },
       message: '',
       count: 0,
@@ -112,6 +120,9 @@ export default {
     },
     onUpdateFileData(fileMetadataList) {
       this.project.images = fileMetadataList;
+    },
+    onUpdateInterviewerImage(fileMetadata) {
+      this.project.interviewer.url = fileMetadata[0].url;
     },
   },
 };

@@ -86,6 +86,18 @@ describe('RegisterProject Component', () => {
     expect(vm.project.images).to.be.eql(mockFileMetadataList);
   });
 
+  it('onUpdateInterviewerImage 호출 시, 프로젝트 인터뷰어의 이미지 url을 업데이트 한다', () => {
+    const vm = getVmInstance(RegisterProject);
+    const mockFileMetadata = [{
+      url: 'test-url',
+      name: 'test',
+    }];
+
+    vm.onUpdateInterviewerImage(mockFileMetadata);
+
+    expect(vm.project.interviewer.url).to.be.eql(mockFileMetadata[0].url);
+  });
+
   afterEach(() => {
     sandbox.restore();
   });
