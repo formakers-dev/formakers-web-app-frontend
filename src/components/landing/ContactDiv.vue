@@ -3,9 +3,9 @@
     <div class="ui container">
       <p class="contact-title">CONTACT US</p>
       <p class="contact-item-title first">Address</p>
-      <p class="contact-item-contents">서울시 관악구 봉천동 서울대학교 관악캠퍼스 삼성전자 서울대 연구소 B동 10층 앱비</p>
+      <p class="contact-item-contents">서울시 관악구 봉천동 서울대학교 관악캠퍼스 삼성전자 서울대 연구소 B동 10층 Looky</p>
       <p class="contact-item-title">Email</p>
-      <p class="contact-item-contents"><a href="mailto:support@appbee.io">support@appbee.io</a></p>
+      <p class="contact-item-contents"><a href="mailto:admin@appbee.info">admin@appbee.info</a></p>
     </div>
   </div>
 </template>

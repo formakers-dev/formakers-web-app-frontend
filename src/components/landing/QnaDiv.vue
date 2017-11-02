@@ -5,7 +5,7 @@
       <div class="qna-contents">
         <p class="qna-question first">이메일 정보를 왜 수집하고, 어떻게 사용하시나요?</p>
         <p class="qna-answer">메일 정보는 오직 메일을 보내는 데에만 사용돼요. <br/>
-          앱비의 사람과 앱, App Behavior 대한 <br/>
+          앱비의 사람과 앱, App Behaviour 대한 <br/>
           재미난 정보를 무료로 보내드리는 데에만 사용됩니다.</p>
         <p class="qna-question">내가 사용하는 앱 정보를 줘야 하나요? 개인정보가 걱정되요</p>
         <p class="qna-answer">앱비는 개인정보 보호와 안전이 가장 중요하다고 생각했어요.<br/>
