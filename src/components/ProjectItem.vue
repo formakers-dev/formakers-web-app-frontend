@@ -20,7 +20,10 @@ import moment from 'moment';
 export default {
   name: 'project-item',
   props: {
-    project: Object,
+    project: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     dDay() {
