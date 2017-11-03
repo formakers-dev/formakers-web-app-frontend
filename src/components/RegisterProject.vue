@@ -67,25 +67,31 @@
     </ul>
     <button class="add-interview-plan-button" v-on:click="addInterviewSchedule">일정 추가</button>
     <br/>
+    <p>벤치마킹 앱 검색</p>
+    <input v-model="similar_appname" placeholder="유사앱 이름을 입력하세요"/>
+    <button class='search-button' v-on:click="getSimilarApp">Search</button>
+    {{test}}
+    <ul>
+      <li v-for="app in apps">
+        {{ app.appName }}
+      </li>
+    </ul>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     <button class="temporary-save-button" v-on:click="tempRegisterProject">임시저장</button>
     <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
     <br/>
     <br/>
     <br/>
-    <input v-model="message" placeholder="앱 이름을 입력하세요"/>
-    <button v-on:click="searchApps">Search</button>
-    <p> {{message}}가 입력됨 </p>
     <p> 전체 사용자 수 {{count}}</p>
     <button v-on:click="sendMessage">Push Push Baby~</button>
-    <ul>
-      <li v-for="app in apps" v-on:click="">
-        {{ app.appName }}
-      </li>
-    </ul>
   </div>
 </template>
 <script>
 import moment from 'moment';
+import debounce from 'lodash.debounce';
 import HTTP from '../apis/http-common';
 import AddImage from './AddImage';
 
@@ -123,7 +129,7 @@ export default {
           introduce: '',
         },
       },
-      message: '',
+      similar_appname: '',
       count: 0,
       apps: [],
       date_picker: {
@@ -136,6 +142,7 @@ export default {
         minute: 0,
         plan: '',
       }],
+      search_status: '',
     };
   },
   created() {
@@ -143,10 +150,28 @@ export default {
       this.count = result.data.count;
     });
   },
+  watch: {
+    similar_appname(value) {
+      this.search_status = '입력중';
+      if (value.length > 1) {
+        console.log(value);
+        this.debounceGetSimilarApp();
+      } else {
+        this.apps = [];
+      }
+    },
+  },
   methods: {
-    searchApps() {
-      HTTP.get(`/app?keyword=${this.message}`).then((result) => {
+    debounceGetSimilarApp: debounce(function () {
+      this.search_status = '검색중';
+      this.getSimilarApp();
+    }, 300),
+    getSimilarApp() {
+      HTTP.get(`/app?keyword=${this.similar_appname}`).then((result) => {
+        this.search_status = '조회완료';
         this.apps = result.data;
+      }).catch((err) => {
+        this.search_status = err;
       });
     },
     sendMessage() {

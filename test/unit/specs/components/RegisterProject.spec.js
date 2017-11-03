@@ -45,59 +45,139 @@ describe('RegisterProject Component', () => {
     plans: [{ minute: 10, plan: '제품 소개' }, { minute: 30, plan: '테스트진행' }],
   };
 
-  it('프로젝트 등록 버튼이 클릭되었을 때, registerProject 메소드가 호출된다', () => {
-    const spyOnRegisterProject = sandbox.spy(RegisterProject.methods, 'registerProject');
-    const vm = getVmInstance(RegisterProject);
-    const button = vm.$el.querySelector('.save-button');
+  const searchResult = {
+    data: [{ _id: '5988097cb495479821f2d188',
+      developer: 'Kakao Corporation',
+      star: 4.3,
+      description: '카카오톡은 전세계 어디서나 안드로이드폰과 아이폰 사용자간 무료로 메시지를 ...',
+      contentsRating: '만 3세 이상',
+      categoryId1: '/store/apps/category/COMMUNICATION',
+      categoryName1: '커뮤니케이션',
+      categoryId2: '',
+      categoryName2: '',
+      inappPriceMin: 1000,
+      reviewCount: 2434177,
+      packageName: 'com.kakao.talk',
+      appName: '카카오톡 KakaoTalk',
+      inappPriceMax: 90909,
+      installsMin: 100000000,
+      updatedDate: '20170720',
+      similarApps:
+      ['com.tencent.mm',
+        'jp.naver.line.android',
+        'com.facebook.orca',
+        'com.whatsapp',
+        'com.imo.android.imoim',
+        'com.viber.voip',
+        'com.skype.raider',
+        'com.facebook.mlite',
+        'org.telegram.messenger',
+        'com.bbm',
+        'com.azarlive.android',
+        'ru.mail',
+        'kik.android',
+        'com.google.android.talk',
+        'com.imo.android.imoimbeta',
+        'com.icq.mobile.client',
+        'com.wWhatsUpMessenger_4083770'],
+      appPrice: 0,
+      installsMax: 500000000 }],
+  };
 
-    button.click();
+  describe('유사앱 검색 버튼이 클릭되었을 때', () => {
+    it('getSimilarApp 메소드가 호출된다', () => {
+      const spyOnGetSimilarApp = sandbox.spy(RegisterProject.methods, 'getSimilarApp');
+      const vm = getVmInstance(RegisterProject);
+      const button = vm.$el.querySelector('.search-button');
 
-    sinon.assert.calledOnce(spyOnRegisterProject);
+      button.click();
+
+      sinon.assert.calledOnce(spyOnGetSimilarApp);
+    });
+
+    it('getSimilarApp 호출 시, 유사 앱이 조회된다', (done) => {
+      const stubHttpOnPost = sandbox.stub(HTTP, 'get');
+      stubHttpOnPost.withArgs('/app?keyword=kakao').returns(Promise.resolve(searchResult));
+
+      const option = {
+        data: {
+          similar_appname: 'kakao',
+          apps: [],
+        },
+      };
+
+      const vm = getVmInstance(RegisterProject, option);
+
+      vm.getSimilarApp();
+
+      vm.$nextTick(() => {
+        expect(vm.apps.length).to.be.eql(1);
+        expect(vm.apps[0].developer).to.be.eql('Kakao Corporation');
+        expect(vm.apps[0].appName).to.be.eql('카카오톡 KakaoTalk');
+        done();
+      });
+    });
   });
 
-  it('registerProject 호출 시, 등록 상태로 변경하고 프로젝트 등록API를 호출한다.', (done) => {
-    const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-    stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
+  it('유사앱 이름이 입력된 후 200ms가 지나면 getSimilarApp가 호출된다', () => {
+    // TODO : debounce 기능 테스트 추가
+  });
 
-    const option = {
-      data: testData,
-    };
+  describe('프로젝트 등록 버튼이 클릭되었을 때', () => {
+    it('registerProject 메소드가 호출된다', () => {
+      const spyOnRegisterProject = sandbox.spy(RegisterProject.methods, 'registerProject');
+      const vm = getVmInstance(RegisterProject);
+      const button = vm.$el.querySelector('.save-button');
 
-    const vm = getVmInstance(RegisterProject, option);
+      button.click();
 
-    vm.registerProject();
+      sinon.assert.calledOnce(spyOnRegisterProject);
+    });
 
-    vm.$nextTick(() => {
-      expect(vm.project.name).to.be.eql('old-test-project');
-      expect(vm.project.introduce).to.be.eql('간단소개');
-      expect(vm.project.images.length).to.be.eql(2);
-      expect(vm.project.images[0]).to.be.eql('/image1');
-      expect(vm.project.images[1]).to.be.eql('/image2');
-      expect(vm.project.apps.length).to.be.eql(1);
-      expect(vm.project.apps[0]).to.be.eql('com.kakao.talk');
-      expect(vm.project.description).to.be.eql('프로젝트 상세 설명');
-      expect(vm.project.description_images.length).to.be.eql(2);
-      expect(vm.project.description_images[0]).to.be.eql('/desc/image1');
-      expect(vm.project.description_images[1]).to.be.eql('/desc/image2');
-      expect(vm.project.interview.type).to.be.eql('offline');
-      expect(vm.project.interview.location_negotiable).to.be.eql(false);
-      expect(vm.project.interview.location).to.be.eql('향군타워 5층');
-      expect(vm.project.interview.open_date).to.be.eql('2017-10-11');
-      expect(vm.project.interview.close_date).to.be.eql('2017-10-16');
-      expect(vm.project.interview.start_date).to.be.eql('2017-11-01');
-      expect(vm.project.interview.end_date).to.be.eql('2017-11-30');
-      expect(vm.project.interview.date_negotiable).to.be.eql(false);
-      expect(vm.project.interview.plans.length).to.be.eql(2);
-      expect(vm.project.interview.plans[0].minute).to.be.eql(10);
-      expect(vm.project.interview.plans[0].plan).to.be.eql('제품 소개');
-      expect(vm.project.interview.plans[1].minute).to.be.eql(30);
-      expect(vm.project.interview.plans[1].plan).to.be.eql('테스트진행');
-      expect(vm.project.interviewer.name).to.be.eql('인터뷰어');
-      expect(vm.project.interviewer.url).to.be.eql('interviewr image');
-      expect(vm.project.interviewer.introduce).to.be.eql('인터뷰어소개입니다');
-      expect(vm.project.status).to.be.eql('registered');
-      sinon.assert.calledWithExactly(stubHttpOnPost, '/project', vm.project);
-      done();
+    it('registerProject 호출 시, 등록 상태로 변경하고 프로젝트 등록API를 호출한다.', (done) => {
+      const stubHttpOnPost = sandbox.stub(HTTP, 'post');
+      stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
+
+      const option = {
+        data: testData,
+      };
+
+      const vm = getVmInstance(RegisterProject, option);
+
+      vm.registerProject();
+
+      vm.$nextTick(() => {
+        expect(vm.project.name).to.be.eql('old-test-project');
+        expect(vm.project.introduce).to.be.eql('간단소개');
+        expect(vm.project.images.length).to.be.eql(2);
+        expect(vm.project.images[0]).to.be.eql('/image1');
+        expect(vm.project.images[1]).to.be.eql('/image2');
+        expect(vm.project.apps.length).to.be.eql(1);
+        expect(vm.project.apps[0]).to.be.eql('com.kakao.talk');
+        expect(vm.project.description).to.be.eql('프로젝트 상세 설명');
+        expect(vm.project.description_images.length).to.be.eql(2);
+        expect(vm.project.description_images[0]).to.be.eql('/desc/image1');
+        expect(vm.project.description_images[1]).to.be.eql('/desc/image2');
+        expect(vm.project.interview.type).to.be.eql('offline');
+        expect(vm.project.interview.location_negotiable).to.be.eql(false);
+        expect(vm.project.interview.location).to.be.eql('향군타워 5층');
+        expect(vm.project.interview.open_date).to.be.eql('2017-10-11');
+        expect(vm.project.interview.close_date).to.be.eql('2017-10-16');
+        expect(vm.project.interview.start_date).to.be.eql('2017-11-01');
+        expect(vm.project.interview.end_date).to.be.eql('2017-11-30');
+        expect(vm.project.interview.date_negotiable).to.be.eql(false);
+        expect(vm.project.interview.plans.length).to.be.eql(2);
+        expect(vm.project.interview.plans[0].minute).to.be.eql(10);
+        expect(vm.project.interview.plans[0].plan).to.be.eql('제품 소개');
+        expect(vm.project.interview.plans[1].minute).to.be.eql(30);
+        expect(vm.project.interview.plans[1].plan).to.be.eql('테스트진행');
+        expect(vm.project.interviewer.name).to.be.eql('인터뷰어');
+        expect(vm.project.interviewer.url).to.be.eql('interviewr image');
+        expect(vm.project.interviewer.introduce).to.be.eql('인터뷰어소개입니다');
+        expect(vm.project.status).to.be.eql('registered');
+        sinon.assert.calledWithExactly(stubHttpOnPost, '/project', vm.project);
+        done();
+      });
     });
   });
 
