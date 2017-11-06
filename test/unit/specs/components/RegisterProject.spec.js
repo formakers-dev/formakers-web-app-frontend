@@ -6,6 +6,7 @@ import HTTP from '../../../../src/apis/http-common';
 
 describe('RegisterProject Component', () => {
   const sandbox = sinon.sandbox.create();
+  const clock = sandbox.useFakeTimers();
 
   const testData = {
     project: {
@@ -98,14 +99,12 @@ describe('RegisterProject Component', () => {
     it('getSimilarApp 호출 시, 유사 앱이 조회된다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'get');
       stubHttpOnPost.withArgs('/app?keyword=kakao').returns(Promise.resolve(searchResult));
-
       const option = {
         data: {
           similar_appname: 'kakao',
           apps: [],
         },
       };
-
       const vm = getVmInstance(RegisterProject, option);
 
       vm.getSimilarApp();
@@ -119,8 +118,23 @@ describe('RegisterProject Component', () => {
     });
   });
 
-  it('유사앱 이름이 입력된 후 200ms가 지나면 getSimilarApp가 호출된다', () => {
-    // TODO : debounce 기능 테스트 추가
+  it('유사앱 이름이 입력된 후 300ms가 지나면 getSimilarApp가 호출된다', (done) => {
+    const spyOnGetSimilarApp = sandbox.spy(RegisterProject.methods, 'getSimilarApp');
+    const option = {
+      data: {
+        similar_appname: '',
+        apps: [],
+      },
+    };
+    const vm = getVmInstance(RegisterProject, option);
+
+    vm.similar_appname = 'kakao';
+
+    vm.$nextTick(() => {
+      clock.tick(300);
+      sinon.assert.calledOnce(spyOnGetSimilarApp);
+      done();
+    });
   });
 
   describe('프로젝트 등록 버튼이 클릭되었을 때', () => {
@@ -137,11 +151,9 @@ describe('RegisterProject Component', () => {
     it('registerProject 호출 시, 등록 상태로 변경하고 프로젝트 등록API를 호출한다.', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'post');
       stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
-
       const option = {
         data: testData,
       };
-
       const vm = getVmInstance(RegisterProject, option);
 
       vm.registerProject();
@@ -195,7 +207,6 @@ describe('RegisterProject Component', () => {
     it('임시저장 상태로 변경하고 프로젝트 등록 API가 호출된다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'post');
       stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
-
       const vm = getVmInstance(RegisterProject);
 
       vm.tempRegisterProject();
@@ -210,7 +221,6 @@ describe('RegisterProject Component', () => {
     it('프로젝트 등록 API가 성공 시, 프로젝트 리스트 화면으로 이동한다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'post');
       stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
-
       const vm = getVmInstance(RegisterProject);
       const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
 
