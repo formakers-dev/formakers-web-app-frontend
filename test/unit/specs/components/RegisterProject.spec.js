@@ -116,6 +116,29 @@ describe('RegisterProject Component', () => {
         done();
       });
     });
+
+    it('검색된 리스트가 클릭되면, project.apps필드에 packageName이 추가된다.', (done) => {
+      const stubHttpOnPost = sandbox.stub(HTTP, 'get');
+      stubHttpOnPost.withArgs('/app?keyword=kakao').returns(Promise.resolve(searchResult));
+      const option = {
+        data: {
+          similar_appname: 'kakao',
+          apps: [],
+        },
+      };
+      const vm = getVmInstance(RegisterProject, option);
+      vm.getSimilarApp();
+      vm.$forceUpdate();
+      vm.$nextTick(() => {
+        const firstChild = vm.$el.querySelector('.search-result-list li:nth-child(1)');
+        expect(firstChild.textContent.trim()).to.be.eql('카카오톡 KakaoTalk');
+
+        firstChild.click();
+
+        expect(vm.project.apps[0]).to.be.eql('com.kakao.talk');
+        done();
+      });
+    });
   });
 
   it('유사앱 이름이 입력된 후 300ms가 지나면 getSimilarApp가 호출된다', (done) => {

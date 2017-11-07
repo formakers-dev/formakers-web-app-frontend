@@ -67,11 +67,19 @@
     <button class="add-interview-plan-button" v-on:click="addInterviewSchedule">일정 추가</button>
     <br/>
     <p>벤치마킹 앱 검색</p>
+
+    <b-field label="벤치마킹 앱">
+      <ul v-for="item in project.apps">
+        <li>
+          {{ item }}
+        </li>
+      </ul>
+    </b-field>
+
     <input v-model="similar_appname" placeholder="유사앱 이름을 입력하세요"/>
     <button class='search-button' v-on:click="getSimilarApp">Search</button>
-    {{test}}
-    <ul>
-      <li v-for="app in apps">
+    <ul class='search-result-list' v-for="app in apps">
+      <li @click="addSimilarApps(app)">
         {{ app.appName }}
       </li>
     </ul>
@@ -84,7 +92,6 @@
     <br/>
     <br/>
     <br/>
-    <p> 전체 사용자 수 {{count}}</p>
   </div>
 </template>
 <script>
@@ -128,7 +135,6 @@ export default {
         },
       },
       similar_appname: '',
-      count: 0,
       apps: [],
       date_picker: {
         open_date: new Date(),
@@ -142,11 +148,6 @@ export default {
       }],
       search_status: '',
     };
-  },
-  created() {
-    HTTP.get('/user/count').then((result) => {
-      this.count = result.data.count;
-    });
   },
   watch: {
     similar_appname(value) {
@@ -204,6 +205,9 @@ export default {
         minute: 0,
         plan: '',
       });
+    },
+    addSimilarApps(app) {
+      this.project.apps.push(app.packageName);
     },
   },
 };
