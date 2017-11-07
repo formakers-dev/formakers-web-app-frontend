@@ -11,8 +11,7 @@
     <add-image v-on:update-file-data="onUpdateFileData"></add-image>
     <br/>
     <p>벤치 마킹 앱</p>
-    <input v-model="project.apps" placeholder=""/>
-    <input v-model="project.apps" placeholder=""/>
+    <input v-model="project.apps[0]" placeholder=""/>
     <p>인터뷰 진행자 이름</p>
     <input v-model="project.interviewer.name" placeholder=""/>
     <p>인터뷰 진행자 사진</p>
@@ -59,10 +58,10 @@
     </b-field>
     <p>인터뷰 세부일정 입력</p>
     <ul>
-      <li v-for="(item, index) in plans">
-        <input id="interview-minutes" type="number" v-model.number="plans[index].minute"/>
+      <li v-for="item in plans">
+        <input id="interview-minutes" type="number" v-model.number="item.minute"/>
         분
-        <input id="interview-plan" type="text" v-model="plans[index].plan"/>
+        <input id="interview-plan" type="text" v-model="item.plan"/>
       </li>
     </ul>
     <button class="add-interview-plan-button" v-on:click="addInterviewSchedule">일정 추가</button>
@@ -86,7 +85,6 @@
     <br/>
     <br/>
     <p> 전체 사용자 수 {{count}}</p>
-    <button v-on:click="sendMessage">Push Push Baby~</button>
   </div>
 </template>
 <script>
@@ -172,11 +170,6 @@ export default {
         this.apps = result.data;
       }).catch((err) => {
         this.search_status = err;
-      });
-    },
-    sendMessage() {
-      HTTP.post('/notification').then((result) => {
-        console.log(result);
       });
     },
     tempRegisterProject() {
