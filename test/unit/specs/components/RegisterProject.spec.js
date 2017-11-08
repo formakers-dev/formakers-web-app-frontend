@@ -18,13 +18,13 @@ describe('RegisterProject Component', () => {
       description_images: ['/desc/image1', '/desc/image2'],
       interview: {
         type: 'offline',
-        location_negotiable: false,
+        locationNegotiable: false,
         location: '향군타워 5층',
-        open_date: '2017-11-03',
-        close_date: '2017-11-03',
-        date_negotiable: false,
-        start_date: '2017-11-03',
-        end_date: '2017-11-03',
+        openDate: '2017-11-03',
+        closeDate: '2017-11-03',
+        dateNegotiable: false,
+        startDate: '2017-11-03',
+        endDate: '2017-11-03',
         plans: [{
           minute: '9999',
           plan: '초기계획',
@@ -37,11 +37,11 @@ describe('RegisterProject Component', () => {
       },
       status: 'temporary',
     },
-    date_picker: {
-      open_date: new Date('2017-10-11'),
-      close_date: new Date('2017-10-16'),
-      start_date: new Date('2017-11-01'),
-      end_date: new Date('2017-11-30'),
+    datePicker: {
+      openDate: new Date('2017-10-11'),
+      closeDate: new Date('2017-10-16'),
+      startDate: new Date('2017-11-01'),
+      endDate: new Date('2017-11-30'),
     },
     plans: [{ minute: 10, plan: '제품 소개' }, { minute: 30, plan: '테스트진행' }],
   };
@@ -101,7 +101,7 @@ describe('RegisterProject Component', () => {
       stubHttpOnPost.withArgs('/app?keyword=kakao').returns(Promise.resolve(searchResult));
       const option = {
         data: {
-          similar_appname: 'kakao',
+          similarAppname: 'kakao',
           apps: [],
         },
       };
@@ -122,7 +122,7 @@ describe('RegisterProject Component', () => {
       stubHttpOnPost.withArgs('/app?keyword=kakao').returns(Promise.resolve(searchResult));
       const option = {
         data: {
-          similar_appname: 'kakao',
+          similarAppname: 'kakao',
           apps: [],
         },
       };
@@ -145,13 +145,13 @@ describe('RegisterProject Component', () => {
     const spyOnGetSimilarApp = sandbox.spy(RegisterProject.methods, 'getSimilarApp');
     const option = {
       data: {
-        similar_appname: '',
+        similarAppname: '',
         apps: [],
       },
     };
     const vm = getVmInstance(RegisterProject, option);
 
-    vm.similar_appname = 'kakao';
+    vm.similarAppname = 'kakao';
 
     vm.$nextTick(() => {
       clock.tick(300);
@@ -194,13 +194,13 @@ describe('RegisterProject Component', () => {
         expect(vm.project.description_images[0]).to.be.eql('/desc/image1');
         expect(vm.project.description_images[1]).to.be.eql('/desc/image2');
         expect(vm.project.interview.type).to.be.eql('offline');
-        expect(vm.project.interview.location_negotiable).to.be.eql(false);
+        expect(vm.project.interview.locationNegotiable).to.be.eql(false);
         expect(vm.project.interview.location).to.be.eql('향군타워 5층');
-        expect(vm.project.interview.open_date).to.be.eql('2017-10-11');
-        expect(vm.project.interview.close_date).to.be.eql('2017-10-16');
-        expect(vm.project.interview.start_date).to.be.eql('2017-11-01');
-        expect(vm.project.interview.end_date).to.be.eql('2017-11-30');
-        expect(vm.project.interview.date_negotiable).to.be.eql(false);
+        expect(vm.project.interview.openDate).to.be.eql('2017-10-11');
+        expect(vm.project.interview.closeDate).to.be.eql('2017-10-16');
+        expect(vm.project.interview.startDate).to.be.eql('2017-11-01');
+        expect(vm.project.interview.endDate).to.be.eql('2017-11-30');
+        expect(vm.project.interview.dateNegotiable).to.be.eql(false);
         expect(vm.project.interview.plans.length).to.be.eql(2);
         expect(vm.project.interview.plans[0].minute).to.be.eql(10);
         expect(vm.project.interview.plans[0].plan).to.be.eql('제품 소개');

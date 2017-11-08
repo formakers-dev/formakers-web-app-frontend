@@ -7,7 +7,7 @@
       </div>
       <div id="project-description">
         {{project.apps}}<br/>
-        모집기간 : {{project.interview.open_date}} ~ {{project.interview.close_date}} {{dDay}}<br/>
+        모집기간 : {{project.interview.openDate}} ~ {{project.interview.closeDate}} {{dDay}}<br/>
         {{project.introduce}}<br/>
         {{project.name}}
       </div>
@@ -33,7 +33,7 @@ export default {
           dd: 'D-%d',
         },
       });
-      return moment(this.project.interview.close_date, 'YYYY-MM-DD').endOf('day').fromNow();
+      return moment(this.project.interview.closeDate, 'YYYY-MM-DD').endOf('day').fromNow();
     },
   },
 };

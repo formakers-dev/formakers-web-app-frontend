@@ -10,8 +10,6 @@
     <br/>
     <add-image v-on:update-file-data="onUpdateFileData"></add-image>
     <br/>
-    <p>벤치 마킹 앱</p>
-    <input v-model="project.apps[0]" placeholder=""/>
     <p>인터뷰 진행자 이름</p>
     <input v-model="project.interviewer.name" placeholder=""/>
     <p>인터뷰 진행자 사진</p>
@@ -24,36 +22,36 @@
     <input v-model="project.interview.type" placeholder=""/>
     <p>인터뷰 장소 선택</p>
     <div class="field">
-      <b-checkbox v-model="project.interview.location_negotiable">협의가능</b-checkbox>
+      <b-checkbox v-model="project.interview.locationNegotiable">협의가능</b-checkbox>
     </div>
     <input v-model="project.interview.location" placeholder=""/>
     <p>인터뷰 모집기간</p>
     <b-field label="모집 시작일">
       <b-datepicker
         icon="today"
-        v-model="date_picker.open_date">
+        v-model="datePicker.openDate">
       </b-datepicker>
     </b-field>
     <b-field label="모집 종료일">
       <b-datepicker
         icon="today"
-        v-model="date_picker.close_date">
+        v-model="datePicker.closeDate">
       </b-datepicker>
     </b-field>
     <p>인터뷰 진행기간</p>
     <div class="field">
-      <b-checkbox v-model="project.interview.date_negotiable">인터뷰이가 원하는 날짜로 협의</b-checkbox>
+      <b-checkbox v-model="project.interview.dateNegotiable">인터뷰이가 원하는 날짜로 협의</b-checkbox>
     </div>
     <b-field label="인터뷰 시작일">
       <b-datepicker
         icon="today"
-        v-model="date_picker.start_date">
+        v-model="datePicker.startDate">
       </b-datepicker>
     </b-field>
     <b-field label="인터뷰 종료일">
       <b-datepicker
         icon="today"
-        v-model="date_picker.end_date">
+        v-model="datePicker.endDate">
       </b-datepicker>
     </b-field>
     <p>인터뷰 세부일정 입력</p>
@@ -76,7 +74,7 @@
       </ul>
     </b-field>
 
-    <input v-model="similar_appname" placeholder="유사앱 이름을 입력하세요"/>
+    <input v-model="similarAppname" placeholder="유사앱 이름을 입력하세요"/>
     <button class='search-button' v-on:click="getSimilarApp">Search</button>
     <ul class='search-result-list' v-for="app in apps">
       <li @click="addSimilarApps(app)">
@@ -116,12 +114,12 @@ export default {
         interview: {
           type: '',
           location: '',
-          location_negotiable: false,
-          open_date: '',
-          close_date: '',
-          start_date: '',
-          end_date: '',
-          date_negotiable: false,
+          locationNegotiable: false,
+          openDate: '',
+          closeDate: '',
+          startDate: '',
+          endDate: '',
+          dateNegotiable: false,
           plans: [{
             minute: 0,
             plan: '',
@@ -134,26 +132,25 @@ export default {
           introduce: '',
         },
       },
-      similar_appname: '',
+      similarAppname: '',
       apps: [],
-      date_picker: {
-        open_date: new Date(),
-        close_date: new Date(),
-        start_date: new Date(),
-        end_date: new Date(),
+      datePicker: {
+        openDate: new Date(),
+        closeDate: new Date(),
+        startDate: new Date(),
+        endDate: new Date(),
       },
       plans: [{
         minute: 0,
         plan: '',
       }],
-      search_status: '',
+      searchStatus: '',
     };
   },
   watch: {
-    similar_appname(value) {
-      this.search_status = '입력중';
+    similarAppname(value) {
+      this.searchStatus = '입력중';
       if (value.length > 1) {
-        console.log(value);
         this.debounceGetSimilarApp();
       } else {
         this.apps = [];
@@ -162,15 +159,15 @@ export default {
   },
   methods: {
     debounceGetSimilarApp: debounce(function () {
-      this.search_status = '검색중';
+      this.searchStatus = '검색중';
       this.getSimilarApp();
     }, 300),
     getSimilarApp() {
-      HTTP.get(`/app?keyword=${this.similar_appname}`).then((result) => {
-        this.search_status = '조회완료';
+      HTTP.get(`/app?keyword=${this.similarAppname}`).then((result) => {
+        this.searchStatus = '조회완료';
         this.apps = result.data;
       }).catch((err) => {
-        this.search_status = err;
+        this.searchStatus = err;
       });
     },
     tempRegisterProject() {
@@ -180,10 +177,10 @@ export default {
       });
     },
     registerProject() {
-      this.project.interview.open_date = this.dateFormatter(this.date_picker.open_date);
-      this.project.interview.close_date = this.dateFormatter(this.date_picker.close_date);
-      this.project.interview.start_date = this.dateFormatter(this.date_picker.start_date);
-      this.project.interview.end_date = this.dateFormatter(this.date_picker.end_date);
+      this.project.interview.openDate = this.dateFormatter(this.datePicker.openDate);
+      this.project.interview.closeDate = this.dateFormatter(this.datePicker.closeDate);
+      this.project.interview.startDate = this.dateFormatter(this.datePicker.startDate);
+      this.project.interview.endDate = this.dateFormatter(this.datePicker.endDate);
       this.project.status = 'registered';
       this.project.interview.plans = this.plans;
 
