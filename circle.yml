@@ -12,5 +12,6 @@ deployment:
     branch: master
     commands:
       - npm install --only=dev
+      - npm run build
     heroku:
       appname: dragonwebapp
