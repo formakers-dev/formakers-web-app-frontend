@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <div class="login" className="container">
+    <div class="login container">
       <button v-on:click="onSignIn">로그인</button>
     </div>
     <header>
@@ -43,7 +43,7 @@ export default {
   created() {
     HTTP.get('/auth/check_login').then(() => {
       setLogin(true);
-      this.$router.push('my_page');
+      this.$router.push({ name: 'MyPage' });
     }).catch(() => {
       setLogin(false);
     });

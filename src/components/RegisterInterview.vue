@@ -119,7 +119,7 @@ export default {
   methods: {
     tempRegisterInterview() {
       // HTTP.post('/project', this.project).then(() => {
-      //   this.$router.push('my_page');
+      //   this.$router.push({ name: 'MyPage' });
       // });
     },
     registerInterview() {

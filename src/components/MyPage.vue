@@ -33,13 +33,13 @@ export default {
   },
   methods: {
     onRegisterProject() {
-      this.$router.push('register_project');
+      this.$router.push({ name: 'RegisterProject' });
     },
     onLogout() {
       HTTP.get('/auth/logout')
         .then(() => {
           setLogin(false);
-          this.$router.push('/');
+          this.$router.push({ name: 'Login' });
         })
         .catch((err) => {
           this.logoutErrorMsg = `${err} 로그아웃 실패`;

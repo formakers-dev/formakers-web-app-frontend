@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import MyPage from '../../../../src/components/MyPage';
 import { getVmInstance } from '../../testUtil';
 import HTTP from '../../../../src/apis/http-common';
+import * as AuthUtil from '../../../../src/utils/auth';
 
 describe('MyPage Component', () => {
   const sandbox = sinon.sandbox.create();
@@ -40,6 +41,48 @@ describe('MyPage Component', () => {
 
     vm.$nextTick(() => {
       expect(vm.projectList).to.be.eql(data);
+    });
+  });
+
+  describe('methods test', () => {
+    it('onRegisterProject 호출시 RegisterProject 페이지로 이동한다', () => {
+      const vm = getVmInstance(MyPage);
+      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+      vm.onRegisterProject();
+
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('RegisterProject');
+    });
+
+    it('onLogout 성공시 Login 페이지로 이동한다', (done) => {
+      const vm = getVmInstance(MyPage);
+      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+      const stubHttpOnGet = sandbox.stub(HTTP, 'get');
+      stubHttpOnGet.withArgs('/auth/logout').returns(Promise.resolve());
+      const spyOnSetLogin = sandbox.spy(AuthUtil, 'setLogin');
+
+      vm.onLogout();
+
+      vm.$nextTick(() => {
+        sinon.assert.calledWithExactly(spyOnSetLogin, false);
+        sinon.assert.calledOnce(spyRouterOnPush);
+        spyRouterOnPush.args[0][0].name.should.be.eql('Login');
+        done();
+      });
+    });
+
+    it('onLogout 실패시 실패메세지를 표시한다', (done) => {
+      const vm = getVmInstance(MyPage);
+      const stubHttpOnGet = sandbox.stub(HTTP, 'get');
+      stubHttpOnGet.withArgs('/auth/logout').returns(Promise.reject('logout error'));
+
+      vm.onLogout();
+
+      vm.$nextTick(() => {
+        vm.logoutErrorMsg.should.be.eql('logout error 로그아웃 실패');
+        done();
+      });
     });
   });
 
