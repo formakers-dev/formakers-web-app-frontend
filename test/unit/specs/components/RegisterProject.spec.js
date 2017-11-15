@@ -16,20 +16,6 @@ describe('RegisterProject Component', () => {
       apps: ['com.kakao.talk'],
       description: '프로젝트 상세 설명',
       description_images: ['/desc/image1', '/desc/image2'],
-      interview: {
-        type: 'offline',
-        locationNegotiable: false,
-        location: '향군타워 5층',
-        openDate: '2017-11-03',
-        closeDate: '2017-11-03',
-        dateNegotiable: false,
-        startDate: '2017-11-03',
-        endDate: '2017-11-03',
-        plans: [{
-          minute: '9999',
-          plan: '초기계획',
-        }],
-      },
       interviewer: {
         name: '인터뷰어',
         url: 'interviewr image',
@@ -37,13 +23,6 @@ describe('RegisterProject Component', () => {
       },
       status: 'temporary',
     },
-    datePicker: {
-      openDate: new Date('2017-10-11'),
-      closeDate: new Date('2017-10-16'),
-      startDate: new Date('2017-11-01'),
-      endDate: new Date('2017-11-30'),
-    },
-    plans: [{ minute: 10, plan: '제품 소개' }, { minute: 30, plan: '테스트진행' }],
   };
 
   const searchResult = {
@@ -85,6 +64,12 @@ describe('RegisterProject Component', () => {
       installsMax: 500000000 }],
   };
 
+  const testResponse = {
+    data: {
+      projectId: 'testProjectId',
+    },
+  };
+
   describe('유사앱 검색 버튼이 클릭되었을 때', () => {
     it('getSimilarApp 메소드가 호출된다', () => {
       const spyOnGetSimilarApp = sandbox.spy(RegisterProject.methods, 'getSimilarApp');
@@ -98,7 +83,7 @@ describe('RegisterProject Component', () => {
 
     it('getSimilarApp 호출 시, 유사 앱이 조회된다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'get');
-      stubHttpOnPost.withArgs('/app?keyword=kakao').returns(Promise.resolve(searchResult));
+      stubHttpOnPost.withArgs('/apps?keyword=kakao').returns(Promise.resolve(searchResult));
       const option = {
         data: {
           similarAppname: 'kakao',
@@ -119,7 +104,7 @@ describe('RegisterProject Component', () => {
 
     it('검색된 리스트가 클릭되면, project.apps필드에 packageName이 추가된다.', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'get');
-      stubHttpOnPost.withArgs('/app?keyword=kakao').returns(Promise.resolve(searchResult));
+      stubHttpOnPost.withArgs('/apps?keyword=kakao').returns(Promise.resolve(searchResult));
       const option = {
         data: {
           similarAppname: 'kakao',
@@ -173,7 +158,7 @@ describe('RegisterProject Component', () => {
 
     it('registerProject 호출 시, 등록 상태로 변경하고 프로젝트 등록API를 호출한다.', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-      stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
+      stubHttpOnPost.withArgs('/projects').returns(Promise.resolve(testResponse));
       const option = {
         data: testData,
       };
@@ -193,24 +178,27 @@ describe('RegisterProject Component', () => {
         expect(vm.project.description_images.length).to.be.eql(2);
         expect(vm.project.description_images[0]).to.be.eql('/desc/image1');
         expect(vm.project.description_images[1]).to.be.eql('/desc/image2');
-        expect(vm.project.interview.type).to.be.eql('offline');
-        expect(vm.project.interview.locationNegotiable).to.be.eql(false);
-        expect(vm.project.interview.location).to.be.eql('향군타워 5층');
-        expect(vm.project.interview.openDate).to.be.eql('2017-10-11');
-        expect(vm.project.interview.closeDate).to.be.eql('2017-10-16');
-        expect(vm.project.interview.startDate).to.be.eql('2017-11-01');
-        expect(vm.project.interview.endDate).to.be.eql('2017-11-30');
-        expect(vm.project.interview.dateNegotiable).to.be.eql(false);
-        expect(vm.project.interview.plans.length).to.be.eql(2);
-        expect(vm.project.interview.plans[0].minute).to.be.eql(10);
-        expect(vm.project.interview.plans[0].plan).to.be.eql('제품 소개');
-        expect(vm.project.interview.plans[1].minute).to.be.eql(30);
-        expect(vm.project.interview.plans[1].plan).to.be.eql('테스트진행');
         expect(vm.project.interviewer.name).to.be.eql('인터뷰어');
         expect(vm.project.interviewer.url).to.be.eql('interviewr image');
         expect(vm.project.interviewer.introduce).to.be.eql('인터뷰어소개입니다');
         expect(vm.project.status).to.be.eql('registered');
-        sinon.assert.calledWithExactly(stubHttpOnPost, '/project', vm.project);
+        sinon.assert.calledWithExactly(stubHttpOnPost, '/projects', vm.project);
+        done();
+      });
+    });
+
+    it('프로젝트 등록 성공시 projectId를 전달하고 인터뷰등록 페이지로 이동', (done) => {
+      const stubHttpOnPost = sandbox.stub(HTTP, 'post');
+      stubHttpOnPost.withArgs('/projects').returns(Promise.resolve(testResponse));
+      const vm = getVmInstance(RegisterProject);
+      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+      vm.registerProject();
+
+      vm.$nextTick(() => {
+        sinon.assert.calledOnce(spyRouterOnPush);
+        spyRouterOnPush.args[0][0].name.should.be.eql('RegisterInterview');
+        spyRouterOnPush.args[0][0].params.projectId.should.be.eql(testResponse.data.projectId);
         done();
       });
     });
@@ -229,28 +217,29 @@ describe('RegisterProject Component', () => {
 
     it('임시저장 상태로 변경하고 프로젝트 등록 API가 호출된다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-      stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
+      stubHttpOnPost.withArgs('/projects').returns(Promise.resolve(testResponse));
       const vm = getVmInstance(RegisterProject);
 
       vm.tempRegisterProject();
 
       vm.$nextTick(() => {
         expect(vm.project.status).to.be.eql('temporary');
-        sinon.assert.calledWithExactly(stubHttpOnPost, '/project', vm.project);
+        sinon.assert.calledWithExactly(stubHttpOnPost, '/projects', vm.project);
         done();
       });
     });
 
     it('프로젝트 등록 API가 성공 시, 프로젝트 리스트 화면으로 이동한다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-      stubHttpOnPost.withArgs('/project').returns(Promise.resolve());
+      stubHttpOnPost.withArgs('/projects').returns(Promise.resolve(testResponse));
       const vm = getVmInstance(RegisterProject);
       const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
 
       vm.tempRegisterProject();
 
       vm.$nextTick(() => {
-        sinon.assert.calledWithExactly(spyRouterOnPush, 'my_page');
+        sinon.assert.calledOnce(spyRouterOnPush);
+        spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
         done();
       });
     });
@@ -278,12 +267,6 @@ describe('RegisterProject Component', () => {
     vm.onUpdateInterviewerImage(mockFileMetadata);
 
     expect(vm.project.interviewer.url).to.be.eql(mockFileMetadata[0].url);
-  });
-
-  it('dateFormatter 호출 시, date형식 값을 YYYY-MM-DD 형식으로 리턴한다', () => {
-    const vm = getVmInstance(RegisterProject);
-    const date = new Date('Sat Jan 01 2011 09:00:00 GMT+0900 (KST)');
-    expect(vm.dateFormatter(date)).to.be.eql('2011-01-01');
   });
 
   afterEach(() => {

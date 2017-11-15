@@ -1,0 +1,160 @@
+<template>
+  <div id="registerInterview" class="container">
+    <h1>
+      프로젝트 등록이 완료되었습니다.
+      <br/>
+      심층인터뷰를 신청해서 미래의 사용자를 만나보세요.
+    </h1>
+    <br/>
+    <div>
+      미래의 고객이 될 진짜 사용자를 만나보세요. <br/>
+      솔직한 피드백은 프로젝트를 성공시키는 지름길입니다. <br/>
+      (인터뷰 신청은 선택 옵션입니다.)
+    </div>
+    <br/>
+    <button class="skip-button" v-on:click="moveToMyPage">다음에 하겠습니다.</button>
+    <br/>
+    <br/>
+    <hr/>
+    <div>
+      <p>인터뷰 타입 선택</p>
+      <p>원하는 인터뷰 종류를 선택해 주세요</p>
+    </div>
+
+    <div>
+      <input type="radio" id="offline" value="오프라인 인터뷰" v-model="interview.type"/>
+      <label for="offline">오프라인 인터뷰</label>
+    </div>
+    <div>
+      <input type="radio" id="online" value="온라인 인터뷰" v-model="interview.type"/>
+      <label for="online">온라인 인터뷰</label>
+    </div>
+
+    <br/>
+
+    <p>인터뷰 장소 선택</p>
+    <input v-model="interview.location" placeholder=""/>
+
+    <br/>
+
+    <p>인터뷰 모집기간</p>
+    <p>모집 시작일과 종료일을 선택하세요.</p>
+    <b-field label="시작일">
+      <b-datepicker
+        icon="today"
+        v-model="datePicker.openDate">
+      </b-datepicker>
+    </b-field>
+    <b-field label="종료일">
+      <b-datepicker
+        icon="today"
+        v-model="datePicker.closeDate">
+      </b-datepicker>
+    </b-field>
+    <br/>
+    <p>인터뷰 진행날짜</p>
+    <p>인터뷰를 진행할 날짜와 시간을 선택하세요. 진행 시간은 5개 이상을 선택하셔야 합니다.</p>
+    <b-field label="인터뷰 시작일">
+      <b-datepicker
+        icon="today"
+        v-model="datePicker.startDate">
+      </b-datepicker>
+    </b-field>
+    <b-field label="인터뷰 종료일">
+      <b-datepicker
+        icon="today"
+        v-model="datePicker.endDate">
+      </b-datepicker>
+    </b-field>
+    <br/>
+    <p>인터뷰 세부일정 입력</p>
+    <ul>
+      <li v-for="item in interview.plans">
+        <input id="interview-minutes" type="number" v-model.number="item.minute"/>
+        분
+        <input id="interview-plan" type="text" v-model="item.plan"/>
+      </li>
+    </ul>
+    <button class="add-interview-plan-button" v-on:click="addInterviewSchedule">일정 추가</button>
+    <br/>
+    <br/>
+    <button class="temporary-save-button" v-on:click="tempRegisterInterview">임시저장</button>
+    <button class="save-button" v-on:click="registerInterview">미리보기</button>
+  </div>
+</template>
+<script>
+import moment from 'moment';
+import HTTP from '../apis/http-common';
+
+export default {
+  name: 'registerInterview',
+  props: {
+    projectId: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      interview: {
+        type: '오프라인 인터뷰',
+        location: '',
+        openDate: '',
+        closeDate: '',
+        startDate: '',
+        endDate: '',
+        plans: [{
+          minute: 0,
+          plan: '',
+        }],
+      },
+      datePicker: {
+        openDate: new Date(),
+        closeDate: new Date(),
+        startDate: new Date(),
+        endDate: new Date(),
+      },
+    };
+  },
+  methods: {
+    tempRegisterInterview() {
+      // HTTP.post('/project', this.project).then(() => {
+      //   this.$router.push('my_page');
+      // });
+    },
+    registerInterview() {
+      this.interview.openDate = this.dateFormatter(this.datePicker.openDate);
+      this.interview.closeDate = this.dateFormatter(this.datePicker.closeDate);
+      this.interview.startDate = this.dateFormatter(this.datePicker.startDate);
+      this.interview.endDate = this.dateFormatter(this.datePicker.endDate);
+
+      HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
+        this.$router.push({ name: 'MyPage' });
+      });
+    },
+    dateFormatter(date = new Date()) {
+      return moment(date).format('YYYY-MM-DD');
+    },
+    addInterviewSchedule() {
+      this.interview.plans.push({
+        minute: 0,
+        plan: '',
+      });
+    },
+    moveToMyPage() {
+      this.$router.push({ name: 'MyPage' });
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  h1, h2 {
+    font-weight: normal;
+  }
+
+  a {
+    color: #42b983;
+  }
+</style>

@@ -160,7 +160,7 @@ describe('AddImage Component', () => {
       vm.$data.fileMetadataList.push(preloadedImage);
 
       vm.$nextTick(() => {
-        expect(vm.$el.querySelector('.add-image-button')).to.be.null;
+        expect(vm.$el.querySelectorAll('.add-image-button').length).to.be.eql(0);
         expect(vm.$el.querySelectorAll('li').length).to.be.eql(5);
         done();
       });
@@ -176,7 +176,8 @@ describe('AddImage Component', () => {
       deleteButton.click();
 
       vm.$nextTick(() => {
-        expect(vm.$el.querySelector('.add-image-button')).to.be.not.null;
+        expect(vm.$el.querySelectorAll('.add-image-button').length).to.be.eql(1);
+        expect(vm.$el.querySelectorAll('.add-image-button')[0].style.display).to.be.eql('');
         expect(vm.$el.querySelectorAll('li').length).to.be.eql(5);
         done();
       });
