@@ -19,23 +19,6 @@
     <p>프로젝트 소개</p>
     <input v-model="project.description" placeholder=""/>
     <br/>
-    <p>벤치마킹 앱 검색</p>
-
-    <b-field label="벤치마킹 앱">
-      <ul v-for="item in project.apps">
-        <li>
-          {{ item }}
-        </li>
-      </ul>
-    </b-field>
-
-    <input v-model="similarAppname" placeholder="유사앱 이름을 입력하세요"/>
-    <button class='search-button' v-on:click="getSimilarApp">Search</button>
-    <ul class='search-result-list' v-for="app in apps">
-      <li @click="addSimilarApps(app)">
-        {{ app.appName }}
-      </li>
-    </ul>
     <br/>
     <br/>
     <br/>
@@ -48,7 +31,7 @@
   </div>
 </template>
 <script>
-import debounce from 'lodash.debounce';
+
 import HTTP from '../apis/http-common';
 import AddImage from './AddImage';
 
@@ -63,9 +46,8 @@ export default {
         name: '',
         introduce: '',
         images: [],
-        apps: [],
         description: '',
-        interview: {},
+        interviews: [],
         status: '',
         interviewer: {
           name: '',
@@ -73,34 +55,9 @@ export default {
           introduce: '',
         },
       },
-      similarAppname: '',
-      apps: [],
-      searchStatus: '',
     };
   },
-  watch: {
-    similarAppname(value) {
-      this.searchStatus = '입력중';
-      if (value.length > 1) {
-        this.debounceGetSimilarApp();
-      } else {
-        this.apps = [];
-      }
-    },
-  },
   methods: {
-    debounceGetSimilarApp: debounce(function () {
-      this.searchStatus = '검색중';
-      this.getSimilarApp();
-    }, 300),
-    getSimilarApp() {
-      HTTP.get(`/apps?keyword=${this.similarAppname}`).then((result) => {
-        this.searchStatus = '조회완료';
-        this.apps = result.data;
-      }).catch((err) => {
-        this.searchStatus = err;
-      });
-    },
     tempRegisterProject() {
       this.project.status = 'temporary';
       HTTP.post('/projects', this.project).then(() => {
@@ -124,9 +81,6 @@ export default {
     },
     onUpdateInterviewerImage(fileMetadata) {
       this.project.interviewer.url = fileMetadata[0].url;
-    },
-    addSimilarApps(app) {
-      this.project.apps.push(app.packageName);
     },
   },
 };

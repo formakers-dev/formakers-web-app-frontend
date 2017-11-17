@@ -5,9 +5,9 @@
         {{project.status}}<br/>
         2/5명
       </div>
-      <div id="project-description">
-        {{project.apps}}<br/>
-        모집기간 : {{project.interview.openDate}} ~ {{project.interview.closeDate}} {{dDay}}<br/>
+      <div id="project-description" v-for="interview in project.interviews">
+        <p>{{interview.apps}}</p>
+        모집기간 : {{interview.openDate}} ~ {{interview.closeDate}} {{dDay(interview.closeDate)}}<br/>
         {{project.introduce}}<br/>
         {{project.name}}
       </div>
@@ -25,15 +25,15 @@ export default {
       required: true,
     },
   },
-  computed: {
-    dDay() {
+  methods: {
+    dDay(date) {
       moment.updateLocale('en', {
         relativeTime: {
           future: '%s',
           dd: 'D-%d',
         },
       });
-      return moment(this.project.interview.closeDate, 'YYYY-MM-DD').endOf('day').fromNow();
+      return moment(date).endOf('day').fromNow();
     },
   },
 };

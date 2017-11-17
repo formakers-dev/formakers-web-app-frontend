@@ -13,12 +13,13 @@ describe('MyPage Component', () => {
     name: 'old-test-project',
     introduce: '간단소개',
     images: ['/image1', '/image2'],
-    apps: ['com.kakao.talk'],
     interviewer_introduce: '인터뷰 진행자 소개!!!',
     description: '프로젝트 상세 설명',
     description_images: ['/desc/image1', '/desc/image2'],
-    interview: {
+    interviews: [{
+      seq: 1,
       type: 1,
+      apps: ['com.kakao.talk'],
       locationNegotiable: false,
       location: '향군타워 5층',
       openDate: '20171011',
@@ -30,7 +31,7 @@ describe('MyPage Component', () => {
         minute: 20,
         plan: '피드백',
       }],
-    },
+    }],
     status: 'temporary',
   };
 

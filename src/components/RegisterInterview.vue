@@ -78,12 +78,31 @@
     <button class="add-interview-plan-button" v-on:click="addInterviewSchedule">일정 추가</button>
     <br/>
     <br/>
+    <p>벤치마킹 앱 검색</p>
+
+    <b-field label="벤치마킹 앱">
+      <ul v-for="item in interview.apps">
+        <li>
+          {{ item }}
+        </li>
+      </ul>
+    </b-field>
+
+    <input v-model="searchAppName" placeholder="유사앱 이름을 입력하세요"/>
+    <button class='search-button' v-on:click="getSimilarApp">Search</button>
+    <ul class='search-result-list' v-for="app in searchedApps">
+      <li @click="addSimilarApps(app)">
+        {{ app.appName }}
+      </li>
+    </ul>
+    <br/>
+    <br/>
     <button class="temporary-save-button" v-on:click="tempRegisterInterview">임시저장</button>
     <button class="save-button" v-on:click="registerInterview">미리보기</button>
   </div>
 </template>
 <script>
-import moment from 'moment';
+import debounce from 'lodash.debounce';
 import HTTP from '../apis/http-common';
 
 export default {
@@ -98,42 +117,67 @@ export default {
     return {
       interview: {
         type: '오프라인 인터뷰',
+        apps: [],
         location: '',
-        openDate: '',
-        closeDate: '',
-        startDate: '',
-        endDate: '',
+        openDate: new Date(),
+        closeDate: new Date(),
+        startDate: new Date(),
+        endDate: new Date(),
         plans: [{
           minute: 0,
           plan: '',
         }],
       },
+      // cache
       datePicker: {
         openDate: new Date(),
         closeDate: new Date(),
         startDate: new Date(),
         endDate: new Date(),
       },
+      // Search for similar app
+      searchAppName: '',
+      searchedApps: [],
+      searchStatus: '',
     };
   },
+  watch: {
+    searchAppName(value) {
+      this.searchStatus = '입력중';
+      if (value.length > 1) {
+        this.debounceGetSimilarApp();
+      } else {
+        this.searchedApps = [];
+      }
+    },
+  },
   methods: {
+    debounceGetSimilarApp: debounce(function () {
+      this.searchStatus = '검색중';
+      this.getSimilarApp();
+    }, 300),
+    getSimilarApp() {
+      HTTP.get(`/apps?keyword=${this.searchAppName}`).then((result) => {
+        this.searchStatus = '조회완료';
+        this.searchedApps = result.data;
+      }).catch((err) => {
+        this.searchStatus = err;
+      });
+    },
     tempRegisterInterview() {
       // HTTP.post('/project', this.project).then(() => {
       //   this.$router.push({ name: 'MyPage' });
       // });
     },
     registerInterview() {
-      this.interview.openDate = this.dateFormatter(this.datePicker.openDate);
-      this.interview.closeDate = this.dateFormatter(this.datePicker.closeDate);
-      this.interview.startDate = this.dateFormatter(this.datePicker.startDate);
-      this.interview.endDate = this.dateFormatter(this.datePicker.endDate);
+      this.interview.openDate = this.datePicker.openDate;
+      this.interview.closeDate = this.datePicker.closeDate;
+      this.interview.startDate = this.datePicker.startDate;
+      this.interview.endDate = this.datePicker.endDate;
 
       HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
         this.$router.push({ name: 'MyPage' });
       });
-    },
-    dateFormatter(date = new Date()) {
-      return moment(date).format('YYYY-MM-DD');
     },
     addInterviewSchedule() {
       this.interview.plans.push({
@@ -143,6 +187,9 @@ export default {
     },
     moveToMyPage() {
       this.$router.push({ name: 'MyPage' });
+    },
+    addSimilarApps(app) {
+      this.interview.apps.push(app.packageName);
     },
   },
 };

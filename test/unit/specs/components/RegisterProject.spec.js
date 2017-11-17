@@ -6,7 +6,6 @@ import HTTP from '../../../../src/apis/http-common';
 
 describe('RegisterProject Component', () => {
   const sandbox = sinon.sandbox.create();
-  const clock = sandbox.useFakeTimers();
 
   const testData = {
     project: {
@@ -25,125 +24,11 @@ describe('RegisterProject Component', () => {
     },
   };
 
-  const searchResult = {
-    data: [{ _id: '5988097cb495479821f2d188',
-      developer: 'Kakao Corporation',
-      star: 4.3,
-      description: '카카오톡은 전세계 어디서나 안드로이드폰과 아이폰 사용자간 무료로 메시지를 ...',
-      contentsRating: '만 3세 이상',
-      categoryId1: '/store/apps/category/COMMUNICATION',
-      categoryName1: '커뮤니케이션',
-      categoryId2: '',
-      categoryName2: '',
-      inappPriceMin: 1000,
-      reviewCount: 2434177,
-      packageName: 'com.kakao.talk',
-      appName: '카카오톡 KakaoTalk',
-      inappPriceMax: 90909,
-      installsMin: 100000000,
-      updatedDate: '20170720',
-      similarApps:
-      ['com.tencent.mm',
-        'jp.naver.line.android',
-        'com.facebook.orca',
-        'com.whatsapp',
-        'com.imo.android.imoim',
-        'com.viber.voip',
-        'com.skype.raider',
-        'com.facebook.mlite',
-        'org.telegram.messenger',
-        'com.bbm',
-        'com.azarlive.android',
-        'ru.mail',
-        'kik.android',
-        'com.google.android.talk',
-        'com.imo.android.imoimbeta',
-        'com.icq.mobile.client',
-        'com.wWhatsUpMessenger_4083770'],
-      appPrice: 0,
-      installsMax: 500000000 }],
-  };
-
   const testResponse = {
     data: {
       projectId: 'testProjectId',
     },
   };
-
-  describe('유사앱 검색 버튼이 클릭되었을 때', () => {
-    it('getSimilarApp 메소드가 호출된다', () => {
-      const spyOnGetSimilarApp = sandbox.spy(RegisterProject.methods, 'getSimilarApp');
-      const vm = getVmInstance(RegisterProject);
-      const button = vm.$el.querySelector('.search-button');
-
-      button.click();
-
-      sinon.assert.calledOnce(spyOnGetSimilarApp);
-    });
-
-    it('getSimilarApp 호출 시, 유사 앱이 조회된다', (done) => {
-      const stubHttpOnPost = sandbox.stub(HTTP, 'get');
-      stubHttpOnPost.withArgs('/apps?keyword=kakao').returns(Promise.resolve(searchResult));
-      const option = {
-        data: {
-          similarAppname: 'kakao',
-          apps: [],
-        },
-      };
-      const vm = getVmInstance(RegisterProject, option);
-
-      vm.getSimilarApp();
-
-      vm.$nextTick(() => {
-        expect(vm.apps.length).to.be.eql(1);
-        expect(vm.apps[0].developer).to.be.eql('Kakao Corporation');
-        expect(vm.apps[0].appName).to.be.eql('카카오톡 KakaoTalk');
-        done();
-      });
-    });
-
-    it('검색된 리스트가 클릭되면, project.apps필드에 packageName이 추가된다.', (done) => {
-      const stubHttpOnPost = sandbox.stub(HTTP, 'get');
-      stubHttpOnPost.withArgs('/apps?keyword=kakao').returns(Promise.resolve(searchResult));
-      const option = {
-        data: {
-          similarAppname: 'kakao',
-          apps: [],
-        },
-      };
-      const vm = getVmInstance(RegisterProject, option);
-      vm.getSimilarApp();
-      vm.$forceUpdate();
-      vm.$nextTick(() => {
-        const firstChild = vm.$el.querySelector('.search-result-list li:nth-child(1)');
-        expect(firstChild.textContent.trim()).to.be.eql('카카오톡 KakaoTalk');
-
-        firstChild.click();
-
-        expect(vm.project.apps[0]).to.be.eql('com.kakao.talk');
-        done();
-      });
-    });
-  });
-
-  it('유사앱 이름이 입력된 후 300ms가 지나면 getSimilarApp가 호출된다', (done) => {
-    const spyOnGetSimilarApp = sandbox.spy(RegisterProject.methods, 'getSimilarApp');
-    const option = {
-      data: {
-        similarAppname: '',
-        apps: [],
-      },
-    };
-    const vm = getVmInstance(RegisterProject, option);
-
-    vm.similarAppname = 'kakao';
-
-    vm.$nextTick(() => {
-      clock.tick(300);
-      sinon.assert.calledOnce(spyOnGetSimilarApp);
-      done();
-    });
-  });
 
   describe('프로젝트 등록 버튼이 클릭되었을 때', () => {
     it('registerProject 메소드가 호출된다', () => {
