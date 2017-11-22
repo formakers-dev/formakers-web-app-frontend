@@ -1,7 +1,7 @@
 <template>
   <div id="addImage">
     <ul>
-      <li v-if="fileMetadataList.length < 5">
+      <li v-if="fileMetadataList.length < maxFileCount">
         <div class="add-image-button" v-on:click="onPickFile">
           <input type="file" style="display: none" ref="fileInput" accept="image/*" v-on:change="onFilePicked"/>
         </div>
@@ -20,6 +20,12 @@ import { saveFile, removeFile } from '../utils/firebase';
 
 export default {
   name: 'addImage',
+  props: {
+    maxFileCount: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
       fileMetadataList: [],

@@ -12,9 +12,15 @@ describe('AddImage Component', () => {
     name: '123파일',
   };
 
+  const propsOption = {
+    propsData: {
+      maxFileCount: 5,
+    },
+  };
+
   it('추가버튼이 클릭되었을 때 onPickFile메소드를 호출한다', () => {
     const spyOnPickFile = sandbox.spy(AddImage.methods, 'onPickFile');
-    const vm = getVmInstance(AddImage);
+    const vm = getVmInstance(AddImage, propsOption);
     const addButton = vm.$el.querySelector('.add-image-button');
 
     addButton.click();
@@ -23,7 +29,7 @@ describe('AddImage Component', () => {
   });
 
   it('fileMetadataList에 데이터 추가 시 추가된 데이터들이 화면에 표시된다.', (done) => {
-    const vm = getVmInstance(AddImage);
+    const vm = getVmInstance(AddImage, propsOption);
 
     vm.$data.fileMetadataList.push(preloadedImage);
 
@@ -56,6 +62,9 @@ describe('AddImage Component', () => {
         methods: {
           onFilePicked: spyOnFilePicked,
         },
+        propsData: {
+          maxFileCount: 5,
+        },
       });
       const fileInput = vm.$refs.fileInput;
 
@@ -86,7 +95,7 @@ describe('AddImage Component', () => {
       });
 
       it('fileMetadataList에 해당 파일정보를 추가한다', (done) => {
-        const vm = getVmInstance(AddImage);
+        const vm = getVmInstance(AddImage, propsOption);
 
         vm.onFilePicked(fileInputChangeEvent);
 
@@ -99,7 +108,7 @@ describe('AddImage Component', () => {
       });
 
       it('update-file-data 이벤트를 호출한다', (done) => {
-        const vm = getVmInstance(AddImage);
+        const vm = getVmInstance(AddImage, propsOption);
         const spyUpdate = sandbox.spy();
         vm.$on('update-file-data', spyUpdate);
 
@@ -121,6 +130,9 @@ describe('AddImage Component', () => {
       vm = getVmInstance(AddImage, {
         data: {
           fileMetadataList: [preloadedImage],
+        },
+        propsData: {
+          maxFileCount: 5,
         },
       });
 
