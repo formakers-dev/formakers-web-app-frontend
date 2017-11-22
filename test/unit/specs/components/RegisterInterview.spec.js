@@ -52,17 +52,6 @@ describe('RegisterInterView Component', () => {
 
         vm.registerInterview();
 
-        expect(vm.interview.type).to.be.eql('오프라인 테스트');
-        expect(vm.interview.location).to.be.eql('향군타워 5층');
-        expect(vm.interview.openDate.toISOString().substring(0, 10)).to.be.eql('2017-10-11');
-        expect(vm.interview.closeDate.toISOString().substring(0, 10)).to.be.eql('2017-10-16');
-        expect(vm.interview.startDate.toISOString().substring(0, 10)).to.be.eql('2017-11-01');
-        expect(vm.interview.endDate.toISOString().substring(0, 10)).to.be.eql('2017-11-30');
-        expect(vm.interview.plans.length).to.be.eql(2);
-        expect(vm.interview.plans[0].minute).to.be.eql(10);
-        expect(vm.interview.plans[0].plan).to.be.eql('제품소개');
-        expect(vm.interview.plans[1].minute).to.be.eql(30);
-        expect(vm.interview.plans[1].plan).to.be.eql('인터뷰');
         sinon.assert.calledWithExactly(stubHttpOnPost, `/projects/${testProps.projectId}/interviews`, vm.interview);
       });
     });
@@ -116,7 +105,6 @@ describe('RegisterInterView Component', () => {
         vm.$nextTick(() => {
           expect(vm.searchStatus).to.be.eql('입력중');
           sinon.assert.calledOnce(spyOnDebounceGetSimilarApp);
-          // expect(spyOnDebounceGetSimilarApp).toBeCalled();
           done();
         });
       });
@@ -142,21 +130,19 @@ describe('RegisterInterView Component', () => {
       vm.interview.location.should.be.eql('');
       vm.interview.openDate.should.be.an('Date');
       vm.interview.closeDate.should.be.an('Date');
-      vm.interview.startDate.should.be.an('Date');
-      vm.interview.endDate.should.be.an('Date');
+      vm.interview.interviewDate.should.be.an('Date');
       vm.interview.plans[0].minute.should.be.eql(0);
       vm.interview.plans[0].plan.should.be.eql('');
+      vm.interview.timeSlotTimes.length.should.be.eql(0);
       vm.datePicker.openDate.should.be.an('Date');
       vm.datePicker.closeDate.should.be.an('Date');
-      vm.datePicker.startDate.should.be.an('Date');
-      vm.datePicker.endDate.should.be.an('Date');
+      vm.datePicker.interviewDate.should.be.an('Date');
       vm.searchAppName.should.be.eql('');
       vm.searchedApps.length.should.be.eql(0);
       vm.searchStatus.should.be.eql('');
     });
   });
 
-  // ////////////
   const testProps = {
     projectId: 'testProjectId',
   };
@@ -167,8 +153,7 @@ describe('RegisterInterView Component', () => {
       location: '향군타워 5층',
       openDate: '2017-11-03',
       closeDate: '2017-11-03',
-      startDate: '2017-11-03',
-      endDate: '2017-11-03',
+      interviewDate: '2017-11-03',
       plans: [{
         minute: 10,
         plan: '제품소개',
@@ -176,12 +161,12 @@ describe('RegisterInterView Component', () => {
         minute: 30,
         plan: '인터뷰',
       }],
+      timeSlotTimes: [8, 10, 14],
     },
     datePicker: {
       openDate: new Date('2017-10-11'),
       closeDate: new Date('2017-10-16'),
-      startDate: new Date('2017-11-01'),
-      endDate: new Date('2017-11-30'),
+      interviewDate: new Date('2017-11-01'),
     },
   };
 
@@ -236,8 +221,7 @@ describe('RegisterInterView Component', () => {
   //       expect(vm.interview.location).to.be.eql('향군타워 5층');
   //       expect(vm.interview.openDate).to.be.eql('2017-10-11');
   //       expect(vm.interview.closeDate).to.be.eql('2017-10-16');
-  //       expect(vm.interview.startDate).to.be.eql('2017-11-01');
-  //       expect(vm.interview.endDate).to.be.eql('2017-11-30');
+  //       expect(vm.interview.interviewDate).to.be.eql('2017-11-01');
   //       expect(vm.interview.plans.length).to.be.eql(2);
   //       expect(vm.interview.plans[0].minute).to.be.eql(10);
   //       expect(vm.interview.plans[0].plan).to.be.eql('제품소개');

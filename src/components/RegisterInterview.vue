@@ -57,14 +57,17 @@
     <b-field label="인터뷰 시작일">
       <b-datepicker
         icon="today"
-        v-model="datePicker.startDate">
+        v-model="datePicker.interviewDate">
       </b-datepicker>
     </b-field>
-    <b-field label="인터뷰 종료일">
-      <b-datepicker
-        icon="today"
-        v-model="datePicker.endDate">
-      </b-datepicker>
+    <b-field>
+      <b-checkbox-button v-for="timeSlot in timeSlots"
+                         v-model="interview.timeSlotTimes"
+                         v-bind:native-value="timeSlot"
+                         type="is-success">
+        <b-icon icon="check"></b-icon>
+        <span>{{timeSlot}}:00</span>
+      </b-checkbox-button>
     </b-field>
     <br/>
     <p>인터뷰 세부일정 입력</p>
@@ -102,97 +105,97 @@
   </div>
 </template>
 <script>
-import debounce from 'lodash.debounce';
-import HTTP from '../apis/http-common';
+  import debounce from 'lodash.debounce';
+  import HTTP from '../apis/http-common';
 
-export default {
-  name: 'registerInterview',
-  props: {
-    projectId: {
-      type: Number,
-      required: true,
+  export default {
+    name: 'registerInterview',
+    props: {
+      projectId: {
+        type: Number,
+        required: true,
+      },
     },
-  },
-  data() {
-    return {
-      interview: {
-        type: '오프라인 인터뷰',
-        apps: [],
-        location: '',
-        openDate: new Date(),
-        closeDate: new Date(),
-        startDate: new Date(),
-        endDate: new Date(),
-        plans: [{
+    data() {
+      return {
+        interview: {
+          type: '오프라인 인터뷰',
+          apps: [],
+          location: '',
+          openDate: new Date(),
+          closeDate: new Date(),
+          interviewDate: new Date(),
+          plans: [{
+            minute: 0,
+            plan: '',
+          }],
+          timeSlotTimes: [],
+        },
+        // cache
+        datePicker: {
+          openDate: new Date(),
+          closeDate: new Date(),
+          interviewDate: new Date(),
+        },
+        // Search for similar app
+        searchAppName: '',
+        searchedApps: [],
+        searchStatus: '',
+        // Time Slots
+        timeSlots: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      };
+    },
+    watch: {
+      searchAppName(value) {
+        this.searchStatus = '입력중';
+        if (value.length > 1) {
+          this.debounceGetSimilarApp();
+        } else {
+          this.searchedApps = [];
+        }
+      },
+    },
+    methods: {
+      debounceGetSimilarApp: debounce(function () {
+        this.searchStatus = '검색중';
+        this.getSimilarApp();
+      }, 300),
+      getSimilarApp() {
+        HTTP.get(`/apps?keyword=${this.searchAppName}`).then((result) => {
+          this.searchStatus = '조회완료';
+          this.searchedApps = result.data;
+        }).catch((err) => {
+          this.searchStatus = err;
+        });
+      },
+      tempRegisterInterview() {
+        // HTTP.post('/project', this.project).then(() => {
+        //   this.$router.push({ name: 'MyPage' });
+        // });
+      },
+      registerInterview() {
+        this.interview.openDate = this.datePicker.openDate;
+        this.interview.closeDate = this.datePicker.closeDate;
+        this.interview.interviewDate = this.datePicker.interviewDate;
+
+        HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
+          this.$router.push({ name: 'MyPage' });
+        });
+      },
+      addInterviewSchedule() {
+        this.interview.plans.push({
           minute: 0,
           plan: '',
-        }],
+        });
       },
-      // cache
-      datePicker: {
-        openDate: new Date(),
-        closeDate: new Date(),
-        startDate: new Date(),
-        endDate: new Date(),
-      },
-      // Search for similar app
-      searchAppName: '',
-      searchedApps: [],
-      searchStatus: '',
-    };
-  },
-  watch: {
-    searchAppName(value) {
-      this.searchStatus = '입력중';
-      if (value.length > 1) {
-        this.debounceGetSimilarApp();
-      } else {
-        this.searchedApps = [];
-      }
-    },
-  },
-  methods: {
-    debounceGetSimilarApp: debounce(function () {
-      this.searchStatus = '검색중';
-      this.getSimilarApp();
-    }, 300),
-    getSimilarApp() {
-      HTTP.get(`/apps?keyword=${this.searchAppName}`).then((result) => {
-        this.searchStatus = '조회완료';
-        this.searchedApps = result.data;
-      }).catch((err) => {
-        this.searchStatus = err;
-      });
-    },
-    tempRegisterInterview() {
-      // HTTP.post('/project', this.project).then(() => {
-      //   this.$router.push({ name: 'MyPage' });
-      // });
-    },
-    registerInterview() {
-      this.interview.openDate = this.datePicker.openDate;
-      this.interview.closeDate = this.datePicker.closeDate;
-      this.interview.startDate = this.datePicker.startDate;
-      this.interview.endDate = this.datePicker.endDate;
-
-      HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
+      moveToMyPage() {
         this.$router.push({ name: 'MyPage' });
-      });
+      },
+      addSimilarApps(app) {
+        this.interview.apps.push(app.packageName);
+      },
     },
-    addInterviewSchedule() {
-      this.interview.plans.push({
-        minute: 0,
-        plan: '',
-      });
-    },
-    moveToMyPage() {
-      this.$router.push({ name: 'MyPage' });
-    },
-    addSimilarApps(app) {
-      this.interview.apps.push(app.packageName);
-    },
-  },
-};
+  };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
