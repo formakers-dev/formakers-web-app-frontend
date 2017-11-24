@@ -10,18 +10,19 @@
     <br/>
     <add-image v-on:update-file-data="onUpdateFileData" v-bind:maxFileCount="1"></add-image>
     <br/>
-    <p>인터뷰 진행자 이름</p>
-    <input v-model="project.interviewer.name" placeholder=""/>
-    <p>인터뷰 진행자 사진</p>
-    <add-image v-on:update-file-data="onUpdateInterviewerImage" v-bind:maxFileCount="1"></add-image>
-    <p>인터뷰 진행자 소개</p>
-    <input v-model="project.interviewer.introduce" placeholder=""/>
+
     <p>프로젝트 소개</p>
     <input v-model="project.description" placeholder=""/>
+    <p>프로젝트 이미지</p>
+    <add-image v-on:update-file-data="onUpdateDescriptionImages" v-bind:maxFileCount="5"></add-image>
     <br/>
     <br/>
-    <br/>
-    <br/>
+    <p>인터뷰 진행자 이름</p>
+    <input v-model="project.owner.name" placeholder=""/>
+    <p>인터뷰 진행자 사진</p>
+    <add-image v-on:update-file-data="onUpdateOwnerImage" v-bind:maxFileCount="1"></add-image>
+    <p>인터뷰 진행자 소개</p>
+    <input v-model="project.owner.introduce" placeholder=""/>
     <br/>
     <button class="temporary-save-button" v-on:click="tempRegisterProject">임시저장</button>
     <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
@@ -47,9 +48,10 @@
           introduce: '',
           images: [],
           description: '',
+          descriptionImages: [],
           interviews: [],
           status: '',
-          interviewer: {
+          owner: {
             name: '',
             url: '',
             introduce: '',
@@ -79,8 +81,11 @@
       onUpdateFileData(fileMetadataList) {
         this.project.images = fileMetadataList;
       },
-      onUpdateInterviewerImage(fileMetadata) {
-        this.project.interviewer.url = fileMetadata[0].url;
+      onUpdateOwnerImage(fileMetadata) {
+        this.project.owner.url = fileMetadata[0].url;
+      },
+      onUpdateDescriptionImages(fileMetadataList) {
+        this.project.descriptionImages = fileMetadataList;
       },
     },
   };
