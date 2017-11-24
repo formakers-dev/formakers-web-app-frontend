@@ -9,9 +9,9 @@ describe('ProjectItem Component', () => {
     propsData: {
       project: {
         projectId: 123456,
-        images: [{
+        image: {
           url: 'imageUrl',
-        }],
+        },
       },
     },
   };

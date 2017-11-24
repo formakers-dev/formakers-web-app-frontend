@@ -11,13 +11,25 @@ describe('RegisterProject Component', () => {
     project: {
       name: 'old-test-project',
       introduce: '간단소개',
-      images: ['/image1', '/image2'],
+      image: {
+        name: 'image1',
+        url: '/image1',
+      },
       apps: ['com.kakao.talk'],
       description: '프로젝트 상세 설명',
-      descriptionImages: ['/desc/image1', '/desc/image2'],
+      descriptionImages: [{
+        name: 'descImage1',
+        url: '/desc/image1',
+      }, {
+        name: 'descImage2',
+        url: '/desc/image2',
+      }],
       owner: {
         name: '인터뷰어',
-        url: 'interviewr image',
+        image: {
+          name: 'ownerImage',
+          url: 'owner.image.url',
+        },
         introduce: '인터뷰어소개입니다',
       },
       status: 'temporary',
@@ -55,17 +67,19 @@ describe('RegisterProject Component', () => {
       vm.$nextTick(() => {
         expect(vm.project.name).to.be.eql('old-test-project');
         expect(vm.project.introduce).to.be.eql('간단소개');
-        expect(vm.project.images.length).to.be.eql(2);
-        expect(vm.project.images[0]).to.be.eql('/image1');
-        expect(vm.project.images[1]).to.be.eql('/image2');
+        expect(vm.project.image.name).to.be.eql('image1');
+        expect(vm.project.image.url).to.be.eql('/image1');
         expect(vm.project.apps.length).to.be.eql(1);
         expect(vm.project.apps[0]).to.be.eql('com.kakao.talk');
         expect(vm.project.description).to.be.eql('프로젝트 상세 설명');
         expect(vm.project.descriptionImages.length).to.be.eql(2);
-        expect(vm.project.descriptionImages[0]).to.be.eql('/desc/image1');
-        expect(vm.project.descriptionImages[1]).to.be.eql('/desc/image2');
+        expect(vm.project.descriptionImages[0].name).to.be.eql('descImage1');
+        expect(vm.project.descriptionImages[0].url).to.be.eql('/desc/image1');
+        expect(vm.project.descriptionImages[1].name).to.be.eql('descImage2');
+        expect(vm.project.descriptionImages[1].url).to.be.eql('/desc/image2');
         expect(vm.project.owner.name).to.be.eql('인터뷰어');
-        expect(vm.project.owner.url).to.be.eql('interviewr image');
+        expect(vm.project.owner.image.name).to.be.eql('ownerImage');
+        expect(vm.project.owner.image.url).to.be.eql('owner.image.url');
         expect(vm.project.owner.introduce).to.be.eql('인터뷰어소개입니다');
         expect(vm.project.status).to.be.eql('registered');
         expect(vm.project.videoUrl).to.be.eql('www.video.com');
@@ -91,28 +105,28 @@ describe('RegisterProject Component', () => {
     });
   });
 
-  it('onUpdateFileData 호출 시, 프로젝트 정보의 이미지목록을 업데이트 한다', () => {
+  it('onUpdateImage 호출 시, 프로젝트 정보의 이미지목록을 업데이트 한다', () => {
     const vm = getVmInstance(RegisterProject);
     const mockFileMetadataList = [{
       url: 'test-url',
       name: 'test-name',
     }];
 
-    vm.onUpdateFileData(mockFileMetadataList);
+    vm.onUpdateImage(mockFileMetadataList);
 
-    expect(vm.project.images).to.be.eql(mockFileMetadataList);
+    expect(vm.project.image).to.be.eql(mockFileMetadataList[0]);
   });
 
   it('onUpdateOwnerImage 호출 시, 프로젝트 인터뷰어의 이미지 url을 업데이트 한다', () => {
     const vm = getVmInstance(RegisterProject);
-    const mockFileMetadata = [{
+    const mockFileMetadataList = [{
       url: 'test-url',
       name: 'test',
     }];
 
-    vm.onUpdateOwnerImage(mockFileMetadata);
+    vm.onUpdateOwnerImage(mockFileMetadataList);
 
-    expect(vm.project.owner.url).to.be.eql(mockFileMetadata[0].url);
+    expect(vm.project.owner.image).to.be.eql(mockFileMetadataList[0]);
   });
 
   it('onUpdateDescriptionImages 호출 시, 프로젝트 인터뷰의 descriptionImage에 url을 업데이트 한다.', () => {

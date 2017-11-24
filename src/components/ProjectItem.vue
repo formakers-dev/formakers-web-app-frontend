@@ -3,7 +3,7 @@
       <div>
         {{project.name}}<br/>
         {{project.introduce}}<br/>
-        <img v-bind:src="project.images[0].url"/>
+        <img v-bind:src="project.image.url"/>
         <button class="add-interview-button" v-on:click="moveToInterviewRegister"> 인터뷰 등록 </button>
       </div>
       <div v-for="interview in project.interviews">

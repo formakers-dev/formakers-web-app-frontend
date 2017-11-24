@@ -8,7 +8,7 @@
     <input v-model="project.introduce" placeholder=""/>
     <p>대표이미지</p>
     <br/>
-    <add-image v-on:update-file-data="onUpdateFileData" v-bind:maxFileCount="1"></add-image>
+    <add-image v-on:update-file-data="onUpdateImage" v-bind:maxFileCount="1"></add-image>
     <br/>
     <p>동영상 URL</p>
     <input v-model="project.videoUrl" placeholder=""/>
@@ -47,14 +47,14 @@
         project: {
           name: '',
           introduce: '',
-          images: [],
+          image: {},
           description: '',
           descriptionImages: [],
           interviews: [],
           status: '',
           owner: {
             name: '',
-            url: '',
+            image: {},
             introduce: '',
           },
           videoUrl: '',
@@ -66,19 +66,17 @@
         this.project.status = 'registered';
 
         HTTP.post('/projects', this.project).then((result) => {
-          console.log('registerProject');
-          console.log(result);
           this.$router.push({
             name: 'RegisterInterview',
             params: { projectId: result.data.projectId },
           });
         });
       },
-      onUpdateFileData(fileMetadataList) {
-        this.project.images = fileMetadataList;
+      onUpdateImage(fileMetadataList) {
+        this.project.image = fileMetadataList[0];
       },
       onUpdateOwnerImage(fileMetadata) {
-        this.project.owner.url = fileMetadata[0].url;
+        this.project.owner.image = fileMetadata[0];
       },
       onUpdateDescriptionImages(fileMetadataList) {
         this.project.descriptionImages = fileMetadataList;
