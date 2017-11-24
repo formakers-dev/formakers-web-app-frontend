@@ -10,6 +10,7 @@
         <p>{{interview.apps}}</p>
         모집기간 : {{interview.openDate}} ~ {{interview.closeDate}} (D-{{dDay(interview.interviewDate)}})<br/>
       </div>
+      <hr/>
     </div>
 </template>
 
