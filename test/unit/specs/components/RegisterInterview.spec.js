@@ -13,6 +13,7 @@ describe('RegisterInterView Component', () => {
       vm.interview.type.should.be.eql('오프라인 인터뷰');
       vm.interview.apps.length.should.be.eql(0);
       vm.interview.location.should.be.eql('');
+      vm.interview.locationDescription.should.be.eql('');
       vm.interview.openDate.should.be.an('Date');
       vm.interview.closeDate.should.be.an('Date');
       vm.interview.interviewDate.should.be.an('Date');
@@ -36,6 +37,7 @@ describe('RegisterInterView Component', () => {
       interview: {
         type: '오프라인 테스트',
         location: '향군타워 5층',
+        locationDescription: '여기서봐요...',
         openDate: '2017-11-03',
         closeDate: '2017-11-03',
         interviewDate: '2017-11-03',

@@ -31,9 +31,19 @@
     </div>
 
     <br/>
-
     <p>인터뷰 장소 선택</p>
-    <input v-model="interview.location" placeholder=""/>
+    <b-field>
+      <b-radio-button v-model="interview.location" native-value="수원 사업장">
+        수원 사업장
+      </b-radio-button>
+      <b-radio-button v-model="interview.location" native-value="우면 사업장">
+        우면 사업장
+      </b-radio-button>
+      <b-radio-button v-model="interview.location" native-value="서울대 연구소">
+        서울대 연구소
+      </b-radio-button>
+    </b-field>
+    <input v-model="interview.locationDescription" placeholder=""/>
 
     <br/>
 
@@ -98,7 +108,7 @@
 
     <br/>
     <br/>
-    <button class="save-button" v-on:click="registerInterview">미리보기</button>
+    <button class="save-button" v-on:click="registerInterview">등록하기</button>
   </div>
 </template>
 <script>
@@ -119,6 +129,7 @@
           type: '오프라인 인터뷰',
           apps: [],
           location: '',
+          locationDescription: '',
           openDate: new Date(),
           closeDate: new Date(),
           interviewDate: new Date(),
