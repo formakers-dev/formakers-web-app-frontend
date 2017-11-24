@@ -10,6 +10,8 @@
     <br/>
     <add-image v-on:update-file-data="onUpdateFileData" v-bind:maxFileCount="1"></add-image>
     <br/>
+    <p>동영상 URL</p>
+    <input v-model="project.videoUrl" placeholder=""/>
 
     <p>프로젝트 소개</p>
     <input v-model="project.description" placeholder=""/>
@@ -55,6 +57,7 @@
             url: '',
             introduce: '',
           },
+          videoUrl: '',
         },
       };
     },

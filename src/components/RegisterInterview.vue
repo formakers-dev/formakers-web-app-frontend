@@ -70,15 +70,6 @@
       </b-checkbox-button>
     </b-field>
     <br/>
-    <p>인터뷰 세부일정 입력</p>
-    <ul>
-      <li v-for="item in interview.plans">
-        <input id="interview-minutes" type="number" v-model.number="item.minute"/>
-        분
-        <input id="interview-plan" type="text" v-model="item.plan"/>
-      </li>
-    </ul>
-    <button class="add-interview-plan-button" v-on:click="addInterviewSchedule">일정 추가</button>
     <br/>
     <br/>
     <p>벤치마킹 앱 검색</p>
@@ -100,7 +91,13 @@
     </ul>
     <br/>
     <br/>
-    <button class="temporary-save-button" v-on:click="tempRegisterInterview">임시저장</button>
+
+    <p>비상연락처</p>
+    <p>비상시에 연락이 가능한 연락처를 적어주세요. 인터뷰에 모집된 사용자들에게만 보여집니다.</p>
+    <input v-model="interview.emergencyPhone" placeholder=""/>
+
+    <br/>
+    <br/>
     <button class="save-button" v-on:click="registerInterview">미리보기</button>
   </div>
 </template>
@@ -125,11 +122,8 @@
           openDate: new Date(),
           closeDate: new Date(),
           interviewDate: new Date(),
-          plans: [{
-            minute: 0,
-            plan: '',
-          }],
           timeSlotTimes: [],
+          emergencyPhone: '',
         },
         // cache
         datePicker: {
@@ -168,11 +162,6 @@
           this.searchStatus = err;
         });
       },
-      tempRegisterInterview() {
-        // HTTP.post('/project', this.project).then(() => {
-        //   this.$router.push({ name: 'MyPage' });
-        // });
-      },
       registerInterview() {
         this.interview.openDate = this.datePicker.openDate;
         this.interview.closeDate = this.datePicker.closeDate;
@@ -180,12 +169,6 @@
 
         HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
           this.$router.push({ name: 'MyPage' });
-        });
-      },
-      addInterviewSchedule() {
-        this.interview.plans.push({
-          minute: 0,
-          plan: '',
         });
       },
       moveToMyPage() {
