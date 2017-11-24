@@ -24,7 +24,6 @@
     <p>인터뷰 진행자 소개</p>
     <input v-model="project.owner.introduce" placeholder=""/>
     <br/>
-    <button class="temporary-save-button" v-on:click="tempRegisterProject">임시저장</button>
     <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
     <br/>
     <br/>
@@ -60,12 +59,6 @@
       };
     },
     methods: {
-      tempRegisterProject() {
-        this.project.status = 'temporary';
-        HTTP.post('/projects', this.project).then(() => {
-          this.$router.push({ name: 'MyPage' });
-        });
-      },
       registerProject() {
         this.project.status = 'registered';
 

@@ -89,47 +89,6 @@ describe('RegisterProject Component', () => {
     });
   });
 
-  describe('프로젝트 임시저장 버튼이 클릭되었을 때', () => {
-    it('tempRegisterProject 메소드가 호출된다.', () => {
-      const spyOnTemp = sandbox.spy(RegisterProject.methods, 'tempRegisterProject');
-      const vm = getVmInstance(RegisterProject);
-      const button = vm.$el.querySelector('.temporary-save-button');
-
-      button.click();
-
-      sinon.assert.calledOnce(spyOnTemp);
-    });
-
-    it('임시저장 상태로 변경하고 프로젝트 등록 API가 호출된다', (done) => {
-      const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-      stubHttpOnPost.withArgs('/projects').returns(Promise.resolve(testResponse));
-      const vm = getVmInstance(RegisterProject);
-
-      vm.tempRegisterProject();
-
-      vm.$nextTick(() => {
-        expect(vm.project.status).to.be.eql('temporary');
-        sinon.assert.calledWithExactly(stubHttpOnPost, '/projects', vm.project);
-        done();
-      });
-    });
-
-    it('프로젝트 등록 API가 성공 시, 프로젝트 리스트 화면으로 이동한다', (done) => {
-      const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-      stubHttpOnPost.withArgs('/projects').returns(Promise.resolve(testResponse));
-      const vm = getVmInstance(RegisterProject);
-      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
-
-      vm.tempRegisterProject();
-
-      vm.$nextTick(() => {
-        sinon.assert.calledOnce(spyRouterOnPush);
-        spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
-        done();
-      });
-    });
-  });
-
   it('onUpdateFileData 호출 시, 프로젝트 정보의 이미지목록을 업데이트 한다', () => {
     const vm = getVmInstance(RegisterProject);
     const mockFileMetadataList = [{
