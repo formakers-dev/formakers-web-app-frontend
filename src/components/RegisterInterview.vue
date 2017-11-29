@@ -93,9 +93,9 @@
     </b-field>
 
     <input v-model="searchAppName" placeholder="유사앱 이름을 입력하세요"/>
-    <button class='search-button' v-on:click="getSimilarApp">Search</button>
+    <button class='search-button' v-on:click="searchApp">Search</button>
     <ul class='search-result-list' v-for="app in searchedApps">
-      <li @click="addSimilarApps(app)">
+      <li @click="addInterviewTargetApp(app)">
         {{ app.appName }}
       </li>
     </ul>
@@ -154,18 +154,18 @@
       searchAppName(value) {
         this.searchStatus = '입력중';
         if (value.length > 1) {
-          this.debounceGetSimilarApp();
+          this.debounceSearchApp();
         } else {
           this.searchedApps = [];
         }
       },
     },
     methods: {
-      debounceGetSimilarApp: debounce(function () {
+      debounceSearchApp: debounce(function () {
         this.searchStatus = '검색중';
-        this.getSimilarApp();
+        this.searchApp();
       }, 300),
-      getSimilarApp() {
+      searchApp() {
         HTTP.get(`/apps?keyword=${this.searchAppName}`).then((result) => {
           this.searchStatus = '조회완료';
           this.searchedApps = result.data;
@@ -185,8 +185,11 @@
       moveToMyPage() {
         this.$router.push({ name: 'MyPage' });
       },
-      addSimilarApps(app) {
-        this.interview.apps.push(app.packageName);
+      addInterviewTargetApp(app) {
+        this.interview.apps.push({
+          packageName: app.packageName,
+          appName: app.appName,
+        });
       },
     },
   };

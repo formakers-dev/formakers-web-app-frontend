@@ -36,6 +36,10 @@ describe('RegisterInterView Component', () => {
     const testData = {
       interview: {
         type: '오프라인 테스트',
+        apps: [{
+          packageName: 'com.kakao.talk',
+          appName: '카카오톡',
+        }],
         location: '향군타워 5층',
         locationDescription: '여기서봐요...',
         openDate: '2017-11-03',
@@ -99,17 +103,17 @@ describe('RegisterInterView Component', () => {
       }],
     };
 
-    it('getSimilarApp 메소드가 호출된다', () => {
-      const spyOnGetSimilarApp = sandbox.spy(RegisterInterview.methods, 'getSimilarApp');
+    it('searchApp 메소드가 호출된다', () => {
+      const spyOnSearchApp = sandbox.spy(RegisterInterview.methods, 'searchApp');
       const vm = getVmInstance(RegisterInterview);
       const button = vm.$el.querySelector('.search-button');
 
       button.click();
 
-      sinon.assert.calledOnce(spyOnGetSimilarApp);
+      sinon.assert.calledOnce(spyOnSearchApp);
     });
 
-    it('getSimilarApp 호출 시, 유사 앱이 조회된다', (done) => {
+    it('searchApp 호출 시, 유사 앱이 조회된다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'get');
       stubHttpOnPost.withArgs('/apps?keyword=kakao').returns(Promise.resolve(searchResult));
       const option = {
@@ -120,7 +124,7 @@ describe('RegisterInterView Component', () => {
       };
       const vm = getVmInstance(RegisterInterview, option);
 
-      vm.getSimilarApp();
+      vm.searchApp();
 
       vm.$nextTick(() => {
         expect(vm.searchedApps.length).to.be.eql(1);
@@ -138,8 +142,8 @@ describe('RegisterInterView Component', () => {
       clock = sandbox.useFakeTimers();
     });
 
-    it('벤치마킹 앱검색 이름 변경되고 300ms가 지나면 getSimilarApp를 호출된다', (done) => {
-      const spyOnGetSimilarApp = sandbox.spy(RegisterInterview.methods, 'getSimilarApp');
+    it('벤치마킹 앱검색 이름 변경되고 300ms가 지나면 searchApp를 호출된다', (done) => {
+      const spyOnSearchApp = sandbox.spy(RegisterInterview.methods, 'searchApp');
       const option = {
         data: {
           searchAppName: '',
@@ -152,13 +156,27 @@ describe('RegisterInterView Component', () => {
 
       vm.$nextTick(() => {
         clock.tick(300);
-        sinon.assert.calledOnce(spyOnGetSimilarApp);
+        sinon.assert.calledOnce(spyOnSearchApp);
         done();
       });
     });
 
     afterEach(() => {
       clock.restore();
+    });
+  });
+
+  describe('벤치마킹 앱 선택 시', () => {
+    it('선택된 앱을 interview.apps에 저장한다', () => {
+      const vm = getVmInstance(RegisterInterview);
+
+      vm.addInterviewTargetApp({
+        packageName: 'com.kakao.talk',
+        appName: '카카오톡',
+      });
+
+      vm.interview.apps[0].packageName.should.be.eql('com.kakao.talk');
+      vm.interview.apps[0].appName.should.be.eql('카카오톡');
     });
   });
 
