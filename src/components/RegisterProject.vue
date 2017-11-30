@@ -14,7 +14,7 @@
     <input v-model="project.videoUrl" placeholder=""/>
 
     <p>프로젝트 소개</p>
-    <input v-model="project.description" placeholder=""/>
+    <textarea v-model="project.description" placeholder=""></textarea>
     <p>프로젝트 이미지</p>
     <add-image v-on:update-file-data="onUpdateDescriptionImages" v-bind:maxFileCount="5"></add-image>
     <br/>

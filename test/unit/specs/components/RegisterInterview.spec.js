@@ -40,6 +40,7 @@ describe('RegisterInterView Component', () => {
           packageName: 'com.kakao.talk',
           appName: '카카오톡',
         }],
+        introduce: '인터뷰 소개입니다',
         location: '향군타워 5층',
         locationDescription: '여기서봐요...',
         openDate: '2017-11-03',

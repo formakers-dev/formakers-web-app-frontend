@@ -30,6 +30,9 @@
       <label for="online">온라인 인터뷰</label>
     </div>
 
+    <p>인터뷰 소개</p>
+    <textarea v-model="interview.introduce" placeholder=""></textarea>
+
     <br/>
     <p>인터뷰 장소 선택</p>
     <b-field>
@@ -128,6 +131,7 @@
         interview: {
           type: '오프라인 인터뷰',
           apps: [],
+          introduce: '',
           location: '',
           locationDescription: '',
           openDate: new Date(),
