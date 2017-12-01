@@ -14,3 +14,8 @@ test/unit/coverage
 *.sln
 
 package-lock.json
+
+# Firebase 배포관련
+.firebaserc
+firebase.json
+deployRelease.sh

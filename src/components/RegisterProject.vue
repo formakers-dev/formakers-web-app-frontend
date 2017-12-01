@@ -24,7 +24,7 @@
     <p>인터뷰 진행자 사진</p>
     <add-image v-on:update-file-data="onUpdateOwnerImage" v-bind:maxFileCount="1"></add-image>
     <p>인터뷰 진행자 소개</p>
-    <input v-model="project.owner.introduce" placeholder=""/>
+    <textarea v-model="project.owner.introduce" placeholder=""></textarea>
     <br/>
     <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
     <br/>
