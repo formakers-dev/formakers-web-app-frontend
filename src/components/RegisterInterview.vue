@@ -178,10 +178,22 @@
           this.searchStatus = err;
         });
       },
+      getTruncatedTimestamp(date) {
+        return Number(
+          moment(date).hours(0).minutes(0).seconds(0)
+            .milliseconds(0)
+            .format('x'));
+      },
+      getEndTimestampOfTheDate(date) {
+        return Number(
+          moment(date).hours(23).minutes(59).seconds(59)
+            .milliseconds(999)
+            .format('x'));
+      },
       registerInterview() {
-        this.interview.openDate = moment(this.datePicker.openDate).format('YYYY-MM-DD');
-        this.interview.closeDate = moment(this.datePicker.closeDate).format('YYYY-MM-DD');
-        this.interview.interviewDate = moment(this.datePicker.interviewDate).format('YYYY-MM-DD');
+        this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
+        this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
+        this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
 
         HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
           this.$router.push({ name: 'MyPage' });

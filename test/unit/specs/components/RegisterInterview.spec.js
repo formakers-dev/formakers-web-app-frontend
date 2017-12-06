@@ -50,8 +50,9 @@ describe('RegisterInterView Component', () => {
         emergencyPhone: '010-1234-5678',
       },
       datePicker: {
-        openDate: new Date('2017-10-11'),
-        closeDate: new Date('2017-10-16'),
+        openDate: new Date('2017-10-31'),
+        closeDate: new Date('2017-11-01'),
+        interviewDate: new Date('2017-11-02'),
       },
     };
 
@@ -67,6 +68,9 @@ describe('RegisterInterView Component', () => {
       const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
       vm.$el.querySelector('.save-button').click();
 
+      vm.interview.openDate.should.be.eql(1509375600000);
+      vm.interview.closeDate.should.be.eql(1509548399999);
+      vm.interview.interviewDate.should.be.eql(1509634799999);
       sinon.assert.calledWithExactly(stubHttpOnPost, `/projects/${testProps.projectId}/interviews`, vm.interview);
 
       vm.$nextTick(() => {
