@@ -14,9 +14,9 @@ describe('RegisterInterView Component', () => {
       vm.interview.apps.length.should.be.eql(0);
       vm.interview.location.should.be.eql('');
       vm.interview.locationDescription.should.be.eql('');
-      vm.interview.openDate.should.be.an('Date');
-      vm.interview.closeDate.should.be.an('Date');
-      vm.interview.interviewDate.should.be.an('Date');
+      vm.interview.openDate.should.be.an('String');
+      vm.interview.closeDate.should.be.an('String');
+      vm.interview.interviewDate.should.be.an('String');
       vm.interview.timeSlotTimes.length.should.be.eql(0);
       vm.interview.emergencyPhone.should.be.eql('');
       vm.datePicker.openDate.should.be.an('Date');

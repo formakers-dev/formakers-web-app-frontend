@@ -116,6 +116,7 @@
 </template>
 <script>
   import debounce from 'lodash.debounce';
+  import moment from 'moment';
   import HTTP from '../apis/http-common';
 
   export default {
@@ -134,9 +135,9 @@
           introduce: '',
           location: '',
           locationDescription: '',
-          openDate: new Date(),
-          closeDate: new Date(),
-          interviewDate: new Date(),
+          openDate: moment().format('YYYY-MM-DD'),
+          closeDate: moment().format('YYYY-MM-DD'),
+          interviewDate: moment().format('YYYY-MM-DD'),
           timeSlotTimes: [],
           emergencyPhone: '',
         },
@@ -178,9 +179,9 @@
         });
       },
       registerInterview() {
-        this.interview.openDate = this.datePicker.openDate;
-        this.interview.closeDate = this.datePicker.closeDate;
-        this.interview.interviewDate = this.datePicker.interviewDate;
+        this.interview.openDate = moment(this.datePicker.openDate).format('YYYY-MM-DD');
+        this.interview.closeDate = moment(this.datePicker.closeDate).format('YYYY-MM-DD');
+        this.interview.interviewDate = moment(this.datePicker.interviewDate).format('YYYY-MM-DD');
 
         HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
           this.$router.push({ name: 'MyPage' });
