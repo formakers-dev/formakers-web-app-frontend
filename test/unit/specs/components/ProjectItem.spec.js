@@ -26,6 +26,22 @@ describe('ProjectItem Component', () => {
       sinon.assert.calledOnce(spyRouterOnPush);
       spyRouterOnPush.args[0][0].name.should.be.eql('RegisterInterview');
       spyRouterOnPush.args[0][0].params.projectId.should.be.eql(123456);
+
+      done();
+    });
+  });
+
+  it('프로젝트 이미지 클릭 시, 프로젝트 수정화면으로 이동한다', (done) => {
+    const vm = getVmInstance(ProjectItem, propsOption);
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+    vm.$el.querySelector('img').click();
+
+    vm.$nextTick(() => {
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('UpdateProject');
+      spyRouterOnPush.args[0][0].params.projectId.should.be.eql(123456);
+
       done();
     });
   });
