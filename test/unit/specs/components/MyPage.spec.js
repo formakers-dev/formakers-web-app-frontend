@@ -45,45 +45,50 @@ describe('MyPage Component', () => {
     });
   });
 
-  describe('methods test', () => {
-    it('onRegisterProject 호출시 RegisterProject 페이지로 이동한다', () => {
-      const vm = getVmInstance(MyPage);
-      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+  it('프로젝트 등록 클릭시 RegisterProject 페이지로 이동한다', (done) => {
+    const vm = getVmInstance(MyPage);
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
 
-      vm.onRegisterProject();
+    vm.$el.querySelector('.register-button').click();
 
+    vm.$nextTick(() => {
       sinon.assert.calledOnce(spyRouterOnPush);
       spyRouterOnPush.args[0][0].name.should.be.eql('RegisterProject');
+      done();
     });
+  });
 
-    it('onLogout 성공시 Login 페이지로 이동한다', (done) => {
-      const vm = getVmInstance(MyPage);
-      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
-      const stubHttpOnGet = sandbox.stub(HTTP, 'get');
-      stubHttpOnGet.withArgs('/auth/logout').returns(Promise.resolve());
-      const spyOnSetLogin = sandbox.spy(AuthUtil, 'setLogin');
+  it('onLogout 클릭 후 성공시 Login 페이지로 이동한다', (done) => {
+    const vm = getVmInstance(MyPage);
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+    const stubHttpOnGet = sandbox.stub(HTTP, 'get');
+    stubHttpOnGet.withArgs('/auth/logout').returns(Promise.resolve());
+    const spyOnSetLogin = sandbox.spy(AuthUtil, 'setLogin');
 
-      vm.onLogout();
+    vm.$el.querySelector('.logout-button').click();
 
-      vm.$nextTick(() => {
-        sinon.assert.calledWithExactly(spyOnSetLogin, false);
-        sinon.assert.calledOnce(spyRouterOnPush);
-        spyRouterOnPush.args[0][0].name.should.be.eql('Login');
-        done();
-      });
+    vm.$nextTick(() => {
+      sinon.assert.calledWithExactly(spyOnSetLogin, false);
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('Login');
+      done();
     });
+  });
 
-    it('onLogout 실패시 실패메세지를 표시한다', (done) => {
-      const vm = getVmInstance(MyPage);
-      const stubHttpOnGet = sandbox.stub(HTTP, 'get');
-      stubHttpOnGet.withArgs('/auth/logout').returns(Promise.reject('logout error'));
+  it('onLogout 실패시에도 Login 페이지로 이동한다', (done) => {
+    const vm = getVmInstance(MyPage);
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+    const stubHttpOnGet = sandbox.stub(HTTP, 'get');
+    stubHttpOnGet.withArgs('/auth/logout').returns(Promise.reject('logout error'));
+    const spyOnSetLogin = sandbox.spy(AuthUtil, 'setLogin');
 
-      vm.onLogout();
+    vm.$el.querySelector('.logout-button').click();
 
-      vm.$nextTick(() => {
-        vm.logoutErrorMsg.should.be.eql('logout error 로그아웃 실패');
-        done();
-      });
+    vm.$nextTick(() => {
+      sinon.assert.calledWithExactly(spyOnSetLogin, false);
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('Login');
+      done();
     });
   });
 

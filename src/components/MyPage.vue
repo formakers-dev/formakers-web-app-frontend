@@ -1,8 +1,8 @@
 <template>
   <div id="my-page" class="container">
     <h1>마이페이지</h1>
-    <button v-on:click="onRegisterProject">프로젝트 등록</button>
-    <button v-on:click="onLogout">로그아웃</button>
+    <button v-on:click="onRegisterProject" class="register-button">프로젝트 등록</button>
+    <button v-on:click="onLogout" class="logout-button">로그아웃</button>
     <div>
       {{logoutErrorMsg}}
     </div>
@@ -38,12 +38,15 @@ export default {
     onLogout() {
       HTTP.get('/auth/logout')
         .then(() => {
-          setLogin(false);
-          this.$router.push({ name: 'Login' });
+          this.moveToLogin();
         })
-        .catch((err) => {
-          this.logoutErrorMsg = `${err} 로그아웃 실패`;
+        .catch(() => {
+          this.moveToLogin();
         });
+    },
+    moveToLogin() {
+      setLogin(false);
+      this.$router.push({ name: 'Login' });
     },
   },
 };
@@ -51,5 +54,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .register-button {}
+  .logout-button {}
 </style>
