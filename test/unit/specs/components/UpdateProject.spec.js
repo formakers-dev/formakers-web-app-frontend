@@ -41,14 +41,15 @@ describe('UpdateProject Component', () => {
     projectId: 12345,
   };
 
+  const createVmInstance = () => getVmInstance(UpdateProject, {
+    propsData: testProps,
+  });
+
   it('페이지 로딩 시, 프로젝트 정보를 조회하여 프로젝트 정보를 데이터에 세팅한다.', (done) => {
     const stubHttpOnGet = sandbox.stub(HTTP, 'get');
     stubHttpOnGet.withArgs(`/projects/${testProps.projectId}`).returns(Promise.resolve(testResponseData));
 
-    const vm = getVmInstance(UpdateProject, {
-      data: {},
-      propsData: testProps,
-    });
+    const vm = createVmInstance();
 
     sinon.assert.calledWithExactly(stubHttpOnGet, `/projects/${testProps.projectId}`);
 
@@ -69,6 +70,33 @@ describe('UpdateProject Component', () => {
       vm.project.owner.introduce.should.be.eql('인터뷰어소개입니다');
       vm.project.videoUrl.should.be.eql('www.video.com');
 
+      done();
+    });
+  });
+
+  it('프로젝트 정보조회 API에서 오류가 발생한 경우, 마이페이지로 이동한다', (done) => {
+    const stubHttpOnGet = sandbox.stub(HTTP, 'get');
+    stubHttpOnGet.withArgs(`/projects/${testProps.projectId}`).returns(Promise.reject('error'));
+
+    const vm = createVmInstance();
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+    vm.$nextTick(() => {
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
+      done();
+    });
+  });
+
+  it('프로젝트수정 취소 버튼 클릭시, 마이페이지로로 이동한다', (done) => {
+    const vm = createVmInstance();
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+    vm.$el.querySelector('.cancel-button').click();
+
+    vm.$nextTick(() => {
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
       done();
     });
   });

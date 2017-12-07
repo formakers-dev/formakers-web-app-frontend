@@ -26,7 +26,7 @@
     <p>인터뷰 진행자 소개</p>
     <textarea v-model="project.owner.introduce" placeholder=""></textarea>
     <br/>
-    <button class="cancel-button">취소</button>
+    <button class="cancel-button" v-on:click="cancelUpdate">취소</button>
     <button class="save-button" v-on:click="updateProject">프로젝트 수정</button>
     <br/>
     <br/>
@@ -59,7 +59,7 @@
         this.project.descriptionImages = project.descriptionImages;
         this.project.owner = project.owner;
         this.project.videoUrl = project.videoUrl;
-      });
+      }).catch(() => this.moveToMyPage());
     },
     data() {
       return {
@@ -86,6 +86,12 @@
             params: { projectId: result.data.projectId },
           });
         });
+      },
+      cancelUpdate() {
+        this.moveToMyPage();
+      },
+      moveToMyPage() {
+        this.$router.push({ name: 'MyPage' });
       },
       onUpdateImage(fileMetadataList) {
         this.project.image = fileMetadataList[0];
