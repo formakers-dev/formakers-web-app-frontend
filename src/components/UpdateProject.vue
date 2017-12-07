@@ -26,7 +26,8 @@
     <p>인터뷰 진행자 소개</p>
     <textarea v-model="project.owner.introduce" placeholder=""></textarea>
     <br/>
-    <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
+    <button class="cancel-button">취소</button>
+    <button class="save-button" v-on:click="updateProject">프로젝트 수정</button>
     <br/>
     <br/>
     <br/>
@@ -42,6 +43,24 @@
     components: {
       addImage: AddImage,
     },
+    props: {
+      projectId: {
+        type: Number,
+        required: true,
+      },
+    },
+    created() {
+      HTTP.get(`/projects/${this.projectId}`).then((result) => {
+        const project = result.data;
+        this.project.name = project.name;
+        this.project.introduce = project.introduce;
+        this.project.image = project.image;
+        this.project.description = project.description;
+        this.project.descriptionImages = project.descriptionImages;
+        this.project.owner = project.owner;
+        this.project.videoUrl = project.videoUrl;
+      });
+    },
     data() {
       return {
         project: {
@@ -50,8 +69,6 @@
           image: {},
           description: '',
           descriptionImages: [],
-          interviews: [],
-          status: '',
           owner: {
             name: '',
             image: {},
@@ -62,10 +79,8 @@
       };
     },
     methods: {
-      registerProject() {
-        this.project.status = 'registered';
-
-        HTTP.post('/projects', this.project).then((result) => {
+      updateProject() {
+        HTTP.put('/projects', this.project).then((result) => {
           this.$router.push({
             name: 'RegisterInterview',
             params: { projectId: result.data.projectId },

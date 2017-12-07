@@ -15,7 +15,6 @@ describe('RegisterProject Component', () => {
         name: 'image1',
         url: '/image1',
       },
-      apps: ['com.kakao.talk'],
       description: '프로젝트 상세 설명',
       descriptionImages: [{
         name: 'descImage1',
@@ -69,8 +68,6 @@ describe('RegisterProject Component', () => {
         expect(vm.project.introduce).to.be.eql('간단소개');
         expect(vm.project.image.name).to.be.eql('image1');
         expect(vm.project.image.url).to.be.eql('/image1');
-        expect(vm.project.apps.length).to.be.eql(1);
-        expect(vm.project.apps[0]).to.be.eql('com.kakao.talk');
         expect(vm.project.description).to.be.eql('프로젝트 상세 설명');
         expect(vm.project.descriptionImages.length).to.be.eql(2);
         expect(vm.project.descriptionImages[0].name).to.be.eql('descImage1');
