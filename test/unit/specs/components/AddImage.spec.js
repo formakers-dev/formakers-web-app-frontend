@@ -196,6 +196,31 @@ describe('AddImage Component', () => {
     });
   });
 
+  describe('props로 넘겨받은 이미지 목록이 있을 경우', () => {
+    it('컴포넌트생성시 fileMetadataList로 props를 전달한다', () => {
+      const options = {
+        propsData: {
+          maxFileCount: 5,
+          currentImageList: [{
+            name: 'image1',
+            url: '/image1',
+          }, {
+            name: 'image2',
+            url: '/image2',
+          }],
+        },
+      };
+
+      const vm = getVmInstance(AddImage, options);
+
+      vm.fileMetadataList.length.should.be.eql(2);
+      vm.fileMetadataList[0].name.should.be.eql('image1');
+      vm.fileMetadataList[0].url.should.be.eql('/image1');
+      vm.fileMetadataList[1].name.should.be.eql('image2');
+      vm.fileMetadataList[1].url.should.be.eql('/image2');
+    });
+  });
+
   afterEach(() => {
     sandbox.restore();
   });

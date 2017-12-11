@@ -8,7 +8,7 @@
     <input v-model="project.introduce" placeholder=""/>
     <p>대표이미지</p>
     <br/>
-    <add-image v-on:update-file-data="onUpdateImage" v-bind:maxFileCount="1"></add-image>
+    <add-image v-on:update-file-data="onUpdateImage" v-bind:maxFileCount="1" v-bind:currentImageList="current.projectImageList"></add-image>
     <br/>
     <p>동영상 URL</p>
     <input v-model="project.videoUrl" placeholder=""/>
@@ -16,13 +16,13 @@
     <p>프로젝트 소개</p>
     <textarea v-model="project.description" placeholder=""></textarea>
     <p>프로젝트 이미지</p>
-    <add-image v-on:update-file-data="onUpdateDescriptionImages" v-bind:maxFileCount="5"></add-image>
+    <add-image v-on:update-file-data="onUpdateDescriptionImages" v-bind:maxFileCount="5" v-bind:currentImageList="current.descriptionImageList"></add-image>
     <br/>
     <br/>
     <p>인터뷰 진행자 이름</p>
     <input v-model="project.owner.name" placeholder=""/>
     <p>인터뷰 진행자 사진</p>
-    <add-image v-on:update-file-data="onUpdateOwnerImage" v-bind:maxFileCount="1"></add-image>
+    <add-image v-on:update-file-data="onUpdateOwnerImage" v-bind:maxFileCount="1" v-bind:currentImageList="current.ownerImageList"></add-image>
     <p>인터뷰 진행자 소개</p>
     <textarea v-model="project.owner.introduce" placeholder=""></textarea>
     <br/>
@@ -54,10 +54,18 @@
         const project = result.data;
         this.project.name = project.name;
         this.project.introduce = project.introduce;
-        this.project.image = project.image;
+        if (project.image && project.image.name) {
+          this.current.projectImageList.push(project.image);
+        }
         this.project.description = project.description;
-        this.project.descriptionImages = project.descriptionImages;
-        this.project.owner = project.owner;
+        project.descriptionImages.forEach((image) => {
+          this.current.descriptionImageList.push(image);
+        });
+        this.project.owner.name = project.owner.name;
+        this.project.owner.introduce = project.owner.introduce;
+        if (project.owner.image && project.owner.image.name) {
+          this.current.ownerImageList.push(project.owner.image);
+        }
         this.project.videoUrl = project.videoUrl;
       }).catch(() => this.moveToMyPage());
     },
@@ -76,16 +84,33 @@
           },
           videoUrl: '',
         },
+        current: {
+          projectImageList: [],
+          descriptionImageList: [],
+          ownerImageList: [],
+        },
       };
     },
     methods: {
       updateProject() {
-        HTTP.put('/projects', this.project).then((result) => {
-          this.$router.push({
-            name: 'RegisterInterview',
-            params: { projectId: result.data.projectId },
-          });
+        this.setImageInfo();
+
+        HTTP.put(`/projects/${this.projectId}`, this.project).then(() => {
+          this.moveToMyPage();
+        }).catch(() => {
+          alert('API Error');
         });
+      },
+      setImageInfo() {
+        if (this.current.projectImageList.length > 0) {
+          this.project.image = this.current.projectImageList[0];
+        }
+
+        this.project.descriptionImages = this.current.descriptionImageList;
+
+        if (this.current.ownerImageList.length > 0) {
+          this.project.owner.image = this.current.ownerImageList[0];
+        }
       },
       cancelUpdate() {
         this.moveToMyPage();

@@ -25,10 +25,14 @@ export default {
       type: Number,
       required: true,
     },
+    currentImageList: {
+      type: Array,
+      required: false,
+    },
   },
   data() {
     return {
-      fileMetadataList: [],
+      fileMetadataList: this.currentImageList ? this.currentImageList : [],
     };
   },
   methods: {
