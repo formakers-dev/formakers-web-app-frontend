@@ -35,7 +35,7 @@ describe('ProjectItem Component', () => {
     const vm = getVmInstance(ProjectItem, propsOption);
     const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
 
-    vm.$el.querySelector('img').click();
+    vm.$el.querySelector('.update-interview-button').click();
 
     vm.$nextTick(() => {
       sinon.assert.calledOnce(spyRouterOnPush);

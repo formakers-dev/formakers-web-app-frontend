@@ -1,11 +1,20 @@
 <template>
     <div id="project-item">
       <div>
-        {{project.name}}<br/>
-        {{project.introduce}}<br/>
-        <img v-bind:src="project.image.url" v-on:click="moveToUpdateProject"/>
-        <button class="add-interview-button" v-on:click="moveToInterviewRegister"> 인터뷰 등록 </button>
+        <img v-bind:src="project.image.url" />
+        <div class="project-text-button-area">
+          <div class="text-area">
+            <p class="project-name">{{project.name}}</p>
+            <p class="project-introduce">{{project.introduce}}</p>
+
+          </div>
+          <div class="button-area">
+            <div class="button update-interview-button" v-on:click="moveToUpdateProject"> 프로젝트 수정 </div>
+            <div class="button add-interview-button" v-on:click="moveToInterviewRegister"> 인터뷰 추가 </div>
+          </div>
+        </div>
       </div>
+
       <div v-for="interview in project.interviews">
         <p>{{interview.apps}}</p>
         모집기간 : {{interview.openDate}} ~ {{interview.closeDate}} (D-{{dDay(interview.interviewDate)}})<br/>
@@ -57,6 +66,39 @@ export default {
 }
 
 img {
-  width: 320px
+  width: 300px;
+  height: 200px;
+}
+
+.project-text-button-area {
+  width:400px;
+  display: inline-block;
+  vertical-align: top;
+  background-color: white;
+}
+.project-text-button-area .text-area {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  height: 150px;
+
+}
+.project-text-button-area .text-area p {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.project-text-button-area .text-area .project-name {
+  font-size: 25px;
+}
+.project-text-button-area .text-area .project-introduce {
+  font-size: 20px;
+}
+.project-text-button-area .button-area {
+  height: 50px;
+}
+.project-text-button-area .button {
+  display: inline-block;
+  width: 195px;
+  height: 50px;
+  border: 1px solid gray;
 }
 </style>
