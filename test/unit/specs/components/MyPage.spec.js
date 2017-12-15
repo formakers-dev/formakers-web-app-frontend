@@ -45,19 +45,6 @@ describe('MyPage Component', () => {
     });
   });
 
-  it('프로젝트 등록 클릭시 RegisterProject 페이지로 이동한다', (done) => {
-    const vm = getVmInstance(MyPage);
-    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
-
-    vm.$el.querySelector('.register-button').click();
-
-    vm.$nextTick(() => {
-      sinon.assert.calledOnce(spyRouterOnPush);
-      spyRouterOnPush.args[0][0].name.should.be.eql('RegisterProject');
-      done();
-    });
-  });
-
   it('onLogout 클릭 후 성공시 Login 페이지로 이동한다', (done) => {
     const vm = getVmInstance(MyPage);
     const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
@@ -88,6 +75,19 @@ describe('MyPage Component', () => {
       sinon.assert.calledWithExactly(spyOnSetLogin, false);
       sinon.assert.calledOnce(spyRouterOnPush);
       spyRouterOnPush.args[0][0].name.should.be.eql('Login');
+      done();
+    });
+  });
+
+  it('프로젝트 등록 클릭시 RegisterProject 페이지로 이동한다', (done) => {
+    const vm = getVmInstance(MyPage);
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+    vm.$el.querySelector('.register-project-button-area').click();
+
+    vm.$nextTick(() => {
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('RegisterProject');
       done();
     });
   });

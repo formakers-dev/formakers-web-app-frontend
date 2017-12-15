@@ -1,13 +1,23 @@
 <template>
   <div id="my-page" class="container">
-    <h1>마이페이지</h1>
-    <button v-on:click="onRegisterProject" class="register-button">프로젝트 등록</button>
+
     <button v-on:click="onLogout" class="logout-button">로그아웃</button>
-    <div>
-      {{logoutErrorMsg}}
-    </div>
-    <div v-for="item in projectList">
-      <project-item v-bind:project=item></project-item>
+
+    <h1 class="title">내 프로젝트</h1>
+    <div class="project-list-area">
+      <hr class="title-underline" />
+      <div>
+        {{logoutErrorMsg}}
+      </div>
+      <div v-for="item in projectList">
+        <project-item v-bind:project=item></project-item>
+      </div>
+
+      <div id="register-project-button" class="register-project-button-area" v-on:click="onRegisterProject">
+        <p class="register-project-button-icon">+</p>
+        <p class="register-project-button-text">프로젝트를 추가하세요</p>
+      </div>
+
     </div>
   </div>
 </template>
@@ -32,9 +42,6 @@ export default {
     });
   },
   methods: {
-    onRegisterProject() {
-      this.$router.push({ name: 'RegisterProject' });
-    },
     onLogout() {
       HTTP.get('/auth/logout')
         .then(() => {
@@ -48,12 +55,44 @@ export default {
       setLogin(false);
       this.$router.push({ name: 'Login' });
     },
+    onRegisterProject() {
+      this.$router.push({ name: 'RegisterProject' });
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .register-button {}
   .logout-button {}
+  .title {
+    font-family: BMJUAOTF;
+    font-size: 30px;
+    font-weight: normal;
+  }
+  .project-list-area {
+    background-color: lightgray;
+    padding-bottom: 20px;
+  }
+  .title-underline {
+    height: 3px;
+    width: 200px;
+    background-color: black;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .register-project-button-area {
+    width: 800px;
+    margin: 30px auto;
+    background-color: white;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border: 3px dashed gray;
+  }
+  .register-project-button-icon {
+    font-size: 100px;
+  }
+  .register-project-button-text {
+    font-size: 20px;
+  }
 </style>
