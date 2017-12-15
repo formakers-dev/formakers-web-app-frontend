@@ -1,6 +1,6 @@
 <template>
     <div id="project-item">
-      <div>
+      <div class="project-area">
         <img v-bind:src="project.image.url" />
         <div class="project-text-button-area">
           <div class="text-area">
@@ -16,8 +16,7 @@
       </div>
 
       <div v-for="interview in project.interviews">
-        <p>{{interview.apps}}</p>
-        모집기간 : {{interview.openDate}} ~ {{interview.closeDate}} (D-{{dDay(interview.interviewDate)}})<br/>
+        <interview-item v-bind:interview="interview" v-bind:projectId="project.projectId"/>
       </div>
       <hr/>
     </div>
@@ -25,6 +24,7 @@
 
 <script>
 import moment from 'moment';
+import InterviewItem from './InterviewItem';
 
 export default {
   name: 'project-item',
@@ -33,6 +33,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  components: {
+    InterviewItem,
   },
   methods: {
     dDay(date) {
@@ -66,12 +69,16 @@ export default {
 }
 
 img {
-  width: 300px;
+  width: 350px;
   height: 200px;
 }
 
+.project-area {
+  margin-bottom: 30px;
+}
+
 .project-text-button-area {
-  width:400px;
+  width:450px;
   display: inline-block;
   vertical-align: top;
   background-color: white;

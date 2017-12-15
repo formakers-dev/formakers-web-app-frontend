@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import RegisterProject from '../components/RegisterProject';
 import UpdateProject from '../components/UpdateProject';
+import UpdateInterview from '../components/UpdateInterview';
 import RegisterInterview from '../components/RegisterInterview';
 import Login from '../components/Login';
 import MyPage from '../components/MyPage';
@@ -41,6 +42,13 @@ export default new Router({
       name: 'UpdateProject',
       beforeEnter: requireAuth,
       component: UpdateProject,
+      props: true,
+    },
+    {
+      path: '/update_interview/:projectId/:interviewSeq',
+      name: 'UpdateInterview',
+      beforeEnter: requireAuth,
+      component: UpdateInterview,
       props: true,
     },
   ],
