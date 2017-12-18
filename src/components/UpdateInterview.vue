@@ -1,21 +1,5 @@
 <template>
   <div id="update-interview" class="container">
-    <h1>
-      프로젝트 등록이 완료되었습니다.
-      <br/>
-      심층인터뷰를 신청해서 미래의 사용자를 만나보세요.
-    </h1>
-    <br/>
-    <div>
-      미래의 고객이 될 진짜 사용자를 만나보세요. <br/>
-      솔직한 피드백은 프로젝트를 성공시키는 지름길입니다. <br/>
-      (인터뷰 신청은 선택 옵션입니다.)
-    </div>
-    <br/>
-    <button class="skip-button" v-on:click="moveToMyPage">다음에 하겠습니다.</button>
-    <br/>
-    <br/>
-    <hr/>
     <div>
       <p>인터뷰 타입 선택</p>
       <p>원하는 인터뷰 종류를 선택해 주세요</p>
@@ -31,21 +15,24 @@
     </div>
 
     <p>인터뷰 소개</p>
-    <textarea v-model="interview.introduce" placeholder=""></textarea>
+    <textarea id="introduce" v-model="interview.introduce" placeholder=""></textarea>
 
     <br/>
     <p>인터뷰 장소 선택</p>
-    <b-field>
-      <b-radio-button v-model="interview.location" native-value="수원 사업장">
-        수원 사업장
-      </b-radio-button>
-      <b-radio-button v-model="interview.location" native-value="우면 사업장">
-        우면 사업장
-      </b-radio-button>
-      <b-radio-button v-model="interview.location" native-value="서울대 연구소">
-        서울대 연구소
-      </b-radio-button>
-    </b-field>
+    <div id="location-div">
+      <b-field name="location">
+        <b-radio-button name="suwon" v-model="interview.location" native-value="수원 사업장">
+          수원 사업장
+        </b-radio-button>
+        <b-radio-button name="woomyeon" v-model="interview.location" native-value="우면 사업장">
+          우면 사업장
+        </b-radio-button>
+        <b-radio-button name="seoul" v-model="interview.location" native-value="서울대 연구소">
+          서울대 연구소
+        </b-radio-button>
+      </b-field>
+    </div>
+
     <input v-model="interview.locationDescription" placeholder=""/>
 
     <br/>
@@ -112,6 +99,7 @@
     <br/>
     <br/>
     <button class="save-button" v-on:click="registerInterview">등록하기</button>
+    <button class="cancel-button" v-on:click="moveToMyPage">취소하기</button>
   </div>
 </template>
 <script>
@@ -126,18 +114,48 @@
         type: Number,
         required: true,
       },
+      interviewSeq: {
+        type: Number,
+        required: true,
+      },
+    },
+    created() {
+      HTTP.get(`/projects/${this.projectId}/interviews/${this.interviewSeq}`).then((result) => {
+        const interview = result.data.interviews;
+
+        this.interview.type = interview.type;
+        this.interview.apps = interview.apps;
+        this.interview.introduce = interview.introduce;
+        this.interview.location = interview.location;
+        this.interview.locationDescription = interview.locationDescription;
+        this.interview.openDate = interview.openDate;
+        this.interview.closeDate = interview.closeDate;
+        this.interview.interviewDate = interview.interviewDate;
+
+        this.datePicker.openDate = new Date(interview.openDate);
+        this.datePicker.closeDate = new Date(interview.closeDate);
+        this.datePicker.interviewDate = new Date(interview.interviewDate);
+
+        this.interview.emergencyPhone = interview.emergencyPhone;
+        this.interview.timeSlotTimes = Object.keys(interview.timeSlot)
+          .map(item => parseInt(item.replace('time', ''), 0));
+      }).catch((err) => {
+        console.log(err);
+        console.log('interview 조회 실패');
+        this.moveToMyPage();
+      });
     },
     data() {
       return {
         interview: {
-          type: '오프라인 인터뷰',
+          type: '',
           apps: [],
           introduce: '',
           location: '',
           locationDescription: '',
-          openDate: moment().format('YYYY-MM-DD'),
-          closeDate: moment().format('YYYY-MM-DD'),
-          interviewDate: moment().format('YYYY-MM-DD'),
+          openDate: '',
+          closeDate: '',
+          interviewDate: '',
           timeSlotTimes: [],
           emergencyPhone: '',
         },
@@ -191,13 +209,13 @@
             .format('x'));
       },
       registerInterview() {
-        this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
-        this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
-        this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
-
-        HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
-          this.$router.push({ name: 'MyPage' });
-        });
+        // this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
+        // this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
+// this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
+        //
+        // HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
+        //   this.$router.push({ name: 'MyPage' });
+        // });
       },
       moveToMyPage() {
         this.$router.push({ name: 'MyPage' });
