@@ -82,13 +82,17 @@ describe('UpdateInterview Component', () => {
     propsData: testProps,
   });
 
-  it('페이지 로딩 시, 인터뷰 정보를 조회하여 data를 세팅한다.', (done) => {
-    const stubHttpOnGet = sandbox.stub(HTTP, 'get');
-    stubHttpOnGet.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.resolve(testInterviewData));
+  let stubHttpOnGetInterview;
 
+  beforeEach(() => {
+    stubHttpOnGetInterview = sandbox.stub(HTTP, 'get');
+    stubHttpOnGetInterview.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.resolve(testInterviewData));
+  });
+
+  it('페이지 로딩 시, 인터뷰 정보를 조회하여 data를 세팅한다.', (done) => {
     const vm = createVmInstance();
 
-    sinon.assert.calledWithExactly(stubHttpOnGet, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`);
+    sinon.assert.calledWithExactly(stubHttpOnGetInterview, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`);
 
     vm.$nextTick(() => {
       vm.interview.type.should.be.eql('오프라인 인터뷰');
@@ -110,6 +114,21 @@ describe('UpdateInterview Component', () => {
     });
   });
 
+  it('인터뷰 정보 조회 실패시, 마이페이지로 이동한다.', (done) => {
+    stubHttpOnGetInterview.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.reject());
+
+    const vm = createVmInstance();
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+    sinon.assert.calledWithExactly(stubHttpOnGetInterview, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`);
+
+    vm.$nextTick(() => {
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
+      done();
+    });
+  });
+
   it('취소 버튼 클릭시, 마이페이지로 이동한다', (done) => {
     const vm = createVmInstance();
     const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
@@ -120,6 +139,59 @@ describe('UpdateInterview Component', () => {
       sinon.assert.calledOnce(spyRouterOnPush);
       spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
       done();
+    });
+  });
+
+  describe('수정 버튼 클릭시', () => {
+    it('인터뷰 수정 API를 호출한다', (done) => {
+      const vm = createVmInstance();
+      const spyHttpOnPut = sandbox.spy(HTTP, 'put');
+
+      vm.datePicker.openDate = new Date(1509462001111);
+      vm.datePicker.closeDate = new Date(1509634790000);
+      vm.datePicker.interviewDate = new Date(1509721190000);
+
+      vm.$el.querySelector('.save-button').click();
+
+      vm.interview.openDate.should.be.eql(1509462000000);
+      vm.interview.closeDate.should.be.eql(1509634799999);
+      vm.interview.interviewDate.should.be.eql(1509721199999);
+      sinon.assert.calledWithExactly(spyHttpOnPut, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`, vm.interview);
+      done();
+    });
+
+    describe('인터뷰 수정 API가 호출된 상황에서', () => {
+      it('정상 완료 시, 마이페이지로 이동한다', (done) => {
+        const stubOnHttpPut = sandbox.stub(HTTP, 'put');
+        stubOnHttpPut.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.resolve());
+
+        const vm = createVmInstance();
+        const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+        vm.$el.querySelector('.save-button').click();
+
+        vm.$nextTick(() => {
+          sinon.assert.calledOnce(spyRouterOnPush);
+          spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
+          done();
+        });
+      });
+
+      it('실패 시, 에러메시지를 출력한다', (done) => {
+        const stubOnHttpPut = sandbox.stub(HTTP, 'put');
+        stubOnHttpPut.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.reject());
+
+        const vm = createVmInstance();
+        const spyAlert = sandbox.spy(window, 'alert');
+
+        vm.$el.querySelector('.save-button').click();
+
+        vm.$nextTick(() => {
+          sinon.assert.calledWithExactly(spyAlert, 'API Error');
+
+          done();
+        });
+      });
     });
   });
 

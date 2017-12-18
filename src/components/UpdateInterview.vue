@@ -98,7 +98,7 @@
 
     <br/>
     <br/>
-    <button class="save-button" v-on:click="registerInterview">등록하기</button>
+    <button class="save-button" v-on:click="updateInterview">수정하기</button>
     <button class="cancel-button" v-on:click="moveToMyPage">취소하기</button>
   </div>
 </template>
@@ -141,7 +141,6 @@
           .map(item => parseInt(item.replace('time', ''), 0));
       }).catch((err) => {
         console.log(err);
-        console.log('interview 조회 실패');
         this.moveToMyPage();
       });
     },
@@ -208,14 +207,14 @@
             .milliseconds(999)
             .format('x'));
       },
-      registerInterview() {
-        // this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
-        // this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
-// this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
-        //
-        // HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
-        //   this.$router.push({ name: 'MyPage' });
-        // });
+      updateInterview() {
+        this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
+        this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
+        this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
+
+        HTTP.put(`/projects/${this.projectId}/interviews/${this.interviewSeq}`, this.interview)
+          .then(() => this.moveToMyPage())
+          .catch(() => alert('API Error'));
       },
       moveToMyPage() {
         this.$router.push({ name: 'MyPage' });
