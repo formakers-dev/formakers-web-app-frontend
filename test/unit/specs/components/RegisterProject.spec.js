@@ -31,7 +31,6 @@ describe('RegisterProject Component', () => {
         },
         introduce: '인터뷰어소개입니다',
       },
-      status: 'temporary',
       videoUrl: 'www.video.com',
     },
   };
@@ -78,7 +77,6 @@ describe('RegisterProject Component', () => {
         expect(vm.project.owner.image.name).to.be.eql('ownerImage');
         expect(vm.project.owner.image.url).to.be.eql('owner.image.url');
         expect(vm.project.owner.introduce).to.be.eql('인터뷰어소개입니다');
-        expect(vm.project.status).to.be.eql('registered');
         expect(vm.project.videoUrl).to.be.eql('www.video.com');
         sinon.assert.calledWithExactly(stubHttpOnPost, '/projects', vm.project);
         done();

@@ -51,7 +51,6 @@
           description: '',
           descriptionImages: [],
           interviews: [],
-          status: '',
           owner: {
             name: '',
             image: {},
@@ -63,8 +62,6 @@
     },
     methods: {
       registerProject() {
-        this.project.status = 'registered';
-
         HTTP.post('/projects', this.project).then((result) => {
           this.$router.push({
             name: 'RegisterInterview',
