@@ -7,8 +7,9 @@
     </div>
     <div class="interview-item-divider"/>
     <div class="interview-item-content status-area">
-      <h3 class="title">유저 모집 (<span class="strike">?/{{interview.totalCount}}</span>명)</h3>
+      <h3 class="title">유저 모집 (<span class="strike">{{registerCount}}/{{interview.totalCount}}</span>명)</h3>
       <div class="content">
+        <percentage-bar v-bind:percentage="percentage"></percentage-bar>
         <p>모집기간 : {{openDate}} ~ {{closeDate}} </p>
         <p><span class="strike">{{interview.apps[0].appName}}</span> 앱 사용자 모집 예정</p>
       </div>
@@ -32,8 +33,12 @@
 
 <script>
   import moment from 'moment';
+  import PercentageBar from './PercentageBar';
 
   export default {
+    components: {
+      PercentageBar,
+    },
     name: 'interview-item',
     props: {
       projectId: {
@@ -51,6 +56,8 @@
         openDate: '',
         closeDate: '',
         dDay: '',
+        registeredCount: 0,
+        percentage: 0,
       };
     },
     created() {
@@ -58,6 +65,10 @@
       this.openDate = moment(this.interview.openDate).format('YY-MM-DD');
       this.closeDate = moment(this.interview.closeDate).format('YY-MM-DD');
       this.dDay = this.getDday();
+      if (this.interview.timeSlot) {
+        this.registerCount = Object.keys(this.interview.timeSlot).filter(key => this.interview.timeSlot[key] !== '').length;
+      }
+      this.percentage = this.registerCount / this.interview.totalCount;
     },
     methods: {
       getDday() {
@@ -120,27 +131,26 @@
     width:272px;
     padding-top: 25px;
     padding-left: 40px;
-    padding-right: 30px;
+    padding-right: 10px;
     display: inline-block;
+    text-align: left;
   }
 
   .interview-item-content.status-area .title {
     font-family: NotoSansCJKkr-Medium;
     font-size: 18px;
     font-weight: 500;
-    text-align: left;
     color: #4a4a4a;
     margin: 0;
   }
 
   .interview-item-content.status-area .content {
-    margin-top: 30px;
+    margin-top: 15px;
   }
 
   .interview-item-content.status-area p {
     font-size: 12px;
     margin: 0;
-    text-align: left;
     color: #4a4a4a;
   }
 
