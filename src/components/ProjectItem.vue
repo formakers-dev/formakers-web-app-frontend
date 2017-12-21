@@ -1,7 +1,9 @@
 <template>
     <div id="project-item">
-      <div class="project-area">
-        <img v-bind:src="project.image.url" />
+      <div class="project-card-area">
+        <div class="project-card-image-area">
+          <img v-bind:src="project.image.url" />
+        </div>
         <div class="project-description-area">
           <div class="text-area">
             <p class="project-name">{{project.name}}</p>
@@ -21,10 +23,12 @@
         </div>
       </div>
 
-      <div v-for="interview in project.interviews">
+      <div class="interview-card-area" v-for="interview in project.interviews">
         <interview-item v-bind:interview="interview" v-bind:projectId="project.projectId"/>
       </div>
-      <hr/>
+
+      <hr class="divider"/>
+
     </div>
 </template>
 
@@ -72,23 +76,29 @@ export default {
 <style scoped>
 #project-item {
   width: 870px;
-  height: 234px;
   margin: 0 auto 30px auto;
   padding-bottom: 50px;
-  border-radius: 2px;
-  background-color: #ffffff;
-  border: solid 1px #d8d8d8;
 }
 
-img {
-  display: inline-block;
+.project-card-image-area {
+  display: table-cell;
   width: 360px;
   height: 234px;
 }
 
-.project-area {
+img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.project-card-area {
+  border-radius: 2px;
+  background-color: #ffffff;
+  border: solid 1px #d8d8d8;
   display: table;
   table-layout: fixed;
+  font-size: 0;
 }
 
 .project-description-area {
@@ -96,10 +106,10 @@ img {
   vertical-align: top;
   margin: 0;
   width: 510px;
-  height: 234px;
+  height: 233px;
 }
 .project-description-area .text-area {
-  height: 171px;
+  height: 170px;
   padding: 22px 71px 22px 95px;
 }
 
@@ -156,10 +166,20 @@ img {
   vertical-align: top;
   margin-right: 15px;
 }
+
 .add-button {
   width: 30px;
   height: 30px;
   vertical-align: top;
   margin-right: 15px;
+}
+
+.interview-card-area {
+  margin-top: 30px;
+}
+
+.divider {
+  margin-top: 50px;
+  border: solid 1px #979797;
 }
 </style>
