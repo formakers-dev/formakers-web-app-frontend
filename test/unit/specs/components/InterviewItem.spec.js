@@ -37,7 +37,7 @@ describe('InterviewItem Component', () => {
     const vm = getVmInstance(InterviewItem, propsOption);
     const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
 
-    vm.$el.querySelector('.update-interview-button').click();
+    vm.$el.querySelector('.update-button-area').click();
 
     vm.$nextTick(() => {
       sinon.assert.calledOnce(spyRouterOnPush);

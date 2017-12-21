@@ -77,7 +77,7 @@ export default {
 #project-item {
   width: 870px;
   margin: 0 auto 30px auto;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .project-card-image-area {
