@@ -2,7 +2,9 @@
   <div id="addImage">
     <ul>
       <li v-if="fileMetadataList.length < maxFileCount">
-        <div class="add-image-button" v-on:click="onPickFile">
+        <div class="add-image-box">
+          <p class="add-image-guide">jpg 나 png 이미지를 선택하세요.</p>
+          <button class="add-image-button" v-on:click="onPickFile">이미지 선택하기</button>
           <input type="file" style="display: none" ref="fileInput" accept="image/*" v-on:change="onFilePicked"/>
         </div>
       </li>
@@ -69,10 +71,37 @@ export default {
     position: absolute;
     display: inherit;
   }
+
+  .add-image-box {
+    width: 220px;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 2px;
+    background-color: #f9f9f9;
+    border: solid 1px #d8d8d8;
+  }
+
+  .add-image-guide {
+    margin-top: 40px;
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    line-height: 1.43;
+    text-align: center;
+    color: #979797;
+  }
+
   .add-image-button {
-    width: 240px;
-    height: 185px;
-    background-image: url("../assets/add_image.png");
+    width: 116px;
+    height: 34px;
+    margin-top: 46px;
+    border-radius: 8px;
+    background-color: #4285f4;
+    font-family: NotoSansCJKkr;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    color: #ffffff;
   }
   ul {
     display: flex;
