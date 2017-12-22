@@ -1,9 +1,6 @@
 <template>
   <div id="my-page" class="container">
-    <div class="title-bar">
-      <img class="appbee-logo" src="../assets/appbee_logo.png"/>
-      <button v-on:click="onLogout" class="logout-button">로그아웃</button>
-    </div>
+    <nav-bar></nav-bar>
 
     <section class="title-section">
       <h1 class="title">내 프로젝트</h1>
@@ -32,11 +29,11 @@
 
 <script>
 import HTTP from '../apis/http-common';
-import { setLogin } from '../utils/auth';
 import ProjectItem from './ProjectItem';
+import NavBar from './NavBar';
 
 export default {
-  components: { ProjectItem },
+  components: { ProjectItem, NavBar },
   name: 'my-page',
   data() {
     return {
@@ -50,19 +47,6 @@ export default {
     });
   },
   methods: {
-    onLogout() {
-      HTTP.get('/auth/logout')
-        .then(() => {
-          this.moveToLogin();
-        })
-        .catch(() => {
-          this.moveToLogin();
-        });
-    },
-    moveToLogin() {
-      setLogin(false);
-      this.$router.push({ name: 'Login' });
-    },
     onRegisterProject() {
       this.$router.push({ name: 'RegisterProject' });
     },
@@ -72,21 +56,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .title-bar {
-    height: 48px;
-    background-color: #ffcd00;
-  }
-
-  .appbee-logo {
-    width: 63px;
-    height: 25px;
-    float: left;
-    margin-top: 16px;
-    margin-left: 25px;
-  }
-  .logout-button {
-    float: right;
-  }
   .title {
     height: 36px;
     margin-top: 29px;
