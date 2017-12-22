@@ -1,9 +1,5 @@
 <template>
   <div id="updateProject" class="container is-fullhd">
-    <div class="navbar">
-      <img class="appbee-logo" src="../assets/appbee_logo.png"/>
-    </div>
-
     <section class="section">
       <div class="container contents-area">
         <div>

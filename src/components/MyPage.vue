@@ -1,7 +1,5 @@
 <template>
   <div id="my-page" class="container">
-    <nav-bar></nav-bar>
-
     <section class="title-section">
       <h1 class="title">내 프로젝트</h1>
       <hr class="title-underline" />
@@ -20,20 +18,15 @@
         <p class="register-project-button-text">프로젝트를 추가하세요</p>
       </div>
     </section>
-
-    <footer class="footer-area">
-      <span class="footer-text">Copyright © 2017 | Privacy | All right reserved AppBee</span>
-    </footer>
 </div>
 </template>
 
 <script>
 import HTTP from '../apis/http-common';
 import ProjectItem from './ProjectItem';
-import NavBar from './NavBar';
 
 export default {
-  components: { ProjectItem, NavBar },
+  components: { ProjectItem },
   name: 'my-page',
   data() {
     return {
@@ -98,18 +91,6 @@ export default {
   .register-project-button-text {
     margin-top: 38px;
     font-size: 20px;
-  }
-
-  .footer-area {
-    height: 40px;
-    background-color: #808080;
-  }
-  .footer-text {
-    opacity: 0.8;
-    font-size: 14px;
-    text-align: center;
-    line-height: 40px;
-    color: #ffffff;
   }
 
 </style>

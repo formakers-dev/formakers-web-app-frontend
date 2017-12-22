@@ -1,7 +1,7 @@
 <template>
   <nav id="navBar" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <img class="appbee-logo" src="/static/image/appbee_logo.png"/>
+      <img class="appbee-logo" src="../assets/appbee_logo.png"/>
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
@@ -36,9 +36,6 @@
 </script>
 
 <style scoped>
-  .navbar-brand {
-    padding-left: 16px;
-  }
   .appbee-logo {
     width: 63px;
     height: 25px;

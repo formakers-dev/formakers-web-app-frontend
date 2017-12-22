@@ -1,12 +1,23 @@
 <template>
   <div id="app">
+    <nav-bar></nav-bar>
+
     <router-view></router-view>
+
+    <footer class="footer-area">
+      <span class="footer-text">Copyright © 2017 | Privacy | All right reserved AppBee</span>
+    </footer>
   </div>
 </template>
 
 <script>
+import NavBar from './components/NavBar';
+
 export default {
   name: 'app',
+  components: {
+    NavBar,
+  },
 };
 </script>
 
@@ -207,6 +218,19 @@ export default {
   font-size: 18px;
   text-align: center;
   color: #4a4a4a;
+}
+
+.footer-area {
+  height: 40px;
+  background-color: #808080;
+}
+
+.footer-text {
+  opacity: 0.8;
+  font-size: 14px;
+  text-align: center;
+  line-height: 40px;
+  color: #ffffff;
 }
 
 </style>

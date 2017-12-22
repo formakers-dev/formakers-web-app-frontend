@@ -1,9 +1,5 @@
 <template>
   <div id="registerInterview" class="container is-fullhd">
-    <div class="navbar title-bar">
-      <img class="appbee-logo" src="../assets/appbee_logo.png"/>
-    </div>
-
     <section class="section">
       <div class="container container-wrapper">
         <nav class="level">
