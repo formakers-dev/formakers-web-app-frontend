@@ -66,7 +66,7 @@ export default {
   margin-left: 25px;
 }
 
-nav {
+.progress-nav {
   margin-top: 50px;
   padding-bottom: 50px;
 }

@@ -6,7 +6,7 @@
 
     <section class="section">
       <div class="container contents-area">
-        <nav class="level">
+        <nav class="level progress-nav">
           <p class="level-item has-text-centered">
             <span class="navigation-circle active">1</span>
             <span class="navigation-text">프로젝트 등록</span>
