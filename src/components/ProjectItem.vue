@@ -12,11 +12,11 @@
           </div>
           <div class="button-area">
             <div class="buttons update-interview-button" v-on:click="moveToUpdateProject">
-              <img src="static/image/edit_button.png" class="edit-button"/>
+              <img src="../assets/edit_button.png" class="edit-button"/>
               <span>프로젝트 수정</span>
             </div>
             <div class="buttons add-interview-button" v-on:click="moveToInterviewRegister">
-              <img src="static/image/add_button.png" class="add-button"/>
+              <img src="../assets/add_button.png" class="add-button"/>
               <span>인터뷰 추가</span>
             </div>
           </div>
@@ -24,7 +24,7 @@
       </div>
 
       <div class="interview-card-area" v-for="interview in project.interviews">
-        <interview-item v-bind:interview="interview" v-bind:projectId="project.projectId"/>
+        <interview-item v-bind:interview="interview" v-bind:projectId="project.projectId"></interview-item>
       </div>
 
       <hr class="divider"/>

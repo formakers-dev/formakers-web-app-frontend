@@ -1,7 +1,7 @@
 <template>
   <div id="my-page" class="container">
     <div class="title-bar">
-      <img class="appbee-logo" src="/static/image/appbee_logo.png"/>
+      <img class="appbee-logo" src="../assets/appbee_logo.png"/>
       <button v-on:click="onLogout" class="logout-button">로그아웃</button>
     </div>
 

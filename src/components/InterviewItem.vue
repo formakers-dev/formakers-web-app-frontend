@@ -5,7 +5,7 @@
 인터뷰</p>
       <p class="registered-date">등록일 : {{interviewDate}}</p>
     </div>
-    <div class="interview-item-divider"/>
+    <div class="interview-item-divider"></div>
     <div class="interview-item-content status-area">
       <h3 class="title">유저 모집 (<span class="strike">{{registerCount}}/{{interview.totalCount}}</span>명)</h3>
       <div class="content">
@@ -14,7 +14,7 @@
         <p><span class="strike">{{interview.apps[0].appName}}</span> 앱 사용자 모집 예정</p>
       </div>
     </div>
-    <div class="interview-item-divider"/>
+    <div class="interview-item-divider"></div>
     <div class="interview-item-content detail-area">
       <h3 class="title">인터뷰 <span class="strike">D-{{this.dDay}}</span>일</h3>
       <div class="content">
@@ -23,9 +23,9 @@
         <p>인터뷰 장소 : {{interview.location}}</p>
       </div>
     </div>
-    <div class="interview-item-divider"/>
+    <div class="interview-item-divider"></div>
     <div class="interview-item-content update-button-area" v-on:click="moveToUpdateInterview">
-      <img src="static/image/edit_button.png" class="edit-button"/>
+      <img src="../assets/edit_button.png" class="edit-button"/>
       <span>인터뷰 수정</span>
     </div>
   </div>
