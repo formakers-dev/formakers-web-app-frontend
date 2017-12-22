@@ -1,7 +1,7 @@
 <template>
   <div id="registerProject" class="container is-fullhd">
     <div class="navbar">
-      <img class="appbee-logo" src="static/image/appbee_logo.png"/>
+      <img class="appbee-logo" src="/static/image/appbee_logo.png"/>
     </div>
 
     <section class="section">
@@ -11,12 +11,12 @@
             <span class="navigation-circle active">1</span>
             <span class="navigation-text">프로젝트 등록</span>
           </p>
-          <p class="level-item has-text-centered navigation-line"/>
+          <p class="level-item has-text-centered navigation-line"></p>
           <p class="level-item has-text-centered">
             <span class="navigation-circle">2</span>
             <span class="navigation-text">인터뷰 모집</span>
           </p>
-          <p class="level-item has-text-centered navigation-line"/>
+          <p class="level-item has-text-centered navigation-line"></p>
           <p class="level-item has-text-centered">
             <span class="navigation-circle">3</span>
             <span class="navigation-text">등록완료</span>
