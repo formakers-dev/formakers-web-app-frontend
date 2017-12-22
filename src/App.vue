@@ -180,12 +180,28 @@ nav {
   margin-bottom: 80px;
 }
 
+.button-area {
+  margin-top: 100px;
+  vertical-align: middle;
+}
+
 .save-button {
   width: 340px;
   height: 80px;
-  margin-top: 100px;
   object-fit: contain;
   background-color: #ffcd00;
+  border: 0;
+  font-family: AppleSDGothicNeo;
+  font-size: 18px;
+  text-align: center;
+  color: #4a4a4a;
+}
+
+.cancel-button {
+  width: 340px;
+  height: 80px;
+  object-fit: contain;
+  background-color: #eeeeee;
   border: 0;
   font-family: AppleSDGothicNeo;
   font-size: 18px;

@@ -100,11 +100,16 @@
           <add-image v-on:update-file-data="onUpdateOwnerImage" v-bind:maxFileCount="1"></add-image>
         </div>
 
-        <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
+        <div class="columns is-centered button-area">
+          <div class="column is-narrow">
+            <button class="cancel-button" v-on:click="cancelRegister">취소</button>
+          </div>
+          <div class="column is-narrow">
+            <button class="save-button" v-on:click="registerProject">프로젝트 등록</button>
+          </div>
+        </div>
       </div>
     </section>
-
-
   </div>
 </template>
 <script>
@@ -143,6 +148,9 @@
             params: { projectId: result.data.projectId },
           });
         });
+      },
+      cancelRegister() {
+        this.$router.push({ name: 'MyPage' });
       },
       onUpdateImage(fileMetadataList) {
         this.project.image = fileMetadataList[0];

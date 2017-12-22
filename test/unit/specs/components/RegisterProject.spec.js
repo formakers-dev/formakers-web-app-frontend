@@ -100,6 +100,19 @@ describe('RegisterProject Component', () => {
     });
   });
 
+  it('취소 버튼 클릭시, 마이페이지로 이동한다', (done) => {
+    const vm = getVmInstance(RegisterProject);
+    const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+
+    vm.$el.querySelector('.cancel-button').click();
+
+    vm.$nextTick(() => {
+      sinon.assert.calledOnce(spyRouterOnPush);
+      spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
+      done();
+    });
+  });
+
   it('onUpdateImage 호출 시, 프로젝트 정보의 이미지목록을 업데이트 한다', () => {
     const vm = getVmInstance(RegisterProject);
     const mockFileMetadataList = [{
