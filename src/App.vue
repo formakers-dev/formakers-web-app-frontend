@@ -30,32 +30,32 @@ export default {
 
 @font-face {
   font-family: "BMJUAOTF";
-  src: url('../static/fonts/BMJUA.otf');
+  src: url('../static/fonts/BMJUA.otf'), local(SansSerif);
 }
 
 @font-face {
   font-family: "NotoSansCJKkr";
-  src: url('../static/fonts/NotoSansKR-Regular.otf');
+  src: url('../static/fonts/NotoSansKR-Regular.otf'), local(SansSerif);
 }
 
 @font-face {
   font-family: "NotoSansCJKkr-light";
-  src: url('../static/fonts/NotoSansKR-Light.otf');
+  src: url('../static/fonts/NotoSansKR-Light.otf'), local(SansSerif);
 }
 
 @font-face {
   font-family: "NotoSansCJKkr-medium";
-  src: url('../static/fonts/NotoSansKR-Medium.otf');
+  src: url('../static/fonts/NotoSansKR-Medium.otf'), local(SansSerif);
 }
 
 @font-face {
   font-family: "NotoSans";
-  src: url('../static/fonts/NotoSans-Regular.ttf');
+  src: url('../static/fonts/NotoSans-Regular.ttf'), local(SansSerif);
 }
 
 @font-face {
   font-family: "Pacifico";
-  src: url('../static/fonts/Pacifico-Regular.ttf');
+  src: url('../static/fonts/Pacifico-Regular.ttf'), local(SansSerif);
 }
 
 
