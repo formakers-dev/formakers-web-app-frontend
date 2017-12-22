@@ -81,7 +81,8 @@ describe('RegisterInterView Component', () => {
     });
   });
 
-  describe('유사앱 검색 버튼이 클릭되었을 때', () => {
+  // TODO : 앱이름 입력 input 박스에서 엔터키 이벤트로 변경할 것
+  /* describe('유사앱 검색 버튼이 클릭되었을 때', () => {
     const searchResult = {
       data: [{
         _id: '5988097cb495479821f2d188',
@@ -138,7 +139,7 @@ describe('RegisterInterView Component', () => {
         done();
       });
     });
-  });
+  }); */
 
   describe('벤치마킹 앱검색 이름 변경 시', () => {
     let clock;
