@@ -6,6 +6,7 @@ import axios from 'axios';
 import Buefy from 'buefy';
 import VueFire from 'vuefire';
 import 'buefy/lib/buefy.css';
+import 'mdi/css/materialdesignicons.min.css';
 import App from './App';
 import router from './routers';
 

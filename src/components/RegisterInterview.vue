@@ -4,7 +4,7 @@
       <div class="container container-wrapper">
         <nav class="level">
           <p class="level-item has-text-centered">
-            <span class="navigation-circle active">1</span>
+            <span class="navigation-circle active"><i class="mdi mdi-check" /></span>
             <span class="navigation-text">프로젝트 등록</span>
           </p>
           <p class="level-item has-text-centered navigation-line"></p>
@@ -71,7 +71,11 @@
               </ul>
             </div>
           </div>
-          <input class="input-text" v-model="searchAppName" placeholder="유사앱 이름을 입력하세요"/>
+          <div>
+            <i class="apps-icon apps-search mdi mdi-magnify"></i>
+            <i class="apps-icon apps-close mdi mdi-close"></i>
+            <input class="input-text search-apps-input" v-model="searchAppName" placeholder="유사앱 이름을 입력하세요"/>
+          </div>
           <ul class='search-result-list' v-for="app in searchedApps">
             <li @click="addInterviewTargetApp(app)">
               {{ app.appName }}
@@ -108,7 +112,7 @@
 
           <b-datepicker
             class="date-picker"
-            icon="today"
+            icon="calendar-today"
             v-model="datePicker.interviewDate">
           </b-datepicker>
           <div class="timeslot-list">
@@ -131,7 +135,7 @@
               <label class="date-picker-label">모집 시작일</label>
               <b-datepicker
                 class="date-picker"
-                icon="today"
+                icon="calendar-today"
                 v-model="datePicker.openDate">
               </b-datepicker>
             </div>
@@ -140,7 +144,7 @@
               <label class="date-picker-label">모집 종료일</label>
               <b-datepicker
                 class="date-picker"
-                icon="today"
+                icon="calendar-today"
                 v-model="datePicker.closeDate">
               </b-datepicker>
             </div>
@@ -167,9 +171,6 @@
         <button class="save-button" v-on:click="registerInterview">인터뷰 등록</button>
       </div>
     </section>
-    <footer class="footer-area">
-      <span class="footer-text">Copyright © 2017 | Privacy | All right reserved AppBee</span>
-    </footer>
   </div>
 </template>
 <script>
@@ -528,17 +529,25 @@
     border: 0;
   }
 
-
-  .footer-area {
-    height: 40px;
-    background-color: #808080;
+  .search-apps-input {
+    padding-left: 64px;
+    padding-right: 64px;
   }
-  .footer-text {
-    opacity: 0.8;
-    font-size: 14px;
-    text-align: center;
-    line-height: 40px;
-    color: #ffffff;
+  .apps-icon {
+    padding-left:20px;
+    padding-right:20px;
+    font-size:30px;
+    line-height: 40px
+  }
+
+  .apps-search {
+    position: absolute;
+    left:0;
+  }
+
+  .apps-close {
+    position: absolute;
+    right:0;
   }
 
 </style>
