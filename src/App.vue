@@ -202,7 +202,7 @@ export default {
   object-fit: contain;
   background-color: #ffcd00;
   border: 0;
-  font-family: AppleSDGothicNeo;
+  font-family: NotoSansCJKkr;
   font-size: 18px;
   text-align: center;
   color: #4a4a4a;
@@ -214,7 +214,7 @@ export default {
   object-fit: contain;
   background-color: #eeeeee;
   border: 0;
-  font-family: AppleSDGothicNeo;
+  font-family: NotoSansCJKkr;
   font-size: 18px;
   text-align: center;
   color: #4a4a4a;

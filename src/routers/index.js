@@ -4,6 +4,7 @@ import RegisterProject from '../components/RegisterProject';
 import UpdateProject from '../components/UpdateProject';
 import UpdateInterview from '../components/UpdateInterview';
 import RegisterInterview from '../components/RegisterInterview';
+import CompleteProjectRegistration from '../components/CompleteProjectRegistration';
 import Login from '../components/Login';
 import MyPage from '../components/MyPage';
 import { requireAuth } from '../utils/auth';
@@ -50,6 +51,12 @@ export default new Router({
       beforeEnter: requireAuth,
       component: UpdateInterview,
       props: true,
+    },
+    {
+      path: '/complete_project_registration',
+      name: 'CompleteProjectRegistration',
+      beforeEnter: requireAuth,
+      component: CompleteProjectRegistration,
     },
   ],
 });

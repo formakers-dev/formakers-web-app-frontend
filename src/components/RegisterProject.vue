@@ -140,7 +140,7 @@
       registerProject() {
         HTTP.post('/projects', this.project).then((result) => {
           this.$router.push({
-            name: 'RegisterInterview',
+            name: 'CompleteProjectRegistration',
             params: { projectId: result.data.projectId },
           });
         });
