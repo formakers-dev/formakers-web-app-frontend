@@ -93,7 +93,7 @@ describe('RegisterProject Component', () => {
 
       vm.$nextTick(() => {
         sinon.assert.calledOnce(spyRouterOnPush);
-        spyRouterOnPush.args[0][0].name.should.be.eql('RegisterInterview');
+        spyRouterOnPush.args[0][0].name.should.be.eql('CompleteProjectRegistration');
         spyRouterOnPush.args[0][0].params.projectId.should.be.eql(testResponse.data.projectId);
         done();
       });

@@ -278,19 +278,6 @@
     margin-bottom: 100px;
   }
 
-  .title-bar {
-    height: 48px;
-    background-color: #ffcd00;
-  }
-
-  .appbee-logo {
-    width: 63px;
-    height: 25px;
-    float: left;
-    margin-top: 16px;
-    margin-left: 25px;
-  }
-
   nav {
     margin-top: 50px;
     padding-bottom: 50px;
@@ -527,27 +514,6 @@
     text-align: center;
     color: #4a4a4a;
     border: 0;
-  }
-
-  .search-apps-input {
-    padding-left: 64px;
-    padding-right: 64px;
-  }
-  .apps-icon {
-    padding-left:20px;
-    padding-right:20px;
-    font-size:30px;
-    line-height: 40px
-  }
-
-  .apps-search {
-    position: absolute;
-    left:0;
-  }
-
-  .apps-close {
-    position: absolute;
-    right:0;
   }
 
 </style>
