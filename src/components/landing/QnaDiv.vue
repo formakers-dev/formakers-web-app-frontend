@@ -25,47 +25,48 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#qnaDiv {
-  background-color: #2894b1;
-  padding-top: 60px;
-  padding-bottom: 125px;
-  border: 0;
-}
+  #qnaDiv {
+    background-color: #2894b1;
+    padding-top: 60px;
+    padding-bottom: 125px;
+    border: 0;
+  }
 
-#qnaDiv p {
-  margin-bottom: 0px;
-}
+  #qnaDiv p {
+    margin-bottom: 0;
+  }
 
-.qna-title {
-  font-family: BMJUAOTF;
-  font-size: 30px;
-  line-height: 1.57;
-  text-align: center;
-  color: #f8c81c;
-}
+  .qna-title {
+    font-family: BMJUAOTF;
+    font-size: 30px;
+    line-height: 1.57;
+    text-align: center;
+    color: #f8c81c;
+  }
 
-.qna-contents {
-  margin-top: 54px;
-}
+  .qna-contents {
+    margin-top: 54px;
+  }
 
-.qna-question {
-  margin-top: 113px;
-  font-family: BMJUAOTF;
-  font-size: 22px;
-  text-align: center;
-  color: #ffffff;
-}
-.qna-question.first {
-  margin-top: 0px;
-}
+  .qna-question {
+    margin-top: 113px;
+    font-family: BMJUAOTF;
+    font-size: 22px;
+    text-align: center;
+    color: #ffffff;
+  }
 
-.qna-answer {
-  margin-top: 20px;
-  font-family: NotoSansCJKkr-light;
-  font-size: 14px;
-  font-weight: 300;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-}
+  .qna-question.first {
+    margin-top: 0;
+  }
+
+  .qna-answer {
+    margin-top: 20px;
+    font-family: NotoSansCJKkr-light;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+  }
 
 </style>

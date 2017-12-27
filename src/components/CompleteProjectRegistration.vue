@@ -85,12 +85,15 @@
   .margin-right-50 {
     margin-right: 50px;
   }
+
   .margin-bottom-50 {
     margin-bottom: 50px;
   }
+
   .margin-bottom-100 {
     margin-bottom: 100px;
   }
+
   .complete-message {
     font-family: BMJUAOTF;
     font-size: 36px;
@@ -98,6 +101,7 @@
     text-align: center;
     color: #4a4a4a;
   }
+
   .complete-message-description {
     font-family: NotoSansCJKkr;
     font-size: 20px;

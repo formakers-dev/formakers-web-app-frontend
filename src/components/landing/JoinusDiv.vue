@@ -26,48 +26,48 @@
 </template>
 
 <script>
-import HTTP from '../../apis/http-common';
+  import HTTP from '../../apis/http-common';
 
-const emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export default {
-  name: 'joinusDiv',
-  data() {
-    return {
-      newEmail: {
-        email: '',
-      },
-      isWarn: false,
-      isActive: true,
-    };
-  },
-  computed: {
-    validation() {
+  export default {
+    name: 'joinusDiv',
+    data() {
       return {
-        email: emailReg.test(this.newEmail.email),
+        newEmail: {
+          email: '',
+        },
+        isWarn: false,
+        isActive: true,
       };
     },
-    isValid() {
-      const validation = this.validation;
-      return Object.keys(validation).every(key => validation[key]);
+    computed: {
+      validation() {
+        return {
+          email: emailReg.test(this.newEmail.email),
+        };
+      },
+      isValid() {
+        const validation = this.validation;
+        return Object.keys(validation).every(key => validation[key]);
+      },
     },
-  },
-  methods: {
-    addEmail() {
-      this.isWarn = !this.isValid;
+    methods: {
+      addEmail() {
+        this.isWarn = !this.isValid;
 
-      if (!this.isWarn) {
-        HTTP.post('/email', {
-          email: this.newEmail.email,
-          isActive: true,
-        }).then(() => {
-          this.isActive = false;
-          this.newEmail.email = '';
-        });
-      }
+        if (!this.isWarn) {
+          HTTP.post('/email', {
+            email: this.newEmail.email,
+            isActive: true,
+          }).then(() => {
+            this.isActive = false;
+            this.newEmail.email = '';
+          });
+        }
+      },
     },
-  },
-};
+  };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -154,14 +154,17 @@ export default {
     width: 730px;
     display: none;
   }
+
   .warning-msg {
     margin-left: 14px;
   }
+
   .success-img {
     width: 30px;
     height: 30px;
     vertical-align: middle;
   }
+
   .success-text {
     margin-left: 10px;
     font-size: 24px;
@@ -169,9 +172,11 @@ export default {
     font-family: BMJUAOTF;
     color: #2894b1;
   }
+
   .active {
     display: block;
   }
+
   #joinusDiv input.warningInput {
     border: solid 1px #d0011b;
   }

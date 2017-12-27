@@ -9,7 +9,8 @@
         </div>
       </li>
       <li v-for="(item, index) in fileMetadataList">
-        <div v-bind:style="{ width:'240px', height:'185px', backgroundImage: 'url(' + item.url + ')', backgroundSize: 'cover', backgroundPosition: 'center' }">
+        <div
+          v-bind:style="{ width:'240px', height:'185px', backgroundImage: 'url(' + item.url + ')', backgroundSize: 'cover', backgroundPosition: 'center' }">
           <img src="../assets/delete_image.png" class="delete-image-button" @click="removeImage(index)"/>
         </div>
       </li>
@@ -17,52 +18,52 @@
   </div>
 </template>
 <script>
-import { saveFile, removeFile } from '../utils/firebase';
+  import { saveFile, removeFile } from '../utils/firebase';
 
 
-export default {
-  name: 'addImage',
-  props: {
-    maxFileCount: {
-      type: Number,
-      required: true,
+  export default {
+    name: 'addImage',
+    props: {
+      maxFileCount: {
+        type: Number,
+        required: true,
+      },
+      currentImageList: {
+        type: Array,
+        required: false,
+      },
     },
-    currentImageList: {
-      type: Array,
-      required: false,
+    data() {
+      return {
+        fileMetadataList: this.currentImageList ? this.currentImageList : [],
+      };
     },
-  },
-  data() {
-    return {
-      fileMetadataList: this.currentImageList ? this.currentImageList : [],
-    };
-  },
-  methods: {
-    onPickFile() {
-      this.$refs.fileInput.click();
-    },
-    onFilePicked(event) {
-      const files = event.target.files;
+    methods: {
+      onPickFile() {
+        this.$refs.fileInput.click();
+      },
+      onFilePicked(event) {
+        const files = event.target.files;
 
-      saveFile(files[0]).then((snapshot) => {
-        this.fileMetadataList.push({
-          url: snapshot.downloadURL,
-          name: snapshot.metadata.name,
+        saveFile(files[0]).then((snapshot) => {
+          this.fileMetadataList.push({
+            url: snapshot.downloadURL,
+            name: snapshot.metadata.name,
+          });
+          this.handleUpdate();
         });
-        this.handleUpdate();
-      });
+      },
+      removeImage(index) {
+        removeFile(this.fileMetadataList[index].name).then(() => {
+          this.fileMetadataList.splice(index, 1);
+          this.handleUpdate();
+        });
+      },
+      handleUpdate() {
+        this.$emit('update-file-data', this.fileMetadataList);
+      },
     },
-    removeImage(index) {
-      removeFile(this.fileMetadataList[index].name).then(() => {
-        this.fileMetadataList.splice(index, 1);
-        this.handleUpdate();
-      });
-    },
-    handleUpdate() {
-      this.$emit('update-file-data', this.fileMetadataList);
-    },
-  },
-};
+  };
 </script>
 <style scoped>
   .delete-image-button {
@@ -103,10 +104,12 @@ export default {
     text-align: center;
     color: #ffffff;
   }
+
   ul {
     display: flex;
     flex-wrap: wrap;
   }
+
   li {
     display: block;
     position: relative;

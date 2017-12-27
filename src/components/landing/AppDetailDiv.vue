@@ -33,86 +33,86 @@
 </template>
 
 <script>
-// import Mail from '@/js/Mail'
-export default {
-  name: 'appNameDiv',
-};
+  // import Mail from '@/js/Mail'
+  export default {
+    name: 'appNameDiv',
+  };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#appDetailDiv {
-  padding: 124px 154px 0;
-  background-color: #f8c81c;
-  border: 0;
-}
+  #appDetailDiv {
+    padding: 124px 154px 0;
+    background-color: #f8c81c;
+    border: 0;
+  }
 
-#appNameDiv p {
-  margin-bottom: 0;
-}
+  #appNameDiv p {
+    margin-bottom: 0;
+  }
 
-#appDetailDiv img {
-  width: 212px;
+  #appDetailDiv img {
+    width: 212px;
 
-}
+  }
 
-.detail-container {
-  text-align: left;
-  max-width: 716px;
-  margin-top: 122px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .detail-container {
+    text-align: left;
+    max-width: 716px;
+    margin-top: 122px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.detail-container.first {
-  margin-top: 0;
-}
+  .detail-container.first {
+    margin-top: 0;
+  }
 
-.detail-container .left {
-  vertical-align: top;
-  display: inline-block;
-  margin-left: 21px;
-}
+  .detail-container .left {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 21px;
+  }
 
-.detail-container .right {
-  vertical-align: top;
-  display: inline-block;
-  position: relative;
-  left: 94px;
-}
+  .detail-container .right {
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+    left: 94px;
+  }
 
-.detail-container .text {
-  margin-top: 9px;
-  line-height: 25px;
-}
+  .detail-container .text {
+    margin-top: 9px;
+    line-height: 25px;
+  }
 
-.detail-container p {
-  display: block;
-  text-align: left;
-}
+  .detail-container p {
+    display: block;
+    text-align: left;
+  }
 
-.detail-container hr {
-  width: 716px;
-  height: 1px;
-  border: 0;
-  color: #9b9b9b;
-  background-color: #9b9b9b;
-  margin-top: 0;
-  margin-bottom: 0;
-}
+  .detail-container hr {
+    width: 716px;
+    height: 1px;
+    border: 0;
+    color: #9b9b9b;
+    background-color: #9b9b9b;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
-.detail-title {
-  margin-top: 9px;
-  font-family: BMJUAOTF;
-  font-size: 36px;
-  color: #ffffff;
-  line-height: 36px;
-}
+  .detail-title {
+    margin-top: 9px;
+    font-family: BMJUAOTF;
+    font-size: 36px;
+    color: #ffffff;
+    line-height: 36px;
+  }
 
-.detail-description {
-  margin-top: 30px;
-  font-family: NotoSansCJKkr;
-  font-size: 17px;
-  color: rgba(74, 74, 74, 0.7);
-}
+  .detail-description {
+    margin-top: 30px;
+    font-family: NotoSansCJKkr;
+    font-size: 17px;
+    color: rgba(74, 74, 74, 0.7);
+  }
 </style>

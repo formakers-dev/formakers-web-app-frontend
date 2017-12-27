@@ -4,7 +4,7 @@
       <div class="container container-wrapper">
         <nav class="level">
           <p class="level-item has-text-centered">
-            <span class="navigation-circle active"><i class="mdi mdi-check" /></span>
+            <span class="navigation-circle active"><i class="mdi mdi-check"/></span>
             <span class="navigation-text">프로젝트 등록</span>
           </p>
           <p class="level-item has-text-centered navigation-line"></p>
@@ -28,7 +28,7 @@
             <div class="column border-right">
               <div class="appbee-guide-image"><img src="../assets/appbee-guide-image1.png"/></div>
               <div class="appbee-guide-name"><u>1:1 인터뷰</u></div>
-              <div class="appbee-guide-description">사용자를 1명씩  만나서 40분간<br> 1:1 심층 인터뷰를 진행합니다.</div>
+              <div class="appbee-guide-description">사용자를 1명씩 만나서 40분간<br> 1:1 심층 인터뷰를 진행합니다.</div>
             </div>
             <div class="column border-right">
               <div class="appbee-guide-image"><img src="../assets/appbee-guide-image2.png"/></div>
@@ -57,10 +57,10 @@
         <div>
           <div class="columns is-centered title-div">
             <div class="column is-narrow title-name">벤치마킹 앱 검색</div>
-            <div class="column title-description">프로젝트와 유사한 성격의 앱을 1개 선택하시면 그  유저들에게 프로젝트가 노출됩니다.</div>
+            <div class="column title-description">프로젝트와 유사한 성격의 앱을 1개 선택하시면 그 유저들에게 프로젝트가 노출됩니다.</div>
           </div>
           <div class="margin-top-50 margin-bottom-50">
-            <div v-if="interview.apps.length === 0" >
+            <div v-if="interview.apps.length === 0">
               <div class="app-filter-no-list-text">사용자 모집에 필터로 사용할 앱을 검색하세요</div>
             </div>
             <div v-else>
@@ -130,7 +130,7 @@
             <div class="column is-narrow title-name">유저 모집 시작일</div>
             <div class="column title-description">인터뷰를 할 유저 모집 시작일을 선택해 주세요. 선택한 날부터 모집이 시작됩니다.</div>
           </div>
-          <div >
+          <div>
             <div class="date-picker-area">
               <label class="date-picker-label">모집 시작일</label>
               <b-datepicker
@@ -163,7 +163,7 @@
         <div>
           <div class="columns is-centered title-div">
             <div class="column is-narrow title-name">비상연락처</div>
-            <div class="column title-description">비상시에 연락이 가능한 연락처를 적어주세요.  인터뷰에 모집된 사용자들에게만 보여집니다.</div>
+            <div class="column title-description">비상시에 연락이 가능한 연락처를 적어주세요. 인터뷰에 모집된 사용자들에게만 보여집니다.</div>
           </div>
           <input class="input-text" v-model="interview.emergencyPhone" placeholder=""/>
         </div>
@@ -254,9 +254,10 @@
         this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
         this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
 
-        HTTP.post(`/projects/${this.projectId}/interviews`, this.interview).then(() => {
-          this.$router.push({ name: 'MyPage' });
-        });
+        HTTP.post(`/projects/${this.projectId}/interviews`, this.interview)
+          .then(() => {
+            this.$router.push({ name: 'MyPage' });
+          });
       },
       moveToMyPage() {
         this.$router.push({ name: 'MyPage' });
@@ -312,6 +313,7 @@
     color: #4a4a4a;
     white-space: nowrap;
   }
+
   .navigation-line {
     width: 100px;
     height: 2px;
@@ -354,7 +356,6 @@
     color: #979797;
   }
 
-
   .input-text {
     width: 100%;
     height: 40px;
@@ -367,7 +368,6 @@
     text-align: left;
     color: #4a4a4a;
   }
-
 
   .input-textarea {
     width: 100%;

@@ -30,7 +30,7 @@
         <div>
           <div class="columns is-centered label-area">
             <div class="column is-narrow label-title">한줄 소개</div>
-            <div class="column label-description">프로젝트를 소개하는데 가장 중요한 간단 홍보문구를 적어주세요.  서비스의 종류도 꼭 적어주세요.</div>
+            <div class="column label-description">프로젝트를 소개하는데 가장 중요한 간단 홍보문구를 적어주세요. 서비스의 종류도 꼭 적어주세요.</div>
           </div>
           <input class="input-text" v-model="project.introduce" placeholder=""/>
         </div>
@@ -164,6 +164,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   /*h1, h2 {*/
-    /*font-weight: normal;*/
+  /*font-weight: normal;*/
   /*}*/
 </style>

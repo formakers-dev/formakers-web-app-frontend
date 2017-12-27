@@ -80,25 +80,30 @@
   .nav-width {
     width: 100%;
   }
+
   .login-header {
     display: inline-block;
 
   }
+
   .logout-area {
     height: 53px;
     vertical-align: middle;
     background-color: #ffffff;
     border: 0;
   }
+
   .title {
     font-family: Pacifico;
     font-weight: normal;
     font-size: 20px;
     line-height: 52px;
   }
+
   .font-yellow {
     color: #f8e81c;
   }
+
   .font-white {
     color: #ffffff;
   }

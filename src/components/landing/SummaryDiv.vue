@@ -10,34 +10,34 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#summaryDiv {
-  padding-top: 61px;
-  padding-bottom: 0;
-  background-color: #ebe4da;
-  border: 0;
-}
+  #summaryDiv {
+    padding-top: 61px;
+    padding-bottom: 0;
+    background-color: #ebe4da;
+    border: 0;
+  }
 
-#summaryDiv p {
-  margin-bottom: 0;
-}
+  #summaryDiv p {
+    margin-bottom: 0;
+  }
 
-#summaryDiv img {
-  width: 556px;
-  margin: 55px auto 0;
-  display: block;
-}
+  #summaryDiv img {
+    width: 556px;
+    margin: 55px auto 0;
+    display: block;
+  }
 
-.summary-title {
-  font-family: BMJUAOTF;
-  font-size: 68px;
-  color: #4a4a4a;
-  line-height: 68px;
-}
+  .summary-title {
+    font-family: BMJUAOTF;
+    font-size: 68px;
+    color: #4a4a4a;
+    line-height: 68px;
+  }
 
-.summary-description {
-  margin-top: 6px;
-  font-family: NotoSansCJKkr;
-  font-size: 16px;
-  color: #9b9b9b;
-}
+  .summary-description {
+    margin-top: 6px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    color: #9b9b9b;
+  }
 </style>

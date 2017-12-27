@@ -2,7 +2,7 @@
   <div id="interview-item">
     <div class="interview-item-content title-area">
       <p class="seq"><span class="strike">{{interview.seq}}</span> 번째
-인터뷰</p>
+        인터뷰</p>
       <p class="registered-date">등록일 : {{interviewDate}}</p>
     </div>
     <div class="interview-item-divider"></div>
@@ -74,7 +74,7 @@
       getDday() {
         return Math.ceil(
           (new Date(this.interview.interviewDate)
-                          - new Date()) / 24 / 60 / 60 / 1000);
+          - new Date()) / 24 / 60 / 60 / 1000);
       },
       moveToUpdateInterview() {
         this.$router.push({
@@ -121,14 +121,15 @@
 
   .interview-item-content.title-area {
     margin: 0;
-    width:150px;
+    width: 150px;
     padding-top: 35px;
     display: inline-block;
 
   }
+
   .interview-item-content.status-area {
     margin: 0;
-    width:272px;
+    width: 272px;
     padding-top: 25px;
     padding-left: 40px;
     padding-right: 10px;
@@ -156,14 +157,14 @@
 
   .interview-item-content.detail-area {
     margin: 0;
-    width:262px;
+    width: 262px;
     padding-top: 25px;
     padding-left: 40px;
     padding-right: 30px;
     display: inline-block;
   }
 
-  .interview-item-content.detail-area .title{
+  .interview-item-content.detail-area .title {
     font-family: NotoSansCJKkr-Medium;
     font-size: 18px;
     font-weight: 500;
@@ -175,7 +176,7 @@
     margin-top: 30px;
   }
 
-  .interview-item-content.detail-area p{
+  .interview-item-content.detail-area p {
     margin: 0;
     font-size: 12px;
     text-align: left;
@@ -184,7 +185,7 @@
 
   .interview-item-content.update-button-area {
     margin: 0;
-    width:150px;
+    width: 150px;
     display: inline-block;
     padding-top: 58px;
   }
