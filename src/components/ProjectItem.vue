@@ -1,5 +1,5 @@
 <template>
-    <div id="project-item">
+    <div id="project-item" class="margin-side-auto">
       <div class="project-card-area">
         <div class="project-card-image-area">
           <img v-bind:src="project.image.url" />
@@ -27,7 +27,7 @@
         <interview-item v-bind:interview="interview" v-bind:projectId="project.projectId"></interview-item>
       </div>
 
-      <hr class="divider"/>
+      <hr class="divider margin-top-50 margin-bottom-50"/>
 
     </div>
 </template>
@@ -76,8 +76,6 @@ export default {
 <style scoped>
 #project-item {
   width: 870px;
-  margin: 0 auto 30px auto;
-  padding-bottom: 30px;
 }
 
 .project-card-image-area {
@@ -179,7 +177,6 @@ img {
 }
 
 .divider {
-  margin-top: 50px;
   border: solid 1px #979797;
 }
 </style>

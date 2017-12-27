@@ -1,11 +1,11 @@
 <template>
   <div id="my-page" class="container">
-    <section class="title-section">
+    <section>
       <h1 class="title">내 프로젝트</h1>
       <hr class="title-underline" />
     </section>
 
-    <section class="content-section">
+    <section class="content-section padding-top-50 padding-bottom-50">
       <div>
         {{logoutErrorMsg}}
       </div>
@@ -13,9 +13,9 @@
         <project-item v-bind:project=item></project-item>
       </div>
 
-      <div id="register-project-button" class="register-project-button-area" v-on:click="onRegisterProject">
-        <p class="register-project-button-icon">+</p>
-        <p class="register-project-button-text">프로젝트를 추가하세요</p>
+      <div id="register-project-button" class="register-project-button-area" v-on:click="onRegisterProject" v-bind:class="isEmptyList() ? ButtonWithOutListClass : ButtonWithListClass">
+        <div class="register-project-button-icon">+</div>
+        <div class="register-project-button-text">프로젝트를 추가하세요</div>
       </div>
     </section>
 </div>
@@ -32,6 +32,8 @@ export default {
     return {
       logoutErrorMsg: '',
       projectList: '',
+      ButtonWithOutListClass: 'register-project-button-without-list',
+      ButtonWithListClass: 'register-project-button-with-list',
     };
   },
   created() {
@@ -42,6 +44,9 @@ export default {
   methods: {
     onRegisterProject() {
       this.$router.push({ name: 'RegisterProject' });
+    },
+    isEmptyList() {
+      return !this.projectList || this.projectList.length <= 0;
     },
   },
 };
@@ -59,14 +64,13 @@ export default {
     font-weight: normal;
   }
 
-  .title-section {
-  }
-
   .content-section {
     min-height: 1000px;
-    padding-top: 60px;
+
+
     background-color: #f5f5f5;
   }
+
   .title-underline {
     width: 205px;
     height: 2.5px;
@@ -75,21 +79,29 @@ export default {
 
   }
   .register-project-button-area {
-    width: 870px;
-    height: 234px;
     margin-left: auto;
     margin-right: auto;
     background-color: #ffffff;
     border: dashed 1px #979797;
     border-radius: 2px;
   }
+
+  .register-project-button-without-list {
+    width: 870px;
+    height: 234px;
+  }
+
+  .register-project-button-with-list {
+    width: 252px;
+    height: 200px;
+  }
+
   .register-project-button-icon {
     font-size: 144px;
     line-height: 144px;
     color: #4a4a4a;
   }
   .register-project-button-text {
-    margin-top: 38px;
     font-size: 20px;
   }
 

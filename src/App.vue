@@ -233,4 +233,24 @@ export default {
   color: #ffffff;
 }
 
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.margin-bottom-50 {
+  margin-bottom: 50px;
+}
+.margin-side-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.padding-top-50 {
+  padding-top: 50px;
+}
+
+.padding-bottom-50 {
+  padding-bottom: 50px;
+}
+
 </style>
