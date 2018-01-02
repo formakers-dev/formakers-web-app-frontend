@@ -113,6 +113,7 @@
   }
 
   .project-description-area .text-area .project-name {
+    font-family: NotoSansCJKkr-Medium;
     font-size: 22px;
     font-weight: 500;
     line-height: 1.59;
