@@ -21,6 +21,8 @@
   };
 </script>
 
+
+<style src="./assets/styles/common.css"></style>
 <style>
   #app {
     -webkit-font-smoothing: antialiased;
@@ -230,27 +232,6 @@
     text-align: center;
     line-height: 40px;
     color: #ffffff;
-  }
-
-  .margin-top-50 {
-    margin-top: 50px;
-  }
-
-  .margin-bottom-50 {
-    margin-bottom: 50px;
-  }
-
-  .margin-side-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .padding-top-50 {
-    padding-top: 50px;
-  }
-
-  .padding-bottom-50 {
-    padding-bottom: 50px;
   }
 
 </style>

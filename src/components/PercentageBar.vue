@@ -33,13 +33,14 @@
 
 <style scoped>
   #percentage-bar {
-    margin: 5px 0;
+    margin: 0;
   }
 
   .percentage-bar-graph {
     width: 172px;
     height: 13px;
     display: inline-block;
+    vertical-align: middle;
   }
 
   .total-bar {
@@ -59,6 +60,8 @@
   #percentage-bar p {
     margin-left: 5px;
     display: inline-block;
+    font-size: 14px;
+    vertical-align: middle;
   }
 
 </style>
