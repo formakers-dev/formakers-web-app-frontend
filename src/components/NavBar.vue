@@ -4,7 +4,7 @@
       <div class="navbar-brand login-header">
         <p class="title font-white font-left">AppBee</p>
       </div>
-      <div id="logout-button" class="nav-button" v-on:click="onLogout">{{username}}</div>
+      <div id="logout-button" class="nav-button" v-on:click="onLogout">로그아웃</div>
     </div>
 
     <div v-else class="logout-area nav-width">
