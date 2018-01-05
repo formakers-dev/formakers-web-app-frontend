@@ -17,10 +17,10 @@
       <div class="description">
         <div class="recruit-status">
           <percentage-bar v-if="isOpenInterview" v-bind:percentage="percentage"></percentage-bar>
-          <p v-else>모집 성공</p>
+          <p v-else>모집 결과 ({{registerCount}}/{{interview.totalCount}}명)</p>
         </div>
         <p>모집기간 : {{openDate}} ~ {{closeDate}} </p>
-        <p><span class="strike">{{interview.apps[0].appName}}</span> 앱 사용자 모집 예정</p>
+        <p><span class="strike">{{interview.apps[0].appName}}</span> 앱 사용자 모집 <span v-if="isOpenInterview">예정</span></p>
       </div>
     </div>
 
