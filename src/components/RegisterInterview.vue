@@ -168,7 +168,9 @@
           <input class="input-text" v-model="interview.emergencyPhone" placeholder=""/>
         </div>
 
-        <button class="save-button" v-on:click="registerInterview">인터뷰 등록</button>
+        <div class="button-area">
+          <button class="save-button" v-on:click="registerInterview">인터뷰 등록</button>
+        </div>
       </div>
     </section>
   </div>
@@ -503,17 +505,8 @@
     border: solid 1px #4285f4;
   }
 
-  .save-button {
-    width: 340px;
-    height: 80px;
+  .button-area {
     margin-top: 100px;
-    object-fit: contain;
-    background-color: #ffcd00;
-    font-family: NotoSansCJKkr;
-    font-size: 18px;
-    text-align: center;
-    color: #4a4a4a;
-    border: 0;
   }
 
 </style>
