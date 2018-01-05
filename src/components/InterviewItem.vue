@@ -7,7 +7,6 @@
       </p>
       <div class="description">
         <p>등록일 : {{interviewDate}}</p>
-        <p v-if="!isOpenInterview">종료일 : {{interviewDate}}</p>
       </div>
     </div>
 
