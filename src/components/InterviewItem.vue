@@ -5,9 +5,6 @@
       <p class="seq">
         <span class="strike">{{interview.seq}}</span> 번째<br/>인터뷰
       </p>
-      <div class="description">
-        <p>등록일 : {{interviewDate}}</p>
-      </div>
     </div>
 
     <div class="interview-item-divider vertical-center"></div>
@@ -162,7 +159,7 @@
   .interview-item-content.seq-area {
     margin: 0;
     width: 150px;
-    padding-top: 35px;
+    padding-top: 45px;
     display: inline-block;
   }
 
@@ -170,10 +167,6 @@
     font-size: 20px;
     line-height: 1.5;
     text-align: center;
-  }
-
-  .interview-item-content.seq-area .description {
-    margin-top: 10px;
   }
 
   .interview-item-content.recruit-area {
