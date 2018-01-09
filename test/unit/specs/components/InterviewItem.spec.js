@@ -20,24 +20,25 @@ describe('InterviewItem Component', () => {
         location: '향군타워 5층',
         locationDescription: '여기서봐요...',
         openDate: '2017-11-03',
-        closeDate: '2017-11-03',
-        interviewDate: '2017-11-03',
+        closeDate: '2017-11-05',
+        interviewDate: '2017-11-06',
         timeSlotTimes: [8, 10, 14],
         emergencyPhone: '010-1234-5678',
-      },
-      datePicker: {
-        openDate: new Date('2017-10-31'),
-        closeDate: new Date('2017-11-01'),
-        interviewDate: new Date('2017-11-02'),
       },
     },
   };
 
+  beforeEach((done) => {
+    done();
+  });
+
   it('인터뷰 수정 버튼 클릭 시, 인터뷰 수정 화면으로 이동한다', (done) => {
+    const clock = sandbox.useFakeTimers(new Date('2017-11-04').getTime());
+
     const vm = getVmInstance(InterviewItem, propsOption);
     const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
 
-    vm.$el.querySelector('.update-button-area').click();
+    vm.$el.querySelector('.edit-button-area').click();
 
     vm.$nextTick(() => {
       sinon.assert.calledOnce(spyRouterOnPush);
@@ -45,6 +46,7 @@ describe('InterviewItem Component', () => {
       spyRouterOnPush.args[0][0].params.projectId.should.be.eql(123456);
       spyRouterOnPush.args[0][0].params.interviewSeq.should.be.eql(1);
 
+      clock.restore();
       done();
     });
   });
