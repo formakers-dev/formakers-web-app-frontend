@@ -180,10 +180,31 @@ describe('RegisterInterView Component', () => {
       vm.addInterviewTargetApp({
         packageName: 'com.kakao.talk',
         appName: '카카오톡',
+        iconUrl: 'image',
+        developer: 'KaKao',
       });
 
       vm.interview.apps[0].packageName.should.be.eql('com.kakao.talk');
       vm.interview.apps[0].appName.should.be.eql('카카오톡');
+      vm.interview.apps[0].iconUrl.should.be.eql('image');
+      vm.interview.apps[0].developer.should.be.eql('KaKao');
+    });
+  });
+
+  describe('벤치마킹 앱 삭제 버튼 선택 시', () => {
+    it('선택된 앱을 interview.apps에서 삭제한다', () => {
+      const vm = getVmInstance(RegisterInterview);
+
+      vm.removeInterviewTargetApp({
+        packageName: 'com.kakao.talk',
+        appName: '카카오톡',
+        iconUrl: 'image',
+        developer: 'KaKao',
+      });
+
+      const apps = vm.interview.apps.map(item => item.packageName);
+
+      apps.should.not.be.include('com.kakao.talk');
     });
   });
 

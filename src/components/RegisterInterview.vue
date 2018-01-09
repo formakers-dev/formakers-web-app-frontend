@@ -66,7 +66,16 @@
             <div v-else>
               <ul v-for="item in interview.apps">
                 <li>
-                  {{ item }}
+                  <div class="app-container margin-side-auto">
+                    <div class="app-inner-container">
+                      <img class="app-icon-url" v-bind:src="item.iconUrl"/>
+                      <div class="app-info">
+                        <span class="app-name">{{ item.appName }}</span>
+                        <span class="app-developer">{{ item.developer }}</span>
+                      </div>
+                    </div>
+                    <img class="app-remove-button" src="../assets/delete_image.png" v-on:click="removeInterviewTargetApp(item)">
+                  </div>
                 </li>
               </ul>
             </div>
@@ -256,6 +265,7 @@
         this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
         this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
 
+        console.log(this.interview);
         HTTP.post(`/projects/${this.projectId}/interviews`, this.interview)
           .then(() => {
             this.$router.push({ name: 'MyPage' });
@@ -268,7 +278,13 @@
         this.interview.apps.push({
           packageName: app.packageName,
           appName: app.appName,
+          iconUrl: app.iconUrl,
+          developer: app.developer,
         });
+      },
+      removeInterviewTargetApp(app) {
+        this.interview.apps = this.interview.apps.filter(item =>
+          item.packageName !== app.packageName);
       },
     },
   };
@@ -276,6 +292,49 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .app-container {
+    width: 544px;
+    height: 112px;
+    border-radius: 3px;
+    border: solid 2px #4285f4;
+    margin-bottom: 15px;
+    display: inline-flex;
+  }
+  .app-inner-container {
+    padding: 16px;
+    display: inline-flex;
+  }
+  .app-icon-url {
+    width: 80px;
+    height: 80px;
+    border-radius: 3px;
+    margin-left: 4px;
+  }
+
+  .app-info {
+    margin-left: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  .app-name {
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    color: #4a4a4a;
+    display: block;
+    min-width: 360px;
+  }
+  .app-developer {
+    min-width: 360px;
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    color: #4a4a4a;
+  }
+  .app-remove-button {
+    width: 22px;
+    height: 22px;
+    margin-top: 15px;
+  }
   .container-wrapper {
     max-width: 750px;
     margin-bottom: 100px;
