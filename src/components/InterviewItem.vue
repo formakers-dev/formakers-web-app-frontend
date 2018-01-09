@@ -11,12 +11,13 @@
 
     <div class="interview-item-content recruit-area">
       <p class="title">유저 모집
-        <span v-if="isOpenInterview">중 (<span class="strike">{{registerCount}}/{{interview.totalCount}}</span>명)</span>
+        <span v-if="interviewStatus=='BEFORE_OPENNING'">시작 D-{{getDday(interview.openDate)}}일</span>
+        <span v-else-if="interviewStatus=='ENROLLING'">중 (<span class="strike">{{registerCount}}/{{interview.totalCount}}</span>명)</span>
         <span v-else> 종료</span>
       </p>
       <div class="description">
         <div class="recruit-status">
-          <percentage-bar v-if="isOpenInterview" v-bind:percentage="percentage"></percentage-bar>
+          <percentage-bar v-if="interviewStatus!='FINISHED'" v-bind:percentage="percentage"></percentage-bar>
           <p v-else>모집 결과 ({{registerCount}}/{{interview.totalCount}}명)</p>
         </div>
         <p>모집기간 : {{openDate}} ~ {{closeDate}} </p>
@@ -28,7 +29,7 @@
 
     <div class="interview-item-content detail-area">
       <p class="title">인터뷰
-        <span v-if="isOpenInterview"><span class="strike"> D-{{this.dDay}}</span>일</span>
+        <span v-if="interviewStatus!='FINISHED'"><span class="strike"> D-{{getDday(interview.interviewDate)}}</span>일</span>
         <span v-else> 종료</span>
       </p>
       <div class="description">
@@ -41,7 +42,7 @@
     <div class="interview-item-divider"></div>
 
     <div class="interview-item-content update-button-area margin-auto">
-      <div v-if="isOpenInterview" class="edit-button-area" v-on:click="moveToUpdateInterview">
+      <div v-if="interviewStatus!='FINISHED'" class="edit-button-area" v-on:click="moveToUpdateInterview">
         <img src="../assets/edit_button.png" class="edit-button"/>
         <span>인터뷰 수정</span>
       </div>
@@ -92,15 +93,29 @@
       this.percentage = this.registerCount / this.interview.totalCount;
     },
     computed: {
+      interviewStatus() {
+        const openDate = new Date(this.interview.openDate);
+        const interviewDate = new Date(this.interview.interviewDate);
+        const currentDate = new Date();
+
+        if (openDate > currentDate) {
+          return 'BEFORE_OPENNING';
+        } else if (openDate <= currentDate && currentDate <= interviewDate) {
+          return 'ENROLLING';
+        }
+        return 'FINISHED';
+      },
       isOpenInterview() {
+        // 시작전 openDate > currentDate
+        // 모집중 open Date < currentDate && currentDate < interviewDate(endDate) ??????
+        // ???(아마도 모집완료~인터뷰종료전 일듯하다.......--;;;)
+        // 인터뷰 종료 interviewDate < currentDate
         return new Date(this.interview.interviewDate).getTime() >= new Date().getTime();
       },
     },
     methods: {
-      getDday() {
-        return Math.ceil(
-          (new Date(this.interview.interviewDate)
-          - new Date()) / 24 / 60 / 60 / 1000);
+      getDday(dateString) {
+        return Math.ceil((new Date(dateString) - new Date()) / 24 / 60 / 60 / 1000);
       },
       moveToUpdateInterview() {
         this.$router.push({
