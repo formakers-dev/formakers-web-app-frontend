@@ -40,8 +40,8 @@
 
     <div class="interview-item-divider vertical-center"></div>
 
-    <div class="interview-item-content update-button-area vertical-center" v-on:click="moveToUpdateInterview">
-      <div v-if="isOpenInterview" class="edit-button-area">
+    <div class="interview-item-content update-button-area vertical-center">
+      <div v-if="isOpenInterview" class="edit-button-area" v-on:click="moveToUpdateInterview">
         <img src="../assets/edit_button.png" class="edit-button"/>
         <span>인터뷰 수정</span>
       </div>
@@ -50,7 +50,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/babel">
   import moment from 'moment';
   import PercentageBar from './PercentageBar';
 
