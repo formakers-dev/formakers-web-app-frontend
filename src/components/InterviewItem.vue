@@ -1,13 +1,13 @@
 <template>
   <div id="interview-item" v-bind:class="isOpenInterview ? enabledClass : disabledClass">
 
-    <div class="interview-item-content seq-area">
+    <div class="interview-item-content seq-area margin-auto">
       <p class="seq">
         <span class="strike">{{interview.seq}}</span> 번째<br/>인터뷰
       </p>
     </div>
 
-    <div class="interview-item-divider vertical-center"></div>
+    <div class="interview-item-divider"></div>
 
     <div class="interview-item-content recruit-area">
       <p class="title">유저 모집
@@ -20,11 +20,11 @@
           <p v-else>모집 결과 ({{registerCount}}/{{interview.totalCount}}명)</p>
         </div>
         <p>모집기간 : {{openDate}} ~ {{closeDate}} </p>
-        <p><span class="strike">{{interview.apps[0].appName}}</span> 앱 사용자 모집 <span v-if="isOpenInterview">예정</span></p>
+        <p><span class="strike" v-for="app in interview.apps">{{app.appName}},<br></span> 앱 사용자 모집 <span v-if="isOpenInterview">예정</span></p>
       </div>
     </div>
 
-    <div class="interview-item-divider vertical-center"></div>
+    <div class="interview-item-divider"></div>
 
     <div class="interview-item-content detail-area">
       <p class="title">인터뷰
@@ -38,9 +38,9 @@
       </div>
     </div>
 
-    <div class="interview-item-divider vertical-center"></div>
+    <div class="interview-item-divider"></div>
 
-    <div class="interview-item-content update-button-area vertical-center">
+    <div class="interview-item-content update-button-area margin-auto">
       <div v-if="isOpenInterview" class="edit-button-area" v-on:click="moveToUpdateInterview">
         <img src="../assets/edit_button.png" class="edit-button"/>
         <span>인터뷰 수정</span>
@@ -117,15 +117,22 @@
 
   #interview-item {
     width: 870px;
-    height: 159px;
     margin: 0 auto 30px auto;
     border: solid 0.5px #d8d8d8;
+    display: inline-flex;
   }
 
   .interview-item-content {
-    margin: 0;
     padding: 0;
     vertical-align: top;
+    float: inherit;
+  }
+
+  .interview-item-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    width: 0;
+    border: solid 0.5px #d8d8d8;
   }
 
   .enabled {
@@ -157,10 +164,7 @@
   }
 
   .interview-item-content.seq-area {
-    margin: 0;
-    width: 150px;
-    padding-top: 45px;
-    display: inline-block;
+    width: 176px;
   }
 
   .interview-item-content.seq-area .seq {
@@ -171,11 +175,11 @@
 
   .interview-item-content.recruit-area {
     margin: 0;
-    width: 272px;
+    width: 263px;
     padding-top: 25px;
+    padding-bottom: 25px;
     padding-left: 40px;
     padding-right: 10px;
-    display: inline-block;
     text-align: left;
   }
 
@@ -197,11 +201,10 @@
 
   .interview-item-content.detail-area {
     margin: 0;
-    width: 262px;
+    width: 264px;
     padding-top: 25px;
     padding-left: 40px;
     padding-right: 30px;
-    display: inline-block;
     text-align: left;
   }
 
@@ -218,16 +221,7 @@
   }
 
   .interview-item-content.update-button-area {
-    margin: 0;
     width: 150px;
-    display: inline-block;
-  }
-
-  .interview-item-divider {
-    height: 127px;
-    width: 0;
-    border: solid 0.5px #d8d8d8;
-    display: inline-block;
   }
 
   .edit-button-area span {
