@@ -1,11 +1,11 @@
 <template>
   <div id="update-interview" class="container">
     <section class="section">
-      <div class="container container-wrapper">
+      <div class="container contents-area">
         <div>
-          <div class="columns is-centered title-div">
-            <div class="column is-narrow title-name">오프라인 유저 인터뷰</div>
-            <div class="column title-description">인터뷰 내용을 확인하고 진행해 주세요.</div>
+          <div class="columns is-centered label-area">
+            <div class="column is-narrow label-title">오프라인 유저 인터뷰</div>
+            <div class="column label-description">인터뷰 내용을 확인하고 진행해 주세요.</div>
           </div>
           <div class="columns margin-top-50 margin-bottom-38">
             <div class="column border-right">
@@ -36,9 +36,9 @@
         <div class="seperator"></div>
 
         <div>
-          <div class="columns is-centered title-div">
-            <div class="column is-narrow title-name">벤치마킹 앱 검색</div>
-            <div class="column title-description">프로젝트와 유사한 성격의 앱을 1개 선택하시면 그 유저들에게 프로젝트가 노출됩니다.</div>
+          <div class="columns is-centered label-area">
+            <div class="column is-narrow label-title">벤치마킹 앱 검색</div>
+            <div class="column label-description">프로젝트와 유사한 성격의 앱을 1개 선택하시면 그 유저들에게 프로젝트가 노출됩니다.</div>
           </div>
           <div class="margin-top-50 margin-bottom-50">
             <div v-if="interview.apps.length === 0">
@@ -76,9 +76,9 @@
 
         <div class="seperator"></div>
         <div>
-          <div class="columns is-centered title-div">
-            <div class="column is-narrow title-name">인터뷰 장소 선택</div>
-            <div class="column title-description">상세 위치와 오는 방법에 대한 안내를 적어주세요</div>
+          <div class="columns is-centered label-area">
+            <div class="column is-narrow label-title">인터뷰 장소 선택</div>
+            <div class="column label-description">상세 위치와 오는 방법에 대한 안내를 적어주세요</div>
           </div>
           <div class="location-button-group">
             <b-radio class="button" v-model="interview.location"
@@ -97,9 +97,9 @@
           <input class="input-text" v-model="interview.locationDescription" placeholder=""/>
         </div>
         <div>
-          <div class="columns is-centered title-div">
-            <div class="column is-narrow title-name">인터뷰 실행 날짜 및 시간</div>
-            <div class="column title-description">인터뷰 날짜와 시간을 선택합니다. 인터뷰를 진행할 시간을 5개 선택해 주세요.</div>
+          <div class="columns is-centered label-area">
+            <div class="column is-narrow label-title">인터뷰 실행 날짜 및 시간</div>
+            <div class="column label-description">인터뷰 날짜와 시간을 선택합니다. 인터뷰를 진행할 시간을 5개 선택해 주세요.</div>
           </div>
 
           <b-datepicker
@@ -118,9 +118,9 @@
           </div>
         </div>
         <div class="text-align-left">
-          <div class="columns is-centered title-div">
-            <div class="column is-narrow title-name">유저 모집 시작일</div>
-            <div class="column title-description">인터뷰를 할 유저 모집 시작일을 선택해 주세요. 선택한 날부터 모집이 시작됩니다.</div>
+          <div class="columns is-centered label-area">
+            <div class="column is-narrow label-title">유저 모집 시작일</div>
+            <div class="column label-description">인터뷰를 할 유저 모집 시작일을 선택해 주세요. 선택한 날부터 모집이 시작됩니다.</div>
           </div>
           <div>
             <div class="date-picker-area">
@@ -141,21 +141,21 @@
               </b-datepicker>
             </div>
           </div>
-          <p class="title-description text-align-center margin-top-15">* 모집 종료일은 인터뷰 실행 전날로 자동 지정됩니다.</p>
+          <p class="label-description text-align-center margin-top-15">* 모집 종료일은 인터뷰 실행 전날로 자동 지정됩니다.</p>
         </div>
         <div class="seperator"></div>
         <div>
-          <div class="columns is-centered title-div">
-            <div class="column is-narrow title-name">인터뷰 소개</div>
-            <div class="column title-description">인터뷰에 대한 소개를 적어주세요. 진행 개요나 인터뷰전에 전할 내용을 적으셔도 됩니다.</div>
+          <div class="columns is-centered label-area">
+            <div class="column is-narrow label-title">인터뷰 소개</div>
+            <div class="column label-description">인터뷰에 대한 소개를 적어주세요. 진행 개요나 인터뷰전에 전할 내용을 적으셔도 됩니다.</div>
           </div>
           <textarea class="input-textarea" v-model="interview.introduce" placeholder=""></textarea>
         </div>
         <div class="seperator"></div>
         <div>
-          <div class="columns is-centered title-div">
-            <div class="column is-narrow title-name">비상연락처</div>
-            <div class="column title-description">비상시에 연락이 가능한 연락처를 적어주세요. 인터뷰에 모집된 사용자들에게만 보여집니다.</div>
+          <div class="columns is-centered label-area">
+            <div class="column is-narrow label-title">비상연락처</div>
+            <div class="column label-description">비상시에 연락이 가능한 연락처를 적어주세요. 인터뷰에 모집된 사용자들에게만 보여집니다.</div>
           </div>
           <input class="input-text" v-model="interview.emergencyPhone" placeholder=""/>
         </div>
@@ -166,8 +166,6 @@
         </div>
       </div>
     </section>
-
-
   </div>
 </template>
 <script>
@@ -347,36 +345,6 @@
     width: 22px;
     height: 22px;
     margin-top: 15px;
-  }
-  .container-wrapper {
-    max-width: 750px;
-    margin-bottom: 100px;
-  }
-
-  .title-div {
-    margin-top: 50px;
-    vertical-align: middle;
-  }
-
-  .title-name {
-    padding-top: 0;
-    padding-bottom: 3px;
-    margin-right: 26px;
-    white-space: nowrap;
-    font-family: NotoSansCJKkr;
-    line-height: 1.17;
-    font-size: 18px;
-    text-align: left;
-    color: #4a4a4a;
-  }
-
-  .title-description {
-    padding-top: 0;
-    padding-bottom: 0;
-    font-family: NotoSansCJKkr;
-    font-size: 14px;
-    text-align: left;
-    color: #979797;
   }
 
   .input-textarea {
