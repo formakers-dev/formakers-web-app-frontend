@@ -161,8 +161,9 @@
     padding-left: 16px;
     padding-right: 16px;
     border-radius: 2px;
-    background-color: #ffffff;
-    border: solid 1px #4285f4;
+    background-color: #f9f9f9;
+    outline: none;
+    border: solid 1px #d8d8d8;
     font-family: NotoSansCJKkr;
     font-size: 12px;
     line-height: 1.42;
@@ -175,14 +176,20 @@
     height: 400px;
     padding: 16px;
     border-radius: 2px;
-    background-color: #ffffff;
-    border: solid 1px #4285f4;
+    background-color: #f9f9f9;
+    border: solid 1px #d8d8d8;
     font-family: NotoSansCJKkr;
     font-size: 12px;
     line-height: 1.42;
     text-align: left;
     color: #4a4a4a;
   }
+
+  .input-text:focus, .input-textarea:focus {
+    background-color: #ffffff;
+    border: solid 1px #4285f4;
+  }
+
 
   .seperator {
     width: 750px;

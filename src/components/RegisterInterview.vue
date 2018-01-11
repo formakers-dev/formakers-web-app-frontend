@@ -457,17 +457,6 @@
     margin-right: 8px;
   }
 
-  input, textarea {
-    outline: none;
-    background-color: #f9f9f9;
-    border: solid 1px #d8d8d8;
-  }
-
-  input:focus, textarea:focus {
-    background-color: #ffffff;
-    border: solid 1px #4285f4;
-  }
-
   .searched-app-list {
     padding-left: 100px;
     padding-top: 25px;
