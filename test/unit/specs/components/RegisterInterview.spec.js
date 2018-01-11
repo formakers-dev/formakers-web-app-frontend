@@ -86,7 +86,7 @@ describe('RegisterInterView Component', () => {
     });
   });
 
-  describe('유사앱 검색 버튼이 클릭되었을 때', () => {
+  describe('searchApp 호출 시', () => {
     const searchResult = {
       data: [{
         _id: '5988097cb495479821f2d188',
@@ -114,18 +114,7 @@ describe('RegisterInterView Component', () => {
       }],
     };
 
-    // TODO : 앱이름 입력 input 박스에서 엔터키 이벤트로 변경할 것
-    // it('searchApp 메소드가 호출된다', () => {
-    //   const spyOnSearchApp = sandbox.spy(RegisterInterview.methods, 'searchApp');
-    //   const vm = getVmInstance(RegisterInterview);
-    //   const button = vm.$el.querySelector('.search-button');
-    //
-    //   button.click();
-    //
-    //   sinon.assert.calledOnce(spyOnSearchApp);
-    // });
-
-    it('searchApp 호출 시, 유사 앱이 조회된다', (done) => {
+    it('유사 앱이 조회된다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'get');
       stubHttpOnPost.withArgs('/apps?keyword=kakao').returns(Promise.resolve(searchResult));
       const option = {

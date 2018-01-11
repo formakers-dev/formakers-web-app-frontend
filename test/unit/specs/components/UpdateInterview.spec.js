@@ -87,17 +87,17 @@ describe('UpdateInterview Component', () => {
     propsData: testProps,
   });
 
-  let stubHttpOnGetInterview;
+  let stubHttpOnGet;
 
   beforeEach(() => {
-    stubHttpOnGetInterview = sandbox.stub(HTTP, 'get');
-    stubHttpOnGetInterview.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.resolve(testInterviewData));
+    stubHttpOnGet = sandbox.stub(HTTP, 'get');
+    stubHttpOnGet.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.resolve(testInterviewData));
   });
 
   it('페이지 로딩 시, 인터뷰 정보를 조회하여 data를 세팅한다.', (done) => {
     const vm = createVmInstance();
 
-    sinon.assert.calledWithExactly(stubHttpOnGetInterview, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`);
+    sinon.assert.calledWithExactly(stubHttpOnGet, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`);
 
     vm.$nextTick(() => {
       vm.interview.type.should.be.eql('오프라인 인터뷰');
@@ -120,12 +120,12 @@ describe('UpdateInterview Component', () => {
   });
 
   it('인터뷰 정보 조회 실패시, 마이페이지로 이동한다.', (done) => {
-    stubHttpOnGetInterview.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.reject());
+    stubHttpOnGet.withArgs(`/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`).returns(Promise.reject());
 
     const vm = createVmInstance();
     const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
 
-    sinon.assert.calledWithExactly(stubHttpOnGetInterview, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`);
+    sinon.assert.calledWithExactly(stubHttpOnGet, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`);
 
     vm.$nextTick(() => {
       sinon.assert.calledOnce(spyRouterOnPush);
@@ -197,6 +197,120 @@ describe('UpdateInterview Component', () => {
           done();
         });
       });
+    });
+  });
+
+
+  describe('searchApp 호출 시', () => {
+    const searchResult = {
+      data: [{
+        developer: 'Kakao Corporation',
+        star: 4.3,
+        description: '카카오톡은 전세계 어디서나 안드로이드폰과 아이폰 사용자간 무료로 메시지를 ...',
+        contentsRating: '만 3세 이상',
+        categoryId1: '/store/apps/category/COMMUNICATION',
+        categoryName1: '커뮤니케이션',
+        categoryId2: '',
+        categoryName2: '',
+        inappPriceMin: 1000,
+        reviewCount: 2434177,
+        packageName: 'com.kakao.talk',
+        appName: '카카오톡 KakaoTalk',
+        inappPriceMax: 90909,
+        installsMin: 100000000,
+        updatedDate: '20170720',
+        similarApps:
+        ['com.tencent.mm',
+          'com.wWhatsUpMessenger_4083770'],
+        appPrice: 0,
+        installsMax: 500000000,
+        iconUrl: 'https://kakao.com/icon/url',
+      }],
+    };
+
+    it('유사 앱이 조회된다', (done) => {
+      stubHttpOnGet.withArgs('/apps?keyword=').returns(Promise.resolve(searchResult));
+      const vm = createVmInstance();
+
+      vm.searchApp();
+
+      vm.$nextTick(() => {
+        expect(vm.searchedApps.length).to.be.eql(1);
+        expect(vm.searchedApps[0].packageName).to.be.eql('com.kakao.talk');
+        expect(vm.searchedApps[0].iconUrl).to.be.eql('https://kakao.com/icon/url');
+        expect(vm.searchedApps[0].appName).to.be.eql('카카오톡 KakaoTalk');
+        expect(vm.searchedApps[0].developer).to.be.eql('Kakao Corporation');
+
+
+        vm.$nextTick(() => {
+          expect(vm.$el.querySelector('.searched-app-icon').getAttribute('src')).to.be.eql('https://kakao.com/icon/url');
+          expect(vm.$el.querySelector('.searched-app-title').innerText).to.be.eql('카카오톡 KakaoTalk');
+          expect(vm.$el.querySelector('.searched-app-developer').innerText).to.be.eql('Kakao Corporation');
+
+          done();
+        });
+      });
+    });
+  });
+
+  describe('벤치마킹 앱검색 이름 변경 시', () => {
+    let clock;
+
+    beforeEach(() => {
+      clock = sandbox.useFakeTimers();
+    });
+
+    it('벤치마킹 앱검색 이름 변경되고 300ms가 지나면 searchApp를 호출된다', (done) => {
+      stubHttpOnGet.withArgs('/apps?keyword=kakao').returns(Promise.resolve());
+      const spyOnSearchApp = sandbox.spy(UpdateInterview.methods, 'searchApp');
+      const vm = createVmInstance();
+
+      vm.searchAppName = 'kakao';
+
+      vm.$nextTick(() => {
+        clock.tick(300);
+        sinon.assert.calledOnce(spyOnSearchApp);
+        done();
+      });
+    });
+
+    afterEach(() => {
+      clock.restore();
+    });
+  });
+
+  describe('벤치마킹 앱 선택 시', () => {
+    it('선택된 앱을 interview.apps에 저장한다', () => {
+      const vm = createVmInstance();
+
+      vm.addInterviewTargetApp({
+        packageName: 'com.kakao.talk',
+        appName: '카카오톡',
+        iconUrl: 'image',
+        developer: 'KaKao',
+      });
+
+      vm.interview.apps[0].packageName.should.be.eql('com.kakao.talk');
+      vm.interview.apps[0].appName.should.be.eql('카카오톡');
+      vm.interview.apps[0].iconUrl.should.be.eql('image');
+      vm.interview.apps[0].developer.should.be.eql('KaKao');
+    });
+  });
+
+  describe('벤치마킹 앱 삭제 버튼 선택 시', () => {
+    it('선택된 앱을 interview.apps에서 삭제한다', () => {
+      const vm = createVmInstance();
+
+      vm.removeInterviewTargetApp({
+        packageName: 'com.kakao.talk',
+        appName: '카카오톡',
+        iconUrl: 'image',
+        developer: 'KaKao',
+      });
+
+      const apps = vm.interview.apps.map(item => item.packageName);
+
+      apps.should.not.be.include('com.kakao.talk');
     });
   });
 

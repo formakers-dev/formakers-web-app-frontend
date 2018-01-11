@@ -17,7 +17,6 @@
               <div class="appbee-guide-image"><img src="../assets/appbee-guide-image2.png"/></div>
               <div class="appbee-guide-name"><u>5명의 잠재 고객</u></div>
               <div class="appbee-guide-description"> 총 5명의 잠재 고객을 만납니다.</div>
-
             </div>
             <div class="column">
               <div class="appbee-guide-image"><img src="../assets/appbee-guide-image3.png"/></div>
@@ -25,7 +24,6 @@
               <div class="appbee-guide-description">1월까지 이벤트로 무료입니다.</div>
             </div>
           </div>
-
           <div>
             <p class="appbee-guide-warning">* 앱비는 사용자의 매칭과 모집을 도와드리며, 인터뷰 진행에 직접 참가하지 않습니다.</p>
             <p class="appbee-guide-warning">* 인터뷰 신청자의 취소나 No-Show가 발생할 수 있습니다.</p>
@@ -33,10 +31,10 @@
             <p class="appbee-guide-warning color-red">* 인터뷰 신청 모집이 시작되기 전까지는 취소가 가능하지만, 그 이후의 취소는 패널티가 발생합니다.</p>
             <p class="appbee-guide-warning">&nbsp;&nbsp;&nbsp;<u>취소 환불 정책 보러가기</u></p>
           </div>
-
         </div>
 
         <div class="seperator"></div>
+
         <div>
           <div class="columns is-centered title-div">
             <div class="column is-narrow title-name">벤치마킹 앱 검색</div>
@@ -49,21 +47,29 @@
             <div v-else>
               <ul v-for="item in interview.apps">
                 <li>
-                  {{ item }}
+                  <div class="app-container margin-side-auto">
+                    <div class="app-inner-container">
+                      <img class="app-icon-url" v-bind:src="item.iconUrl"/>
+                      <div class="app-info">
+                        <span class="app-name">{{ item.appName }}</span>
+                        <span class="app-developer">{{ item.developer }}</span>
+                      </div>
+                    </div>
+                    <img class="app-remove-button" src="../assets/delete-icon.png" v-on:click="removeInterviewTargetApp(item)">
+                  </div>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="search-apps-container">
-            <span class="icon">
-              <i class="apps-icon apps-search mdi mdi-magnify"></i>
-              <i class="apps-icon apps-close mdi mdi-close"></i>
-            </span>
-            <input class="input-text search-apps-input" v-model="searchAppName" placeholder="유사앱 이름을 입력하세요"/>
+          <div class="search-text-wrapper">
+            <input type="search" class="input-text search-text" v-model="searchAppName" placeholder="예를 들어, 배달에 관련된 앱을 만든다면 '배달의 민족' 앱을 검색해보면 어때요?"/>
+            <img src="../assets/search-icon.png" class="search-icon"/>
           </div>
-          <ul class='search-result-list' v-for="app in searchedApps">
-            <li @click="addInterviewTargetApp(app)">
-              {{ app.appName }}
+          <ul class='searched-app-list' v-show="searchedApps.length > 0">
+            <li v-for="app in searchedApps" @click="addInterviewTargetApp(app)" class='searched-app'>
+              <img class="searched-app-icon" v-bind:src="app.iconUrl"/>
+              <div class="searched-app-title">{{ app.appName }}</div>
+              <div class="searched-app-developer">{{ app.developer }}</div>
             </li>
           </ul>
         </div>
@@ -231,7 +237,7 @@
         searchedApps: [],
         searchStatus: '',
         // Time Slots
-        timeSlots: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        timeSlots: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
       };
     },
     watch: {
@@ -285,7 +291,13 @@
         this.interview.apps.push({
           packageName: app.packageName,
           appName: app.appName,
+          iconUrl: app.iconUrl,
+          developer: app.developer,
         });
+      },
+      removeInterviewTargetApp(app) {
+        this.interview.apps = this.interview.apps.filter(item =>
+        item.packageName !== app.packageName);
       },
     },
   };
@@ -293,17 +305,52 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .app-container {
+    width: 544px;
+    height: 112px;
+    border-radius: 3px;
+    border: solid 2px #4285f4;
+    margin-bottom: 15px;
+    display: inline-flex;
+  }
+  .app-inner-container {
+    padding: 16px;
+    display: inline-flex;
+  }
+  .app-icon-url {
+    width: 80px;
+    height: 80px;
+    border-radius: 3px;
+    margin-left: 4px;
+  }
+
+  .app-info {
+    margin-left: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  .app-name {
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    color: #4a4a4a;
+    display: block;
+    min-width: 360px;
+  }
+  .app-developer {
+    min-width: 360px;
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    color: #4a4a4a;
+  }
+  .app-remove-button {
+    width: 22px;
+    height: 22px;
+    margin-top: 15px;
+  }
   .container-wrapper {
     max-width: 750px;
     margin-bottom: 100px;
-  }
-
-  .seperator {
-    width: 750px;
-    height: 1px;
-    background-color: #9b9b9b;
-    margin-top: 80px;
-    margin-bottom: 80px;
   }
 
   .title-div {
@@ -332,29 +379,8 @@
     color: #979797;
   }
 
-  .input-text {
-    width: 100%;
-    height: 40px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 2px;
-    font-family: NotoSansCJKkr;
-    font-size: 12px;
-    line-height: 1.42;
-    text-align: left;
-    color: #4a4a4a;
-  }
-
   .input-textarea {
-    width: 100%;
     height: 254px;
-    padding: 16px;
-    border-radius: 2px;
-    font-family: NotoSansCJKkr;
-    font-size: 12px;
-    line-height: 1.42;
-    text-align: left;
-    color: #4a4a4a;
   }
 
   .appbee-guide-image {
@@ -479,24 +505,70 @@
     border: solid 1px #4285f4;
   }
 
-  .button-area {
-    margin-top: 100px;
+  .searched-app-list {
+    padding-left: 100px;
+    padding-top: 25px;
+    padding-bottom: 5px;
+
+    box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.5), 0.5px 2px 4px 0 rgba(0, 0, 0, 0.3);
+    border-left: solid 1px #4285f4;
+    border-right: solid 1px #4285f4;
+    border-bottom: solid 1px #4285f4;
   }
 
-  .search-apps-container {
-    vertical-align: middle;
-    white-space: nowrap;
+  .searched-app {
+    margin-bottom: 20px;
+    height: 38px;
+    text-align: left;
+  }
+
+  .searched-app-icon {
+    width: 40px;
+    height: 38px;
+    margin-right: 19px;
+    float: left;
+  }
+
+  .searched-app-title {
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    line-height: 1.43;
+    text-align: left;
+    color: #4a4a4a;
+  }
+
+  .searched-app-developer {
+    font-family: NotoSansCJKkr;
+    font-size: 11px;
+    line-height: 1.55;
+    text-align: left;
+    color: #4a4a4a;
+  }
+
+  .search-text-wrapper {
     position: relative;
   }
 
-  .search-apps-container input{
-    float: left;
-    padding-left: 72px;
+  .search-text {
+    position: relative;
+    padding-left: 56px;
   }
 
-  .search-apps-container .icon {
+  .search-icon {
     position: absolute;
-    /*top: 50%;*/
-    z-index: 1;
+    top: 0;
+    left: 20px;
+    width: 28px;
+    height: 26px;
+    margin-top: 7px;
   }
+
+  .search-text::-webkit-search-cancel-button{
+    position:relative;
+    -webkit-appearance: none;
+    height: 22px;
+    width: 22px;
+    background: url("../assets/delete-icon.png") no-repeat center;
+  }
+
 </style>

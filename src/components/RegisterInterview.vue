@@ -71,31 +71,23 @@
                         <span class="app-developer">{{ item.developer }}</span>
                       </div>
                     </div>
-                    <img class="app-remove-button" src="../assets/delete_image.png" v-on:click="removeInterviewTargetApp(item)">
+                    <img class="app-remove-button" src="../assets/delete-icon.png" v-on:click="removeInterviewTargetApp(item)">
                   </div>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="field">
-            <p class="control has-icons-left has-icons-right">
-              <input class="input input-text" v-model="searchAppName" placeholder="예를들어, 배달에 관련된 앱을 만든다면 '배달의 민족' 앱을 검색해보면 어때요?"/>
-              <span class="icon is-medium is-left">
-                <i class="mdi mdi-magnify"></i>
-              </span>
-              <span v-show="searchAppName" class="icon is-medium is-right">
-                <i class="mdi mdi-close"></i>
-              </span>
-            </p>
-
-            <ul class='searched-app-list' v-show="searchedApps.length > 0">
-              <li v-for="app in searchedApps" @click="addInterviewTargetApp(app)" class='searched-app'>
-                <img class="searched-app-icon" v-bind:src="app.iconUrl"/>
-                <div class="searched-app-title">{{ app.appName }}</div>
-                <div class="searched-app-developer">{{ app.developer }}</div>
-              </li>
-            </ul>
+          <div class="search-text-wrapper">
+            <input type="search" class="input-text search-text" v-model="searchAppName" placeholder="예를 들어, 배달에 관련된 앱을 만든다면 '배달의 민족' 앱을 검색해보면 어때요?"/>
+            <img src="../assets/search-icon.png" class="search-icon"/>
           </div>
+          <ul class='searched-app-list' v-show="searchedApps.length > 0">
+            <li v-for="app in searchedApps" @click="addInterviewTargetApp(app)" class='searched-app'>
+              <img class="searched-app-icon" v-bind:src="app.iconUrl"/>
+              <div class="searched-app-title">{{ app.appName }}</div>
+              <div class="searched-app-developer">{{ app.developer }}</div>
+            </li>
+          </ul>
         </div>
         <div class="seperator"></div>
         <div>
@@ -291,6 +283,9 @@
       removeInterviewTargetApp(app) {
         this.interview.apps = this.interview.apps.filter(item =>
           item.packageName !== app.packageName);
+      },
+      logme(str) {
+        console.log(str);
       },
     },
   };
@@ -503,10 +498,6 @@
     border: solid 1px #4285f4;
   }
 
-  .button-area {
-    margin-top: 100px;
-  }
-
   .searched-app-list {
     padding-left: 100px;
     padding-top: 25px;
@@ -546,4 +537,31 @@
     text-align: left;
     color: #4a4a4a;
   }
+
+  .search-text-wrapper {
+    position: relative;
+  }
+
+  .search-text {
+    position: relative;
+    padding-left: 56px;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 28px;
+    height: 26px;
+    margin-top: 7px;
+  }
+
+  .search-text::-webkit-search-cancel-button{
+    position:relative;
+    -webkit-appearance: none;
+    height: 22px;
+    width: 22px;
+    background: url("../assets/delete-icon.png") no-repeat center;
+  }
+
 </style>
