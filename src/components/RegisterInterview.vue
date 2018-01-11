@@ -4,7 +4,7 @@
       <div class="container container-wrapper">
         <nav class="level">
           <p class="level-item has-text-centered">
-            <span class="navigation-circle active"><i class="mdi mdi-check"/></span>
+            <span class="navigation-circle active"><i class="mdi mdi-check"></i></span>
             <span class="navigation-text">프로젝트 등록</span>
           </p>
           <p class="level-item has-text-centered navigation-line"></p>
@@ -34,7 +34,6 @@
               <div class="appbee-guide-image"><img src="../assets/appbee-guide-image2.png"/></div>
               <div class="appbee-guide-name"><u>5명의 잠재 고객</u></div>
               <div class="appbee-guide-description"> 총 5명의 잠재 고객을 만납니다.</div>
-
             </div>
             <div class="column">
               <div class="appbee-guide-image"><img src="../assets/appbee-guide-image3.png"/></div>
@@ -42,7 +41,6 @@
               <div class="appbee-guide-description">1월까지 이벤트로 무료입니다.</div>
             </div>
           </div>
-
           <div>
             <p class="appbee-guide-warning">* 앱비는 사용자의 매칭과 모집을 도와드리며, 인터뷰 진행에 직접 참가하지 않습니다.</p>
             <p class="appbee-guide-warning">* 인터뷰 신청자의 취소나 No-Show가 발생할 수 있습니다.</p>
@@ -50,7 +48,6 @@
             <p class="appbee-guide-warning color-red">* 인터뷰 신청 모집이 시작되기 전까지는 취소가 가능하지만, 그 이후의 취소는 패널티가 발생합니다.</p>
             <p class="appbee-guide-warning">&nbsp;&nbsp;&nbsp;<u>취소 환불 정책 보러가기</u></p>
           </div>
-
         </div>
 
         <div class="seperator"></div>
@@ -80,16 +77,25 @@
               </ul>
             </div>
           </div>
-          <div>
-            <i class="apps-icon apps-search mdi mdi-magnify"></i>
-            <i class="apps-icon apps-close mdi mdi-close"></i>
-            <input class="input-text search-apps-input" v-model="searchAppName" placeholder="유사앱 이름을 입력하세요"/>
+          <div class="field">
+            <p class="control has-icons-left has-icons-right">
+              <input class="input input-text" v-model="searchAppName" placeholder="예를들어, 배달에 관련된 앱을 만든다면 '배달의 민족' 앱을 검색해보면 어때요?"/>
+              <span class="icon is-medium is-left">
+                <i class="mdi mdi-magnify"></i>
+              </span>
+              <span v-show="searchAppName" class="icon is-medium is-right">
+                <i class="mdi mdi-close"></i>
+              </span>
+            </p>
+
+            <ul class='searched-app-list' v-show="searchedApps.length > 0">
+              <li v-for="app in searchedApps" @click="addInterviewTargetApp(app)" class='searched-app'>
+                <img class="searched-app-icon" v-bind:src="app.iconUrl"/>
+                <div class="searched-app-title">{{ app.appName }}</div>
+                <div class="searched-app-developer">{{ app.developer }}</div>
+              </li>
+            </ul>
           </div>
-          <ul class='search-result-list' v-for="app in searchedApps">
-            <li @click="addInterviewTargetApp(app)">
-              {{ app.appName }}
-            </li>
-          </ul>
         </div>
         <div class="seperator"></div>
         <div>
@@ -345,52 +351,6 @@
     padding-bottom: 50px;
   }
 
-  .navigation-circle {
-    width: 29px;
-    height: 29px;
-    object-fit: contain;
-    background-color: #9e9e9e;
-    border-radius: 50%;
-    font-family: NotoSansCJKkr;
-    font-size: 18px;
-    font-weight: 500;
-    text-align: center;
-    color: #ffffff;
-    vertical-align: middle;
-  }
-
-  .navigation-circle.active {
-    background-color: #4285f4;
-  }
-
-  .navigation-text {
-    display: inline-block;
-    margin-left: 13px;
-    font-family: NotoSansCJKkr;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.0;
-    text-align: left;
-    color: #4a4a4a;
-    white-space: nowrap;
-  }
-
-  .navigation-line {
-    width: 100px;
-    height: 2px;
-    margin-left: 27px;
-    margin-right: 27px;
-    border: solid 0.5px #d4d4d4;
-  }
-
-  .seperator {
-    width: 750px;
-    height: 1px;
-    background-color: #9b9b9b;
-    margin-top: 80px;
-    margin-bottom: 80px;
-  }
-
   .title-div {
     margin-top: 50px;
     vertical-align: middle;
@@ -417,29 +377,8 @@
     color: #979797;
   }
 
-  .input-text {
-    width: 100%;
-    height: 40px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 2px;
-    font-family: NotoSansCJKkr;
-    font-size: 12px;
-    line-height: 1.42;
-    text-align: left;
-    color: #4a4a4a;
-  }
-
   .input-textarea {
-    width: 100%;
     height: 254px;
-    padding: 16px;
-    border-radius: 2px;
-    font-family: NotoSansCJKkr;
-    font-size: 12px;
-    line-height: 1.42;
-    text-align: left;
-    color: #4a4a4a;
   }
 
   .appbee-guide-image {
@@ -568,4 +507,43 @@
     margin-top: 100px;
   }
 
+  .searched-app-list {
+    padding-left: 100px;
+    padding-top: 25px;
+    padding-bottom: 5px;
+
+    box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.5), 0.5px 2px 4px 0 rgba(0, 0, 0, 0.3);
+    border-left: solid 1px #4285f4;
+    border-right: solid 1px #4285f4;
+    border-bottom: solid 1px #4285f4;
+  }
+
+  .searched-app {
+    margin-bottom: 20px;
+    height: 38px;
+    text-align: left;
+  }
+
+  .searched-app-icon {
+    width: 40px;
+    height: 38px;
+    margin-right: 19px;
+    float: left;
+  }
+
+  .searched-app-title {
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    line-height: 1.43;
+    text-align: left;
+    color: #4a4a4a;
+  }
+
+  .searched-app-developer {
+    font-family: NotoSansCJKkr;
+    font-size: 11px;
+    line-height: 1.55;
+    text-align: left;
+    color: #4a4a4a;
+  }
 </style>

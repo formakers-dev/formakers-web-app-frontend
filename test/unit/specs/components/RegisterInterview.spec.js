@@ -28,35 +28,35 @@ describe('RegisterInterView Component', () => {
     });
   });
 
-  describe('인터뷰 등록버튼이 클릭되었을 때', () => {
-    const testProps = {
-      projectId: 123456,
-    };
-
-    const testData = {
-      interview: {
-        type: '오프라인 테스트',
-        apps: [{
-          packageName: 'com.kakao.talk',
-          appName: '카카오톡',
-        }],
-        introduce: '인터뷰 소개입니다',
-        location: '향군타워 5층',
-        locationDescription: '여기서봐요...',
-        openDate: '2017-11-03',
-        closeDate: '2017-11-03',
-        interviewDate: '2017-11-03',
-        timeSlotTimes: [8, 10, 14],
-        emergencyPhone: '010-1234-5678',
-      },
-      datePicker: {
-        openDate: new Date('2017-10-31'),
-        closeDate: new Date('2017-11-01'),
-        interviewDate: new Date('2017-11-02'),
-      },
-    };
-
-    // TODO: time locale error
+  // describe('인터뷰 등록버튼이 클릭되었을 때', () => {
+  //   const testProps = {
+  //     projectId: 123456,
+  //   };
+  //
+  //   const testData = {
+  //     interview: {
+  //       type: '오프라인 테스트',
+  //       apps: [{
+  //         packageName: 'com.kakao.talk',
+  //         appName: '카카오톡',
+  //       }],
+  //       introduce: '인터뷰 소개입니다',
+  //       location: '향군타워 5층',
+  //       locationDescription: '여기서봐요...',
+  //       openDate: '2017-11-03',
+  //       closeDate: '2017-11-03',
+  //       interviewDate: '2017-11-03',
+  //       timeSlotTimes: [8, 10, 14],
+  //       emergencyPhone: '010-1234-5678',
+  //     },
+  //     datePicker: {
+  //       openDate: new Date('2017-10-31'),
+  //       closeDate: new Date('2017-11-01'),
+  //       interviewDate: new Date('2017-11-02'),
+  //     },
+  //   };
+  //
+  //   // TODO: time locale error
   //   it('프로젝트 등록 API를 호출하고 성공시, My Page 화면으로 이동한다', (done) => {
   //     const stubHttpOnPost = sandbox.stub(HTTP, 'post');
   //     stubHttpOnPost.withArgs(`/projects/${testProps.projectId}/interviews`).returns(Promise.resolve());
@@ -80,10 +80,9 @@ describe('RegisterInterView Component', () => {
   //       done();
   //     });
   //   });
-  });
+  // });
 
-  // TODO : 앱이름 입력 input 박스에서 엔터키 이벤트로 변경할 것
-  /* describe('유사앱 검색 버튼이 클릭되었을 때', () => {
+  describe('유사앱 검색 버튼이 클릭되었을 때', () => {
     const searchResult = {
       data: [{
         _id: '5988097cb495479821f2d188',
@@ -107,18 +106,20 @@ describe('RegisterInterView Component', () => {
           'com.wWhatsUpMessenger_4083770'],
         appPrice: 0,
         installsMax: 500000000,
+        iconUrl: 'https://kakao.com/icon/url',
       }],
     };
 
-    it('searchApp 메소드가 호출된다', () => {
-      const spyOnSearchApp = sandbox.spy(RegisterInterview.methods, 'searchApp');
-      const vm = getVmInstance(RegisterInterview);
-      const button = vm.$el.querySelector('.search-button');
-
-      button.click();
-
-      sinon.assert.calledOnce(spyOnSearchApp);
-    });
+    // TODO : 앱이름 입력 input 박스에서 엔터키 이벤트로 변경할 것
+    // it('searchApp 메소드가 호출된다', () => {
+    //   const spyOnSearchApp = sandbox.spy(RegisterInterview.methods, 'searchApp');
+    //   const vm = getVmInstance(RegisterInterview);
+    //   const button = vm.$el.querySelector('.search-button');
+    //
+    //   button.click();
+    //
+    //   sinon.assert.calledOnce(spyOnSearchApp);
+    // });
 
     it('searchApp 호출 시, 유사 앱이 조회된다', (done) => {
       const stubHttpOnPost = sandbox.stub(HTTP, 'get');
@@ -135,12 +136,21 @@ describe('RegisterInterView Component', () => {
 
       vm.$nextTick(() => {
         expect(vm.searchedApps.length).to.be.eql(1);
-        expect(vm.searchedApps[0].developer).to.be.eql('Kakao Corporation');
+        expect(vm.searchedApps[0].packageName).to.be.eql('com.kakao.talk');
+        expect(vm.searchedApps[0].iconUrl).to.be.eql('https://kakao.com/icon/url');
         expect(vm.searchedApps[0].appName).to.be.eql('카카오톡 KakaoTalk');
-        done();
+        expect(vm.searchedApps[0].developer).to.be.eql('Kakao Corporation');
+
+        vm.$nextTick(() => {
+          expect(vm.$el.querySelector('.searched-app-icon').getAttribute('src')).to.be.eql('https://kakao.com/icon/url');
+          expect(vm.$el.querySelector('.searched-app-title').innerText).to.be.eql('카카오톡 KakaoTalk');
+          expect(vm.$el.querySelector('.searched-app-developer').innerText).to.be.eql('Kakao Corporation');
+
+          done();
+        });
       });
     });
-  }); */
+  });
 
   describe('벤치마킹 앱검색 이름 변경 시', () => {
     let clock;
