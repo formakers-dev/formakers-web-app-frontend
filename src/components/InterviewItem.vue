@@ -21,7 +21,9 @@
           <p v-else>모집 결과 ({{registerCount}}/{{interview.totalCount}}명)</p>
         </div>
         <p>모집기간 : {{openDate}} ~ {{closeDate}} </p>
-        <p><span class="strike" v-for="app in interview.apps">{{app.appName}},<br></span> 앱 사용자 모집 <span v-if="isOpenInterview">예정</span></p>
+        <p>
+          <span class="strike" v-for="(app, index) in interview.apps">{{app.appName}}<span v-if="index < interview.apps.length - 1">,<br></span></span>
+          앱 사용자 모집 <span v-if="isOpenInterview">예정</span></p>
       </div>
     </div>
 
