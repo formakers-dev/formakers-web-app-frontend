@@ -1,11 +1,16 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
+import moment from 'moment-timezone';
 import UpdateInterview from '../../../../src/components/UpdateInterview';
 import { getVmInstance } from '../../testUtil';
 import HTTP from '../../../../src/apis/http-common';
 
 describe('UpdateInterview Component', () => {
   const sandbox = sinon.sandbox.create();
+
+  before(() => {
+    moment.tz.setDefault('Asia/Seoul');
+  });
 
   const testInterviewData = {
     data: {
@@ -143,23 +148,22 @@ describe('UpdateInterview Component', () => {
   });
 
   describe('수정 버튼 클릭시', () => {
-    // TODO: time locale error
-    // it('인터뷰 수정 API를 호출한다', (done) => {
-    //   const vm = createVmInstance();
-    //   const spyHttpOnPut = sandbox.spy(HTTP, 'put');
-    //
-    //   vm.datePicker.openDate = new Date(1509462001111);
-    //   vm.datePicker.closeDate = new Date(1509634790000);
-    //   vm.datePicker.interviewDate = new Date(1509721190000);
-    //
-    //   vm.$el.querySelector('.save-button').click();
-    //
-    //   vm.interview.openDate.should.be.eql(1509462000000);
-    //   vm.interview.closeDate.should.be.eql(1509634799999);
-    //   vm.interview.interviewDate.should.be.eql(1509721199999);
-    //   sinon.assert.calledWithExactly(spyHttpOnPut, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`, vm.interview);
-    //   done();
-    // });
+    it('인터뷰 수정 API를 호출한다', (done) => {
+      const vm = createVmInstance();
+      const spyHttpOnPut = sandbox.spy(HTTP, 'put');
+
+      vm.datePicker.openDate = new Date(1509462001111);
+      vm.datePicker.closeDate = new Date(1509634790000);
+      vm.datePicker.interviewDate = new Date(1509721190000);
+
+      vm.$el.querySelector('.save-button').click();
+
+      vm.interview.openDate.should.be.eql(1509462000000);
+      vm.interview.closeDate.should.be.eql(1509634799999);
+      vm.interview.interviewDate.should.be.eql(1509721199999);
+      sinon.assert.calledWithExactly(spyHttpOnPut, `/projects/${testProps.projectId}/interviews/${testProps.interviewSeq}`, vm.interview);
+      done();
+    });
 
     describe('인터뷰 수정 API가 호출된 상황에서', () => {
       it('정상 완료 시, 마이페이지로 이동한다', (done) => {

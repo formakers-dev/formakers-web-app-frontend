@@ -1,11 +1,16 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
+import moment from 'moment-timezone';
 import RegisterInterview from '../../../../src/components/RegisterInterview';
 import { getVmInstance } from '../../testUtil';
 import HTTP from '../../../../src/apis/http-common';
 
 describe('RegisterInterView Component', () => {
   const sandbox = sinon.sandbox.create();
+
+  before(() => {
+    moment.tz.setDefault('Asia/Seoul');
+  });
 
   describe('화면이 로딩 되었을때', () => {
     it('인터뷰 입력 초기값이 셋팅 된다', () => {
@@ -28,59 +33,58 @@ describe('RegisterInterView Component', () => {
     });
   });
 
-  // describe('인터뷰 등록버튼이 클릭되었을 때', () => {
-  //   const testProps = {
-  //     projectId: 123456,
-  //   };
-  //
-  //   const testData = {
-  //     interview: {
-  //       type: '오프라인 테스트',
-  //       apps: [{
-  //         packageName: 'com.kakao.talk',
-  //         appName: '카카오톡',
-  //       }],
-  //       introduce: '인터뷰 소개입니다',
-  //       location: '향군타워 5층',
-  //       locationDescription: '여기서봐요...',
-  //       openDate: '2017-11-03',
-  //       closeDate: '2017-11-03',
-  //       interviewDate: '2017-11-03',
-  //       timeSlotTimes: [8, 10, 14],
-  //       emergencyPhone: '010-1234-5678',
-  //     },
-  //     datePicker: {
-  //       openDate: new Date('2017-10-31'),
-  //       closeDate: new Date('2017-11-01'),
-  //       interviewDate: new Date('2017-11-02'),
-  //     },
-  //   };
-  //
-  //   // TODO: time locale error
-  //   it('프로젝트 등록 API를 호출하고 성공시, My Page 화면으로 이동한다', (done) => {
-  //     const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-  //     stubHttpOnPost.withArgs(`/projects/${testProps.projectId}/interviews`).returns(Promise.resolve());
-  //
-  //     const vm = getVmInstance(RegisterInterview, {
-  //       data: testData,
-  //       propsData: testProps,
-  //     });
-  //
-  //     const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
-  //     vm.$el.querySelector('.save-button').click();
-  //
-  //     vm.interview.openDate.should.be.eql(1509375600000);
-  //     vm.interview.closeDate.should.be.eql(1509548399999);
-  //     vm.interview.interviewDate.should.be.eql(1509634799999);
-  //     sinon.assert.calledWithExactly(stubHttpOnPost, `/projects/${testProps.projectId}/interviews`, vm.interview);
-  //
-  //     vm.$nextTick(() => {
-  //       sinon.assert.calledOnce(spyRouterOnPush);
-  //       spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
-  //       done();
-  //     });
-  //   });
-  // });
+  describe('인터뷰 등록버튼이 클릭되었을 때', () => {
+    const testProps = {
+      projectId: 123456,
+    };
+
+    const testData = {
+      interview: {
+        type: '오프라인 테스트',
+        apps: [{
+          packageName: 'com.kakao.talk',
+          appName: '카카오톡',
+        }],
+        introduce: '인터뷰 소개입니다',
+        location: '향군타워 5층',
+        locationDescription: '여기서봐요...',
+        openDate: '2017-11-03',
+        closeDate: '2017-11-03',
+        interviewDate: '2017-11-03',
+        timeSlotTimes: [8, 10, 14],
+        emergencyPhone: '010-1234-5678',
+      },
+      datePicker: {
+        openDate: new Date('2017-10-31'),
+        closeDate: new Date('2017-11-01'),
+        interviewDate: new Date('2017-11-02'),
+      },
+    };
+
+    it('프로젝트 등록 API를 호출하고 성공시, My Page 화면으로 이동한다', (done) => {
+      const stubHttpOnPost = sandbox.stub(HTTP, 'post');
+      stubHttpOnPost.withArgs(`/projects/${testProps.projectId}/interviews`).returns(Promise.resolve());
+
+      const vm = getVmInstance(RegisterInterview, {
+        data: testData,
+        propsData: testProps,
+      });
+
+      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+      vm.$el.querySelector('.save-button').click();
+
+      vm.interview.openDate.should.be.eql(1509375600000);
+      vm.interview.closeDate.should.be.eql(1509548399999);
+      vm.interview.interviewDate.should.be.eql(1509634799999);
+      sinon.assert.calledWithExactly(stubHttpOnPost, `/projects/${testProps.projectId}/interviews`, vm.interview);
+
+      vm.$nextTick(() => {
+        sinon.assert.calledOnce(spyRouterOnPush);
+        spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
+        done();
+      });
+    });
+  });
 
   describe('유사앱 검색 버튼이 클릭되었을 때', () => {
     const searchResult = {
