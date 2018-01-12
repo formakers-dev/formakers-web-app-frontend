@@ -161,7 +161,6 @@ describe('RegisterInterView Component', () => {
         },
       };
       const vm = getVmInstance(RegisterInterview, option);
-
       vm.searchAppName = 'kakao';
 
       vm.$nextTick(() => {
@@ -191,6 +190,34 @@ describe('RegisterInterView Component', () => {
       vm.interview.apps[0].appName.should.be.eql('카카오톡');
       vm.interview.apps[0].iconUrl.should.be.eql('image');
       vm.interview.apps[0].developer.should.be.eql('KaKao');
+    });
+
+    it('이미 선택된 앱을 다시 추가할 경우 interview.apps에 중복하여 저장되지 않는다', () => {
+      const option = {
+        data: {
+          interview: {
+            apps: [
+              {
+                packageName: 'com.kakao.talk',
+                appName: '카카오톡',
+                iconUrl: 'image',
+                developer: 'KaKao',
+              },
+            ],
+          },
+        },
+      };
+
+      const vm = getVmInstance(RegisterInterview, option);
+
+      vm.addInterviewTargetApp({
+        packageName: 'com.kakao.talk',
+        appName: '카카오톡',
+        iconUrl: 'image',
+        developer: 'KaKao',
+      });
+
+      vm.interview.apps.length.should.be.eql(1);
     });
   });
 

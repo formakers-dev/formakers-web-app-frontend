@@ -273,6 +273,13 @@
         this.$router.push({ name: 'MyPage' });
       },
       addInterviewTargetApp(app) {
+        const indexApp = this.interview.apps
+          .map(interviewApp => interviewApp.packageName)
+          .indexOf(app.packageName);
+        if (indexApp !== -1) {
+          return;
+        }
+
         this.interview.apps.push({
           packageName: app.packageName,
           appName: app.appName,
