@@ -30,7 +30,7 @@
           </div>
         </div>
         <div>
-          <button class="cancel-button margin-right-50" v-on:click="moveToRegisterProject">다음에 하겠습니다.</button>
+          <button class="cancel-button margin-right-50" v-on:click="moveToMyPage">다음에 하겠습니다.</button>
           <button class="save-button" v-on:click="moveToRegisterInterview">무료 모집 시작</button>
         </div>
 
@@ -48,32 +48,14 @@
         required: true,
       },
     },
-    data() {
-      return {
-        project: {
-          name: '',
-          introduce: '',
-          image: {},
-          description: '',
-          descriptionImages: [],
-          interviews: [],
-          owner: {
-            name: '',
-            image: {},
-            introduce: '',
-          },
-          videoUrl: '',
-        },
-      };
-    },
     methods: {
-      moveToRegisterProject() {
+      moveToMyPage() {
         this.$router.push({ name: 'MyPage' });
       },
       moveToRegisterInterview() {
         this.$router.push({
           name: 'RegisterInterview',
-          params: { projectId: this.project.projectId },
+          params: { projectId: this.projectId },
         });
       },
     },
