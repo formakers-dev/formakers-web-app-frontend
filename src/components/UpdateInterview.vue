@@ -286,6 +286,13 @@
         this.$router.push({ name: 'MyPage' });
       },
       addInterviewTargetApp(app) {
+        const alreadyRegisteredApp = this.interview.apps
+          .filter(interviewApp => (interviewApp.packageName === app.packageName));
+
+        if (alreadyRegisteredApp.length > 0) {
+          return;
+        }
+  ㅎ;
         this.interview.apps.push({
           packageName: app.packageName,
           appName: app.appName,
