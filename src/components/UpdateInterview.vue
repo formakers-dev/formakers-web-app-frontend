@@ -292,7 +292,7 @@
         if (alreadyRegisteredApp.length > 0) {
           return;
         }
-  ㅎ;
+
         this.interview.apps.push({
           packageName: app.packageName,
           appName: app.appName,
