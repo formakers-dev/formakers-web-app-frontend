@@ -57,6 +57,7 @@ export default new Router({
       name: 'CompleteProjectRegistration',
       beforeEnter: requireAuth,
       component: CompleteProjectRegistration,
+      props: true,
     },
   ],
   scrollBehavior() {
