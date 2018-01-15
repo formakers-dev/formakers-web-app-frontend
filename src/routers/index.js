@@ -6,6 +6,7 @@ import UpdateInterview from '../components/UpdateInterview';
 import RegisterInterview from '../components/RegisterInterview';
 import CompleteProjectRegistration from '../components/CompleteProjectRegistration';
 import Login from '../components/Login';
+import NotVerifiedUser from '../components/NotVerifiedUser';
 import MyPage from '../components/MyPage';
 import { requireAuth } from '../utils/auth';
 
@@ -18,6 +19,12 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/not_verified',
+      name: 'NotVerifiedUser',
+      beforeEnter: requireAuth,
+      component: NotVerifiedUser,
     },
     {
       path: '/my_page',

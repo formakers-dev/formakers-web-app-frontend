@@ -65,12 +65,6 @@
     font-weight: normal;
   }
 
-  .content-section {
-    min-height: 1000px;
-
-    background-color: #f5f5f5;
-  }
-
   .title-underline {
     width: 205px;
     height: 2.5px;

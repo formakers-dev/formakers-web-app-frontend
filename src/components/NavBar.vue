@@ -37,9 +37,15 @@
         setLogin(true);
         this.isLogin = isLoggedIn();
         this.$router.push({ name: 'MyPage' });
-      }).catch(() => {
-        setLogin(false);
-        this.isLogin = false;
+      }).catch((err) => {
+        if (err.response.status === 403) {
+          setLogin(true);
+          this.isLogin = isLoggedIn();
+          this.$router.push({ name: 'NotVerifiedUser' });
+        } else {
+          setLogin(false);
+          this.isLogin = false;
+        }
       });
     },
     methods: {
