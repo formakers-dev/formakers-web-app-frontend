@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import moment from 'moment-timezone';
 import RegisterInterview from '../../../../src/components/RegisterInterview';
+import Preview from '../../../../src/components/Preview';
 import { getVmInstance } from '../../testUtil';
 import HTTP from '../../../../src/apis/http-common';
 
@@ -84,6 +85,23 @@ describe('RegisterInterView Component', () => {
         done();
       });
     });
+
+    /* it('인터뷰 등록시 등록된 interview정보를 가지고, Preview화면으로 이동한다', (done) => {
+      const vm = getVmInstance(Preview, {
+        propsData: testData,
+      });
+
+      vm.$el.querySelector('.save-button').click();
+
+      vm.interview.openDate.should.be.eql(1509375600000);
+      vm.interview.closeDate.should.be.eql(1509548399999);
+      vm.interview.interviewDate.should.be.eql(1509634799999);
+
+      vm.$nextTick(() => {
+        spyRouterOnPush.args[0][0].name.should.be.eql('Preview');
+        done();
+      });
+    }); */
   });
 
   describe('searchApp 호출 시', () => {

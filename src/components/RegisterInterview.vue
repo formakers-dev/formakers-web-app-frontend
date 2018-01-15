@@ -269,6 +269,12 @@
             this.$router.push({ name: 'MyPage' });
           });
       },
+      moveToPreview() {
+        this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
+        this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
+        this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
+        this.$router.push({ name: 'Preview', params: { projectId: this.projectId, interview: this.interview } });
+      },
       moveToMyPage() {
         this.$router.push({ name: 'MyPage' });
       },

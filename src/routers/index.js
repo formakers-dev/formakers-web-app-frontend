@@ -8,6 +8,7 @@ import CompleteProjectRegistration from '../components/CompleteProjectRegistrati
 import Login from '../components/Login';
 import NotVerifiedUser from '../components/NotVerifiedUser';
 import MyPage from '../components/MyPage';
+import Preview from '../components/Preview';
 import { requireAuth } from '../utils/auth';
 
 Vue.use(Router);
@@ -66,8 +67,16 @@ export default new Router({
       component: CompleteProjectRegistration,
       props: true,
     },
+    {
+      path: '/preview',
+      name: 'Preview',
+      beforeEnter: requireAuth,
+      component: Preview,
+      props: true,
+    },
   ],
   scrollBehavior() {
     return { x: 0, y: 0 };
   },
 });
+
