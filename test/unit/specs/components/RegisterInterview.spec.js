@@ -62,34 +62,13 @@ describe('RegisterInterView Component', () => {
       },
     };
 
-    it('프로젝트 등록 API를 호출하고 성공시, My Page 화면으로 이동한다', (done) => {
-      const stubHttpOnPost = sandbox.stub(HTTP, 'post');
-      stubHttpOnPost.withArgs(`/projects/${testProps.projectId}/interviews`).returns(Promise.resolve());
-
+    it('인터뷰 등록시 등록된 interview정보를 가지고, Preview화면으로 이동한다', (done) => {
       const vm = getVmInstance(RegisterInterview, {
         data: testData,
         propsData: testProps,
       });
 
       const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
-      vm.$el.querySelector('.save-button').click();
-
-      vm.interview.openDate.should.be.eql(1509375600000);
-      vm.interview.closeDate.should.be.eql(1509548399999);
-      vm.interview.interviewDate.should.be.eql(1509634799999);
-      sinon.assert.calledWithExactly(stubHttpOnPost, `/projects/${testProps.projectId}/interviews`, vm.interview);
-
-      vm.$nextTick(() => {
-        sinon.assert.calledOnce(spyRouterOnPush);
-        spyRouterOnPush.args[0][0].name.should.be.eql('MyPage');
-        done();
-      });
-    });
-
-    /* it('인터뷰 등록시 등록된 interview정보를 가지고, Preview화면으로 이동한다', (done) => {
-      const vm = getVmInstance(Preview, {
-        propsData: testData,
-      });
 
       vm.$el.querySelector('.save-button').click();
 
@@ -99,9 +78,11 @@ describe('RegisterInterView Component', () => {
 
       vm.$nextTick(() => {
         spyRouterOnPush.args[0][0].name.should.be.eql('Preview');
+        spyRouterOnPush.args[0][0].params.projectId.should.be.eql(123456);
+
         done();
       });
-    }); */
+    });
   });
 
   describe('searchApp 호출 시', () => {

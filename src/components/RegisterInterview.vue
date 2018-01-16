@@ -176,7 +176,7 @@
         </div>
 
         <div class="button-area">
-          <button class="save-button" v-on:click="registerInterview">인터뷰 등록</button>
+          <button class="save-button" v-on:click="moveToPreview">인터뷰 등록</button>
         </div>
       </div>
     </section>
@@ -270,6 +270,7 @@
           });
       },
       moveToPreview() {
+        console.log('moveToPreview');
         this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
         this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
         this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);

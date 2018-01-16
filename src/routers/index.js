@@ -68,7 +68,7 @@ export default new Router({
       props: true,
     },
     {
-      path: '/preview',
+      path: '/preview/:projectId',
       name: 'Preview',
       beforeEnter: requireAuth,
       component: Preview,
