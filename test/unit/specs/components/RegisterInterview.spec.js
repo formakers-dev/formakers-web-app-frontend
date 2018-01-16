@@ -32,6 +32,44 @@ describe('RegisterInterView Component', () => {
       vm.searchedApps.length.should.be.eql(0);
       vm.searchStatus.should.be.eql('');
     });
+
+    it('props에 interviewDate정보가 있는 경우, 초기값으로 세팅된다', () => {
+      const option = {
+        propsData: {
+          projectId: 123456,
+          interviewData: {
+            type: '오프라인 테스트',
+            apps: [{
+              packageName: 'com.kakao.talk',
+              appName: '카카오톡',
+            }],
+            introduce: '인터뷰 소개입니다',
+            location: '향군타워 5층',
+            locationDescription: '여기서봐요...',
+            openDate: 1509375600000,
+            closeDate: 1509494400000,
+            interviewDate: 1509580800000,
+            timeSlotTimes: [8, 10, 14],
+            emergencyPhone: '010-1234-5678',
+          },
+        },
+      };
+      const vm = getVmInstance(RegisterInterview, option);
+      vm.interview.type.should.be.eql('오프라인 테스트');
+      vm.interview.apps.length.should.be.eql(1);
+      vm.interview.apps[0].packageName.should.be.eql('com.kakao.talk');
+      vm.interview.apps[0].appName.should.be.eql('카카오톡');
+      vm.interview.location.should.be.eql('향군타워 5층');
+      vm.interview.locationDescription.should.be.eql('여기서봐요...');
+      vm.interview.timeSlotTimes.length.should.be.eql(3);
+      vm.interview.timeSlotTimes[0].should.be.eql(8);
+      vm.interview.timeSlotTimes[1].should.be.eql(10);
+      vm.interview.timeSlotTimes[2].should.be.eql(14);
+      vm.interview.emergencyPhone.should.be.eql('010-1234-5678');
+      vm.interview.openDate.should.be.eql(1509375600000);
+      vm.interview.closeDate.should.be.eql(1509494400000);
+      vm.interview.interviewDate.should.be.eql(1509580800000);
+    });
   });
 
   describe('인터뷰 등록버튼이 클릭되었을 때', () => {

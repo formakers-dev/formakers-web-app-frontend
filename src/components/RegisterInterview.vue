@@ -194,6 +194,14 @@
         type: Number,
         required: true,
       },
+      interviewData: {
+        type: Object,
+      },
+    },
+    created() {
+      if (this.interviewData) {
+        this.interview = this.interviewData;
+      }
     },
     data() {
       return {
@@ -263,14 +271,12 @@
         this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
         this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
 
-        console.log(this.interview);
         HTTP.post(`/projects/${this.projectId}/interviews`, this.interview)
           .then(() => {
             this.$router.push({ name: 'MyPage' });
           });
       },
       moveToPreview() {
-        console.log('moveToPreview');
         this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
         this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
         this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);

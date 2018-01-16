@@ -133,15 +133,25 @@
     created() {
       HTTP.get(`/projects/${this.projectId}`).then((result) => {
         this.project = result.data;
-      }).catch(() => console.log('하하하'));
+      }).catch(err => console.error(err));
     },
 
     methods: {
       moveToInterview() {
-        console.log('moveToInterview');
+        console.log(this.interview);
+        this.$router.push({
+          name: 'RegisterInterview',
+          params: {
+            projectId: this.projectId,
+            interviewData: this.interview,
+          },
+        });
       },
       registerInterview() {
-        console.log('registerInterview');
+        HTTP.post(`/projects/${this.projectId}/interviews`, this.interview)
+          .then(() => {
+            this.$router.push({ name: 'MyPage' });
+          });
       },
     },
   };
