@@ -46,16 +46,17 @@
         <hr class="divider"/>
 
         <div class="margin-top-45 margin-bottom-41"><span class="project-title m-charcoal-14">&nbsp;&nbsp;&nbsp;저희 프로젝트를 소개합니다&nbsp;&nbsp;&nbsp;</span></div>
-        <video class="project-video margin-bottom-54" v-bind:src="project.videoUrl" controls autoplay/>
-        <div style="display:inline-block; overflow-x: scroll; white-space:nowrap;" >
-          <img style="height: 300px;" v-for="descriptionImage in project.descriptionImages" v-bind:src="descriptionImage.url"/>
+
+        <youtube v-bind:video-id="videoId" player-width="100%" player-height="240px"></youtube>
+        <div class="margin-top-54 margin-bottom-54 description-image-container">
+          <img class="description-image" v-for="descriptionImage in project.descriptionImages" v-bind:src="descriptionImage.url"/>
         </div>
         <div class="r-warm-12 margin-bottom-46">{{project.description}}</div>
         <hr class="divider"/>
 
         <div class="mobile-subcontainer margin-top-42 margin-bottom-45 text-align-left">
           <p class="m-charcoal-14">인터뷰 안내</p>
-          <p class="r-warm-12">{{interview.introduce}}</p>
+          <p class="margin-top-14 r-warm-12">{{interview.introduce}}</p>
         </div>
 
         <hr class="divider"/>
@@ -72,17 +73,17 @@
         <hr class="divider"/>
 
         <div class="margin-top-36 margin-bottom-26"><span class="project-title m-charcoal-14">유저인터뷰 신청 전 읽어주세요</span></div>
-        <div class="mobile-subcontainer interview-stage">
+        <div class="mobile-subcontainer interview-stage" style="position: relative;">
 
-          <div style="display: inline-block; width: 30%;">
+          <div class="interview-stage-item">
             <p class="r-blue-11">신청</p>
             <p class="m-warm-10">신청 버튼 클릭</p>
           </div>
-          <div style="display: inline-block; width: 30%;">
+          <div class="interview-stage-item">
             <p class="r-blue-11">확정</p>
             <p class="m-warm-10">신청 마감/확정</p>
           </div>
-          <div style="display: inline-block; width: 30%;">
+          <div class="interview-stage-item">
             <p class="r-blue-11">완료</p>
             <p class="m-warm-10">인터뷰 진행완료</p>
           </div>
@@ -90,25 +91,25 @@
           <div class="interview-stage-divider left-100"></div>
         </div>
         <div class="mobile-subcontainer">
-          <div style="margin-top: 30px; display: inline-flex; width: 100%;">
-            <img style="float: left; height: 10px; margin-top: 8px; margin-right: 10px;" src="../assets/check_image.png" />
-            <div class="text-align-left"  style="width: 100%;">
+          <div class="interview-prepare">
+            <img class="check-image" src="../assets/check_image.png" />
+            <div class="text-align-left width-100-percentage">
               <p class="m-charcoal-13">인터뷰 신청 후 ‘확정’을 기다려주세요.</p>
               <p class="r-warm-11">확정된 인터뷰만 실제로 진행됩니 조금만 기다려주세요.</p>
               <p class="r-warm-11">신청 마감일 이후 앱비에서 확인 후 확정 푸시를 보내드립니다.</p>
             </div>
           </div>
-          <div style="margin-top: 30px; display: inline-flex; width: 100%;">
-            <img style="float: left; height: 10px; margin-top: 8px; margin-right: 10px;" src="../assets/check_image.png" />
-            <div class="text-align-left" style="width: 100%;">
+          <div class="interview-prepare">
+            <img class="check-image" src="../assets/check_image.png" />
+            <div class="text-align-left width-100-percentage">
               <p class="m-charcoal-13">확정 후 취소/ 노쇼 / 지각은 패널티가 있을 수 있습니다.</p>
               <p class="r-warm-11">인터뷰는 약속입니다. 준비하신 분들께 예의를 지켜주세요.</p>
               <p class="r-warm-11">( 확정 후 취소 / 노쇼 / 지각 패널티 : 3개월간 신청 불가)</p>
             </div>
           </div>
-          <div style="margin-top: 30px; display: inline-flex; width: 100%;">
-            <img style="float: left; height: 10px; margin-top: 8px; margin-right: 10px;" src="../assets/check_image.png" />
-            <div class="text-align-left"  style="width: 100%;">
+          <div class="interview-prepare">
+            <img class="check-image" src="../assets/check_image.png" />
+            <div class="text-align-left width-100-percentage">
               <p class="m-charcoal-13">확정 후 변동 시 인터뷰 담당자에게 꼭 연락주세요.</p>
               <p class="r-warm-11">피치못할 사정이 생겼을 때 대응할 수 있도록 협조해주세요.</p>
               <p class="r-warm-11">( 담당자 번호는 인터뷰 신청 후 확정되면 안내됩니다.)</p>
@@ -129,6 +130,7 @@
 
 <script>
   import moment from 'moment';
+  import { getIdFromURL } from 'vue-youtube-embed';
   import HTTP from '../apis/http-common';
   import MyProjectTitle from './MyProjectTitle';
 
@@ -193,10 +195,12 @@
         });
         return moment(this.interview.closeDate).endOf('day').fromNow();
       },
+      videoId() {
+        return getIdFromURL(this.project.videoUrl);
+      },
     },
     methods: {
       moveToInterview() {
-        console.log(this.interview);
         this.$router.push({
           name: 'RegisterInterview',
           params: {
@@ -255,10 +259,6 @@
     display: inline-block;
     width: 30%
   }
-  .project-video {
-    width: 100%;
-  }
-
   .mobile-subcontainer {
     margin-left: 20px;
     margin-right: 20px
@@ -279,11 +279,20 @@
     right:100px;
   }
 
+  .interview-stage-item {
+    display: inline-block;
+    width: 30%;
+  }
+
   .left-100 {
     left: 100px;
   }
   .right-100 {
     right: 100px;
+  }
+
+  .width-100-percentage {
+    width: 100%;
   }
 
   .text-align-center {
@@ -317,6 +326,30 @@
     object-fit: cover;
   }
 
+  .description-image-container {
+    display:inline-block;
+    overflow-x: auto;
+    white-space:nowrap;
+  }
+
+  .description-image {
+    height: 270px;
+    margin-right: 9px;
+    border: solid 1px #d4d4d4
+  }
+
+  .check-image {
+    float: left;
+    height: 10px;
+    margin-top: 8px;
+    margin-right: 10px;
+  }
+
+  .interview-prepare {
+    margin-top: 30px;
+    display: inline-flex;
+    width: 100%;
+  }
 
   .bm-charcoal-24 {
     color: #4a4a4a;

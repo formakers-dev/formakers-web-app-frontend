@@ -5,6 +5,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import Buefy from 'buefy';
 import VueFire from 'vuefire';
+import VueYouTubeEmbed from 'vue-youtube-embed';
 import 'buefy/lib/buefy.css';
 import 'mdi/css/materialdesignicons.min.css';
 import App from './App';
@@ -19,6 +20,7 @@ Vue.use(Buefy, {
   defaultIconPack: 'mdi',
 });
 Vue.use(VueFire);
+Vue.use(VueYouTubeEmbed, { global: true });
 
 /* eslint-disable no-new */
 new Vue({
