@@ -58,12 +58,14 @@
     min-height: 1000px;
     background-color: #f5f5f5;
   }
+
   .register-project-button-area {
     margin-left: auto;
     margin-right: auto;
     background-color: #ffffff;
     border: dashed 1px #979797;
     border-radius: 2px;
+    cursor: pointer;
   }
 
   .register-project-button-icon {
