@@ -330,6 +330,8 @@
   }
 
   .app-info {
+    min-width: 360px;
+    max-width: 360px;
     margin-left: 25px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -340,10 +342,8 @@
     font-size: 18px;
     color: #4a4a4a;
     display: block;
-    min-width: 360px;
   }
   .app-developer {
-    min-width: 360px;
     font-family: NotoSansCJKkr;
     font-size: 14px;
     color: #4a4a4a;
