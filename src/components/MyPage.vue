@@ -68,6 +68,16 @@
     cursor: pointer;
   }
 
+  .register-project-button-without-list {
+    width: 870px;
+    height: 234px;
+  }
+
+  .register-project-button-with-list {
+    width: 252px;
+    height: 200px;
+  }
+
   .register-project-button-icon {
     font-size: 144px;
     line-height: 144px;
