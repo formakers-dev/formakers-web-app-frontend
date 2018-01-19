@@ -10,7 +10,7 @@
         <project-item v-bind:project=item></project-item>
       </div>
 
-      <div id="register-project-button" class="register-project-button-area" v-on:click="onRegisterProject"
+      <div id="register-project-button" class="register-project-button-area cursor-pointer" v-on:click="onRegisterProject"
            v-bind:class="isEmptyList() ? ButtonWithOutListClass : ButtonWithListClass">
         <div class="register-project-button-icon">+</div>
         <div class="register-project-button-text">프로젝트를 추가하세요</div>
@@ -65,7 +65,6 @@
     background-color: #ffffff;
     border: dashed 1px #979797;
     border-radius: 2px;
-    cursor: pointer;
   }
 
   .register-project-button-without-list {

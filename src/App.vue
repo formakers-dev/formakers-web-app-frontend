@@ -214,7 +214,6 @@
     font-size: 18px;
     text-align: center;
     color: #4a4a4a;
-    cursor: pointer;
   }
 
   .cancel-button {
@@ -227,7 +226,6 @@
     font-size: 18px;
     text-align: center;
     color: #4a4a4a;
-    cursor: pointer;
   }
 
   .footer-area {

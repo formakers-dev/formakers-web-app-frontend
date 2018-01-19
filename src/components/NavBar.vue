@@ -2,16 +2,16 @@
   <nav id="navBar" class="navbar" role="navigation" aria-label="main navigation">
     <div v-if="isLogin" class="nav-width">
       <div class="navbar-brand login-header">
-        <p class="title font-white font-left">AppBee</p>
+        <p class="title font-white font-left cursor-pointer" v-on:click="moveToMyPage">AppBee</p>
       </div>
-      <div id="logout-button" class="nav-button" v-on:click="onLogout">로그아웃</div>
+      <div id="logout-button" class="nav-button cursor-pointer" v-on:click="onLogout">로그아웃</div>
     </div>
 
     <div v-else class="logout-area nav-width">
       <div class="navbar-brand login-header">
         <p class="title font-yellow">AppBee</p>
       </div>
-      <div class="nav-button font-yellow" v-on:click="onSignIn">로그인</div>
+      <div class="nav-button font-yellow cursor-pointer" v-on:click="onSignIn">로그인</div>
     </div>
 
   </nav>
@@ -66,6 +66,9 @@
       },
       onSignIn() {
         location.href = `${BASE_URL}/auth/google`;
+      },
+      moveToMyPage() {
+        this.$router.push({ name: 'MyPage' });
       },
     },
   };
