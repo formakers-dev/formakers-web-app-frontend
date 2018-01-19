@@ -150,4 +150,29 @@ describe('NavBar Component', () => {
       sandbox.restore();
     });
   });
+
+  describe('AppBee로고 클릭시', () => {
+    it('MyPage 페이지로 이동한다', (done) => {
+      const vm = getVmInstance(NavBar, {
+        data: {
+          isLogin: true,
+        },
+      });
+
+      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+      vm.$el.querySelector('.navbar-brand').click();
+
+      vm.$nextTick(() => {
+        sinon.assert.called(spyRouterOnPush);
+
+        const nameList = spyRouterOnPush.args.map(objectList => objectList[0].name);
+        nameList.should.be.include('MyPage');
+        done();
+      });
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+  });
 });

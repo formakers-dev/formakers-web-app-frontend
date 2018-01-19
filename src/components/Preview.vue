@@ -155,7 +155,6 @@
     },
     created() {
       HTTP.get(`/projects/${this.projectId}`).then((result) => {
-        console.log(result.data);
         this.project = result.data;
       }).catch(err => console.error(err));
     },

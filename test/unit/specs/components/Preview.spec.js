@@ -9,7 +9,7 @@ describe('Preview Component', () => {
   const sandbox = sinon.sandbox.create();
 
   const testProps = {
-    projectId: 123456,
+    projectId: '123456',
     interview: {
       type: '오프라인 테스트',
       apps: [{
@@ -50,10 +50,15 @@ describe('Preview Component', () => {
     description_images: ['/desc/image1', '/desc/image2'],
     interviews: [],
     status: 'temporary',
+    videoUrl: '/video/url',
   };
 
   describe('수정버튼이 클릭되었을 때', () => {
     it('RegisterInterview 화면으로 이동한다', (done) => {
+      const stubHttpOnGet = sandbox.stub(HTTP, 'get');
+      console.log(`/projects/${testProps.projectId}`);
+      stubHttpOnGet.withArgs(`/projects/${testProps.projectId}`).returns(Promise.resolve({ data: projectInfo }));
+
       const vm = getVmInstance(Preview, {
         data: { project: projectInfo },
         propsData: testProps,

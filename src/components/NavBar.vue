@@ -1,8 +1,8 @@
 <template>
   <nav id="navBar" class="navbar" role="navigation" aria-label="main navigation">
     <div v-if="isLogin" class="nav-width">
-      <div class="navbar-brand login-header">
-        <p class="title font-white font-left cursor-pointer" v-on:click="moveToMyPage">AppBee</p>
+      <div class="navbar-brand login-header" v-on:click="moveToMyPage">
+        <p class="title font-white font-left cursor-pointer">AppBee</p>
       </div>
       <div id="logout-button" class="nav-button cursor-pointer" v-on:click="onLogout">로그아웃</div>
     </div>
