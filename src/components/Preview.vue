@@ -51,12 +51,13 @@
         <div class="margin-top-54 margin-bottom-54 description-image-container">
           <img class="description-image" v-for="descriptionImage in project.descriptionImages" v-bind:src="descriptionImage.url"/>
         </div>
-        <div class="r-warm-12 margin-bottom-46">{{project.description}}</div>
+
+        <div class="r-warm-12 margin-bottom-46 white-space-pre-wrap text-align-center mobile-subcontainer">{{project.description}}</div>
         <hr class="divider"/>
 
         <div class="mobile-subcontainer margin-top-42 margin-bottom-45 text-align-left">
           <p class="m-charcoal-14">인터뷰 안내</p>
-          <p class="margin-top-14 r-warm-12">{{interview.introduce}}</p>
+          <div class="margin-top-14 r-warm-12 white-space-pre-wrap">{{interview.introduce}}</div>
         </div>
 
         <hr class="divider"/>
@@ -67,7 +68,7 @@
             <p class="r-warm-12">창작자</p>
             <p class="m-charcoal-16">{{project.owner.name}}</p>
           </div>
-          <p class="r-warm-12" style="clear:both;">{{project.owner.introduce}}</p>
+          <p class="r-warm-12 white-space-pre-wrap" style="clear:both;">{{project.owner.introduce}}</p>
         </div>
 
         <hr class="divider"/>
@@ -261,7 +262,7 @@
   }
   .mobile-subcontainer {
     margin-left: 20px;
-    margin-right: 20px
+    margin-right: 20px;
   }
 
   .interview-stage {
@@ -349,6 +350,10 @@
     margin-top: 30px;
     display: inline-flex;
     width: 100%;
+  }
+
+  .white-space-pre-wrap {
+    white-space: pre-wrap;
   }
 
   .bm-charcoal-24 {
