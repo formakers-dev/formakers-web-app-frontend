@@ -280,6 +280,7 @@
         this.interview.openDate = this.getTruncatedTimestamp(this.datePicker.openDate);
         this.interview.closeDate = this.getEndTimestampOfTheDate(this.datePicker.closeDate);
         this.interview.interviewDate = this.getEndTimestampOfTheDate(this.datePicker.interviewDate);
+        this.interview.rewards = '스벅 쿠폰 3만원'; // TODO : 임시 코드
         this.$router.push({ name: 'Preview', params: { projectId: this.projectId, interview: this.interview } });
       },
       moveToMyPage() {

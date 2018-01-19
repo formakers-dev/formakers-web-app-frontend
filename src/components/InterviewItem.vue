@@ -36,7 +36,7 @@
       </p>
       <div class="description">
         <p>인터뷰 날짜 : {{interviewDate}}</p>
-        <p>리워드 : 커피쿠폰 3만원</p>
+        <p>리워드 : {{interview.rewards}}</p>
         <p>인터뷰 장소 : {{interview.location}}</p>
       </div>
     </div>

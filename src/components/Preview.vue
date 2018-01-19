@@ -20,26 +20,26 @@
             </div>
             <div class="interview-summary-box border-right">
               <p class="r-warm-12">인터뷰 장소</p>
-              <p class="m-charcoal">{{interview.location}}</p>
+              <p class="m-charcoal-13">{{interview.location}}</p>
             </div>
             <div class="interview-summary-box">
               <p class="r-warm-12">감사 선물</p>
-              <p class="m-charcoal">스벅 쿠폰 3만원</p>
+              <p class="m-charcoal-13">{{interview.rewards}}</p>
             </div>
           </div>
           <hr class="project-summary-divider" />
           <div>
             <div class="interview-summary-box border-right">
               <p class="r-warm-12">인터뷰 날짜</p>
-              <p class="m-charcoal">{{interviewDate}}</p>
+              <p class="m-charcoal-13">{{interviewDate}}</p>
             </div>
             <div class="interview-summary-box border-right">
               <p class="r-warm-12">인터뷰 시간</p>
-              <p class="m-charcoal">약 40분</p>
+              <p class="m-charcoal-13">약 40분</p>
             </div>
             <div class="interview-summary-box">
               <p class="r-warm-12">신청 마감 날짜</p>
-              <p class="m-charcoal">{{dDay}}</p>
+              <p class="m-charcoal-13">{{dDay}}</p>
             </div>
           </div>
         </div>

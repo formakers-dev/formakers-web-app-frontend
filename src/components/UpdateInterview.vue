@@ -205,6 +205,8 @@
         this.interview.emergencyPhone = interview.emergencyPhone;
         this.interview.timeSlotTimes = Object.keys(interview.timeSlot)
           .map(item => parseInt(item.replace('time', ''), 0));
+
+        this.interview.rewards = interview.rewards;
       }).catch((err) => {
         console.log(err);
         this.moveToMyPage();
