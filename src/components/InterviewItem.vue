@@ -82,6 +82,7 @@
         percentage: 0,
         enabledClass: 'enabled',
         disabledClass: 'disabled',
+        registerCount: 0,
       };
     },
     created() {
