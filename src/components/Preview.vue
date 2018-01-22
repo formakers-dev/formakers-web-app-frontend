@@ -134,6 +134,7 @@
   import { getIdFromURL } from 'vue-youtube-embed';
   import HTTP from '../apis/http-common';
   import MyProjectTitle from './MyProjectTitle';
+  import defaultOwnerImage from '../assets/project_owner_default_image.png';
 
   export default {
     name: 'preview',
@@ -150,12 +151,39 @@
     },
     data() {
       return {
-        project: {},
+        project: {
+          name: '',
+          introduce: '',
+          image: {
+            url: '',
+          },
+          description: '',
+          descriptionImages: [],
+          owner: {
+            name: '',
+            introduce: '',
+            image: {
+              url: defaultOwnerImage,
+            },
+          },
+          videoUrl: '',
+        },
       };
     },
     created() {
-      HTTP.get(`/projects/${this.projectId}`).then((result) => {
-        this.project = result.data;
+      HTTP.get(`/projects/${this.projectId}`).then((project) => {
+        const result = project.data;
+        this.project.image.url = result.image.url;
+        this.project.name = result.name;
+        this.project.introduce = result.introduce;
+        this.project.videoUrl = result.videoUrl;
+        this.project.description = result.description;
+        this.project.descriptionImages = result.descriptionImages;
+        this.project.owner.name = result.owner.name;
+        this.project.owner.introduce = result.owner.introduce;
+        if (result.owner.image) {
+          this.project.owner.image = result.owner.image;
+        }
       }).catch(err => console.error(err));
     },
     computed: {
