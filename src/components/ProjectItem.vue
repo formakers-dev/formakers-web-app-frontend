@@ -60,13 +60,13 @@
       moveToInterviewRegister() {
         this.$router.push({
           name: 'RegisterInterview',
-          params: { projectId: this.project.projectId },
+          params: { projectId: Number(this.project.projectId) },
         });
       },
       moveToUpdateProject() {
         this.$router.push({
           name: 'UpdateProject',
-          params: { projectId: this.project.projectId },
+          params: { projectId: Number(this.project.projectId) },
         });
       },
     },

@@ -113,7 +113,7 @@
         // 모집중 open Date < currentDate && currentDate < interviewDate(endDate) ??????
         // ???(아마도 모집완료~인터뷰종료전 일듯하다.......--;;;)
         // 인터뷰 종료 interviewDate < currentDate
-        return new Date(this.interview.interviewDate).getTime() >= new Date().getTime();
+        return new Date(this.interview.openDate).getTime() >= new Date().getTime();
       },
     },
     methods: {
