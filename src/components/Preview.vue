@@ -6,7 +6,8 @@
       <div class="mobile-container text-align-center">
         <img class="project-image margin-bottom-30" v-bind:src="project.image.url" />
         <div class="margin-left-30 margin-right-30 margin-bottom-38">
-          <div class="r-blue-13"><span v-for="app in interview.apps">'{{app.appName}}' </span>앱 유저에게 추천</div>
+          <!--<div class="r-blue-13"><span v-for="app in interview.apps">'{{app.appName}}' </span>앱 유저에게 추천</div>-->
+          <div  v-if="interview.apps.length>0" class="r-blue-13"><span>'{{interview.apps[0].appName}}' </span>앱 유저에게 추천</div>
           <p class="bm-charcoal-24">{{project.name}}</p>
           <p class="project-introduce r-warm-17">{{project.introduce}}</p>
         </div>
