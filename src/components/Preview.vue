@@ -48,6 +48,7 @@
         <div class="margin-top-45 margin-bottom-41"><span class="project-title m-charcoal-14">&nbsp;&nbsp;&nbsp;저희 프로젝트를 소개합니다&nbsp;&nbsp;&nbsp;</span></div>
 
         <youtube v-bind:video-id="videoId" player-width="100%" player-height="240px"></youtube>
+
         <div class="margin-top-54 margin-bottom-54 description-image-container">
           <img class="description-image" v-for="descriptionImage in project.descriptionImages" v-bind:src="descriptionImage.url"/>
         </div>
@@ -278,6 +279,7 @@
   /* mobile preview */
   .project-image {
     height: 220px;
+    width: 100%;
   }
   .project-title {
     border-bottom: 1px solid #4a4a4a;
