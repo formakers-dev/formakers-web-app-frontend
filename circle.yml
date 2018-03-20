@@ -14,4 +14,4 @@ deployment:
       - npm install --only=dev
       - npm run build
     heroku:
-      appname: dragonwebapp
+      appname: dragonwebapp-dev
