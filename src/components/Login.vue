@@ -6,6 +6,7 @@
       <appDetailDiv></appDetailDiv>
       <joinusDiv></joinusDiv>
       <qnaDiv></qnaDiv>
+      <notice></notice>
       <contactDiv></contactDiv>
     </div>
     <footer>
@@ -22,6 +23,7 @@
   import QnaDiv from '../components/landing/QnaDiv';
   import ContactDiv from '../components/landing/ContactDiv';
   import CopyrightDiv from '../components/landing/CopyrightDiv';
+  import Notice from '../components/landing/Notice';
 
   export default {
     name: 'login',
@@ -34,6 +36,7 @@
       appDetailDiv: AppDetailDiv,
       joinusDiv: JoinusDiv,
       qnaDiv: QnaDiv,
+      notice: Notice,
       contactDiv: ContactDiv,
       copyrightDiv: CopyrightDiv,
     },
