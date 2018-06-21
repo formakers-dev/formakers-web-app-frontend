@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import Promise from 'es6-promise';
 import { getVmInstance } from '../../testUtil';
-import JoinUs from '../../../../src/components/landing/JoinusDiv';
+import JoinUs from '../../../../src/components/landing/Joinus';
 import HTTP from '../../../../src/apis/http-common';
 
-describe('JoinUs Div', () => {
+describe('JoinUs', () => {
   const sandbox = sinon.sandbox.create();
 
   before((done) => {
@@ -23,7 +23,7 @@ describe('JoinUs Div', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('JoinUs Div가 렌더링 되었을 때 초기 데이터 확인', () => {
+  it('JoinUs 가 렌더링 되었을 때 초기 데이터 확인', () => {
     const vm = getVmInstance(JoinUs);
     const defaultData = vm.$data;
 

@@ -1,5 +1,5 @@
 <template>
-  <div id="joinusDiv" class="ui vertical segment">
+  <div id="joinus" class="ui vertical segment">
     <div class="ui container">
       <p class="joinus-title">핸드폰 속의 진짜 당신의 모습이 궁금하다면?<br/>혹은 앱비가 만들어지는 과정이 궁금하다면?</p>
       <p class="joinus-description">앱으로 당신을, 사람을 알아가는 앱비의 뉴스레터를 받아보세요.</p>
@@ -31,7 +31,7 @@
   const emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   export default {
-    name: 'joinusDiv',
+    name: 'joinus',
     data() {
       return {
         newEmail: {
@@ -72,14 +72,14 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  #joinusDiv {
+  #joinus {
     height: 436px;
     padding-top: 106px;
     background-color: #ffffff;
     border: 0;
   }
 
-  #joinusDiv input {
+  #joinus input {
     vertical-align: top;
     width: 514px;
     height: 50px;
@@ -91,7 +91,7 @@
     border: solid 1px #979797;
   }
 
-  #joinusDiv button {
+  #joinus button {
     vertical-align: top;
     margin-left: 14px;
     width: 202px;
@@ -133,11 +133,11 @@
   }
 
   @media only screen and (max-width: 600px) {
-    #joinusDiv input {
+    #joinus input {
       width: 100%;
     }
 
-    #joinusDiv button {
+    #joinus button {
       margin-top: 0.5em;
     }
   }
@@ -177,7 +177,7 @@
     display: block;
   }
 
-  #joinusDiv input.warningInput {
+  #joinus input.warningInput {
     border: solid 1px #d0011b;
   }
 </style>

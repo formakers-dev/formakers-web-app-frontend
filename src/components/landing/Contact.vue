@@ -1,5 +1,5 @@
 <template>
-  <div id="contactDiv" class="ui vertical segment">
+  <div id="contact" class="ui vertical segment">
     <div class="ui container">
       <p class="contact-title">CONTACT US</p>
       <p class="contact-item-title first">Address</p>
@@ -13,19 +13,19 @@
 <script>
   // import Mail from '@/js/Mail'
   export default {
-    name: 'contactDiv',
+    name: 'contact',
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  #contactDiv {
+  #contact {
     padding-top: 56px;
     padding-bottom: 80px;
     border: 0;
   }
 
-  #contactDiv p {
+  #contact p {
     margin-bottom: 0;
   }
 

@@ -1,27 +1,27 @@
 <template>
   <div id="login">
     <div class="contents">
-      <summaryDiv></summaryDiv>
-      <appNameDiv></appNameDiv>
-      <appDetailDiv></appDetailDiv>
-      <joinusDiv></joinusDiv>
-      <qnaDiv></qnaDiv>
-      <contactDiv></contactDiv>
+      <appSummary></appSummary>
+      <appName></appName>
+      <appDetail></appDetail>
+      <joinus></joinus>
+      <qna></qna>
+      <contact></contact>
     </div>
     <footer>
-      <copyrightDiv></copyrightDiv>
+      <copyright></copyright>
     </footer>
   </div>
 </template>
 
 <script>
-  import SummaryDiv from '../components/landing/SummaryDiv';
-  import AppNameDiv from '../components/landing/AppNameDiv';
-  import AppDetailDiv from '../components/landing/AppDetailDiv';
-  import JoinusDiv from '../components/landing/JoinusDiv';
-  import QnaDiv from '../components/landing/QnaDiv';
-  import ContactDiv from '../components/landing/ContactDiv';
-  import CopyrightDiv from '../components/landing/CopyrightDiv';
+  import AppSummary from './landing/AppSummary';
+  import AppName from './landing/AppName';
+  import AppDetail from './landing/AppDetail';
+  import Joinus from './landing/Joinus';
+  import Qna from './landing/Qna';
+  import Contact from './landing/Contact';
+  import Copyright from './landing/Copyright';
 
   export default {
     name: 'login',
@@ -29,13 +29,13 @@
       return {};
     },
     components: {
-      summaryDiv: SummaryDiv,
-      appNameDiv: AppNameDiv,
-      appDetailDiv: AppDetailDiv,
-      joinusDiv: JoinusDiv,
-      qnaDiv: QnaDiv,
-      contactDiv: ContactDiv,
-      copyrightDiv: CopyrightDiv,
+      appSummary: AppSummary,
+      appName: AppName,
+      appDetail: AppDetail,
+      joinus: Joinus,
+      qna: Qna,
+      contact: Contact,
+      copyright: Copyright,
     },
   };
 </script>

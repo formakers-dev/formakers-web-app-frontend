@@ -1,5 +1,5 @@
 <template>
-  <div id="summaryDiv" class="ui vertical">
+  <div id="app-summary" class="ui vertical">
     <div class="ui container">
       <p class="summary-title">앱 안에 너 있다</p>
       <p class="summary-description">당신이 사용하는 앱을 보면 당신의 진짜 모습을 알 수 있죠!</p>
@@ -10,18 +10,18 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  #summaryDiv {
+  #app-summary {
     padding-top: 61px;
     padding-bottom: 0;
     background-color: #ebe4da;
     border: 0;
   }
 
-  #summaryDiv p {
+  #app-summary p {
     margin-bottom: 0;
   }
 
-  #summaryDiv img {
+  #app-summary img {
     width: 556px;
     margin: 55px auto 0;
     display: block;

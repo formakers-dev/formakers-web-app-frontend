@@ -1,5 +1,5 @@
 <template>
-  <div id="qnaDiv" class="ui vertical">
+  <div id="qna" class="ui vertical">
     <div class="ui container">
       <p class="qna-title">FAQ</p>
       <div class="qna-contents">
@@ -25,14 +25,14 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  #qnaDiv {
+  #qna {
     background-color: #2894b1;
     padding-top: 60px;
     padding-bottom: 125px;
     border: 0;
   }
 
-  #qnaDiv p {
+  #qna p {
     margin-bottom: 0;
   }
 

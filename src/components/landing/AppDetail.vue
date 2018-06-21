@@ -1,5 +1,5 @@
 <template>
-  <div id="appDetailDiv" class="ui vertical segment">
+  <div id="appDetail" class="ui vertical segment">
     <div class="ui container">
       <div class="detail-container first">
         <img class="left" src="static/image/explorer.png">
@@ -35,23 +35,23 @@
 <script>
   // import Mail from '@/js/Mail'
   export default {
-    name: 'appNameDiv',
+    name: 'appName',
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  #appDetailDiv {
+  #appDetail {
     padding: 124px 154px 0;
     background-color: #f8c81c;
     border: 0;
   }
 
-  #appNameDiv p {
+  #appName p {
     margin-bottom: 0;
   }
 
-  #appDetailDiv img {
+  #appDetail img {
     width: 212px;
 
   }
