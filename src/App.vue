@@ -5,7 +5,7 @@
     <router-view></router-view>
 
     <footer class="footer-area">
-      <span class="footer-text">Copyright © 2017 | Privacy | All right reserved AppBee</span>
+      <span class="footer-text">Copyright © 2017 | Privacy | All right reserved ForMakers</span>
     </footer>
   </div>
 </template>
