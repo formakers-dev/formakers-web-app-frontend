@@ -389,30 +389,6 @@
     border-right: solid 0.5px #d4d4d4;
   }
 
-  .margin-top-15 {
-    margin-top: 15px;
-  }
-
-  .margin-top-50 {
-    margin-top: 50px;
-  }
-
-  .margin-bottom-38 {
-    margin-bottom: 38px;
-  }
-
-  .margin-bottom-50 {
-    margin-bottom: 50px;
-  }
-
-  .text-align-left {
-    text-align: left;
-  }
-
-  .text-align-center {
-    text-align: center;
-  }
-
   .appbee-guide-warning {
     font-family: NotoSansCJKkr;
     font-size: 14px;

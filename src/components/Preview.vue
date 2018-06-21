@@ -322,18 +322,6 @@
     right: 100px;
   }
 
-  .width-100-percentage {
-    width: 100%;
-  }
-
-  .text-align-center {
-    text-align: center;
-  }
-
-  .text-align-left {
-    text-align: left;
-  }
-
   .border-right {
     border-right: solid 1px #f0f0f1;
   }

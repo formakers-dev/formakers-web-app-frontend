@@ -60,6 +60,11 @@
     src: url('../static/fonts/Pacifico-Regular.ttf'), local(SansSerif);
   }
 
+  .content-section {
+    min-height: 1000px;
+    background-color: #f5f5f5;
+  }
+
   .contents-area {
     max-width: 750px;
     margin-bottom: 100px;
