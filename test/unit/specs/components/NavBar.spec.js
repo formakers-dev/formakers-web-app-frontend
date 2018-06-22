@@ -44,7 +44,7 @@ describe('NavBar Component', () => {
       });
     });
 
-    it('검증되지 않은 사용자인 경우(403), NotVerifiedUser 페이지로 이동한다', (done) => {
+    it('검증되지 않은 사용자인 경우(403), 미검증유저를 뜻하는 이벤트를 보낸다', (done) => {
       stubHttpOnGet.withArgs('/auth/check_login').returns(Promise.reject({
         response: {
           status: 403,
@@ -53,14 +53,12 @@ describe('NavBar Component', () => {
 
       const vm = getVmInstance(NavBar, option);
       const spyOnSetLogin = sandbox.spy(AuthUtil, 'setLogin');
-      const spyRouterOnPush = sandbox.spy(vm.$router, 'push');
+      const spyEmit = sandbox.spy(vm, '$emit');
 
       vm.$nextTick(() => {
         sinon.assert.calledWithExactly(spyOnSetLogin, true);
-        sinon.assert.called(spyRouterOnPush);
+        sinon.assert.calledWithExactly(spyEmit, 'unverified-user');
 
-        const nameList = spyRouterOnPush.args.map(objectList => objectList[0].name);
-        nameList.should.be.include('NotVerifiedUser');
         done();
       });
     });

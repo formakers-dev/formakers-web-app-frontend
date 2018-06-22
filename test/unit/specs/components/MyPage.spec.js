@@ -34,13 +34,34 @@ describe('MyPage Component', () => {
     status: 'temporary',
   };
 
-  it('created시에 projectList를 조회한다.', () => {
-    const stubHttpOnPost = sandbox.stub(HTTP, 'get');
-    stubHttpOnPost.withArgs('/projects').returns(Promise.resolve(data));
-    const vm = getVmInstance(MyPage);
+  describe('created 시', () => {
+    describe('projectList 조회 시', () => {
+      it('정상적으로 조회한다.', () => {
+        sandbox.stub(HTTP, 'get').withArgs('/projects').returns(Promise.resolve(data));
 
-    vm.$nextTick(() => {
-      expect(vm.projectList).to.be.eql(data);
+        const vm = getVmInstance(MyPage);
+
+        vm.$nextTick(() => {
+          expect(vm.projectList).to.be.eql(data);
+        });
+      });
+
+      it('검증되지 않은 사용자인 경우(403), 미검증유저를 뜻하는 이벤트를 보낸다', (done) => {
+        sandbox.stub(HTTP, 'get').withArgs('/projects').returns(Promise.reject({
+          response: {
+            status: 403,
+          },
+        }));
+
+        const vm = getVmInstance(MyPage);
+        const spyEmit = sandbox.spy(vm, '$emit');
+
+        vm.$nextTick(() => {
+          sinon.assert.calledWithExactly(spyEmit, 'unverified-user');
+
+          done();
+        });
+      });
     });
   });
 

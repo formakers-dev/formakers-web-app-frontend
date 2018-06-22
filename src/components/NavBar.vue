@@ -41,7 +41,7 @@
         if (err.response.status === 403) {
           setLogin(true);
           this.isLogin = isLoggedIn();
-          this.$router.push({ name: 'NotVerifiedUser' });
+          this.$emit('unverified-user');
         } else {
           setLogin(false);
           this.isLogin = false;

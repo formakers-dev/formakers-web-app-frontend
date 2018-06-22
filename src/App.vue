@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <nav-bar></nav-bar>
+    <nav-bar v-on:unverified-user="moveToUnverifiedUser"></nav-bar>
 
-    <router-view></router-view>
+    <router-view v-on:unverified-user="moveToUnverifiedUser"></router-view>
 
     <footer class="footer-area">
       <span class="footer-text">Copyright © 2017 | Privacy | All right reserved ForMakers</span>
@@ -17,6 +17,11 @@
     name: 'app',
     components: {
       NavBar,
+    },
+    methods: {
+      moveToUnverifiedUser() {
+        this.$router.push({ name: 'UnverifiedUser' });
+      },
     },
   };
 </script>

@@ -38,6 +38,10 @@
     created() {
       HTTP.get('/projects').then((res) => {
         this.projectList = res.data;
+      }).catch((err) => {
+        if (err.response.status === 403) {
+          this.$emit('unverified-user');
+        }
       });
     },
     methods: {
