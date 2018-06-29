@@ -5,7 +5,7 @@ import UpdateProject from '../components/UpdateProject';
 import UpdateInterview from '../components/UpdateInterview';
 import RegisterInterview from '../components/RegisterInterview';
 import CompleteProjectRegistration from '../components/CompleteProjectRegistration';
-import Login from '../components/Login';
+import Main from '../components/Main';
 import UnverifiedUser from '../components/UnverifiedUser';
 import MyPage from '../components/MyPage';
 import Preview from '../components/Preview';
@@ -18,8 +18,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Login',
-      component: Login,
+      name: 'Main',
+      component: Main,
     },
     {
       path: '/unverified',

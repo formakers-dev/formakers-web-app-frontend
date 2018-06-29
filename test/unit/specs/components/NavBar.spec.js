@@ -99,7 +99,7 @@ describe('NavBar Component', () => {
       sandbox.stub(AuthUtil, 'isLoggedIn').returns(true);
     });
 
-    it('성공시 Login 페이지로 이동한다', (done) => {
+    it('성공시 Main 페이지로 이동한다', (done) => {
       const vm = getVmInstance(NavBar, {
         data: {
           isLogin: true,
@@ -116,12 +116,12 @@ describe('NavBar Component', () => {
         sinon.assert.called(spyRouterOnPush);
 
         const nameList = spyRouterOnPush.args.map(objectList => objectList[0].name);
-        nameList.should.be.include('Login');
+        nameList.should.be.include('Main');
         done();
       });
     });
 
-    it('실패시 Login 페이지로 이동한다', (done) => {
+    it('실패시 Main 페이지로 이동한다', (done) => {
       const vm = getVmInstance(NavBar, {
         data: {
           isLogin: true,
@@ -139,7 +139,7 @@ describe('NavBar Component', () => {
         sinon.assert.called(spyRouterOnPush);
 
         const nameList = spyRouterOnPush.args.map(objectList => objectList[0].name);
-        nameList.should.be.include('Login');
+        nameList.should.be.include('Main');
         done();
       });
     });

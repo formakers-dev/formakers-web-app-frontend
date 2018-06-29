@@ -53,16 +53,16 @@
         HTTP.get('/auth/logout')
           .then(() => {
             this.isLogin = false;
-            this.moveToLogin();
+            this.moveToMain();
           })
           .catch(() => {
             this.isLogin = false;
-            this.moveToLogin();
+            this.moveToMain();
           });
       },
-      moveToLogin() {
+      moveToMain() {
         setLogin(false);
-        this.$router.push({ name: 'Login' });
+        this.$router.push({ name: 'Main' });
       },
       onSignIn() {
         location.href = `${BASE_URL}/auth/google`;

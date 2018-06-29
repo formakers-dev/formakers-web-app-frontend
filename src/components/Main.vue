@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="main">
     <div class="contents">
       <appSummary></appSummary>
       <appName></appName>
@@ -24,7 +24,7 @@
   import Copyright from './landing/Copyright';
 
   export default {
-    name: 'login',
+    name: 'main',
     data() {
       return {};
     },
