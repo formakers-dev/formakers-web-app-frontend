@@ -16,6 +16,7 @@ describe('RegisterInterView Component', () => {
   describe('화면이 로딩 되었을때', () => {
     it('인터뷰 입력 초기값이 셋팅 된다', () => {
       const vm = getVmInstance(RegisterInterview);
+      vm.currentDate.should.be.an('Date');
       vm.interview.type.should.be.eql('오프라인 인터뷰');
       vm.interview.apps.length.should.be.eql(0);
       vm.interview.location.should.be.eql('');
@@ -25,9 +26,10 @@ describe('RegisterInterView Component', () => {
       vm.interview.interviewDate.should.be.an('String');
       vm.interview.timeSlotTimes.length.should.be.eql(0);
       vm.interview.emergencyPhone.should.be.eql('');
-      vm.datePicker.openDate.should.be.an('Date');
-      vm.datePicker.closeDate.should.be.an('Date');
-      vm.datePicker.interviewDate.should.be.an('Date');
+      vm.datePicker.openDate.should.be.eql('');
+      vm.datePicker.closeDate.should.be.eql('');
+      vm.datePicker.interviewDate.should.be.eql('');
+      vm.datePicker.closableDate.should.be.eql('');
       vm.searchAppName.should.be.eql('');
       vm.searchedApps.length.should.be.eql(0);
       vm.searchStatus.should.be.eql('');

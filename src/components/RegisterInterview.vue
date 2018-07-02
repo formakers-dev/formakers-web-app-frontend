@@ -120,6 +120,7 @@
           <b-datepicker
             class="date-picker"
             icon="calendar-today"
+            v-bind:min-date="currentDate"
             v-model="datePicker.interviewDate">
           </b-datepicker>
           <div class="timeslot-list">
@@ -143,6 +144,8 @@
               <b-datepicker
                 class="date-picker"
                 icon="calendar-today"
+                v-bind:min-date="currentDate"
+                v-bind:max-date="datePicker.closeDate"
                 v-model="datePicker.openDate">
               </b-datepicker>
             </div>
@@ -152,6 +155,8 @@
               <b-datepicker
                 class="date-picker"
                 icon="calendar-today"
+                v-bind:min-date="currentDate"
+                v-bind:max-date="datePicker.closableDate"
                 v-model="datePicker.closeDate">
               </b-datepicker>
             </div>
@@ -205,6 +210,7 @@
     },
     data() {
       return {
+        currentDate: new Date(),
         interview: {
           type: '오프라인 인터뷰',
           apps: [],
@@ -219,9 +225,10 @@
         },
         // cache
         datePicker: {
-          openDate: new Date(),
-          closeDate: new Date(),
-          interviewDate: new Date(),
+          openDate: '',
+          closeDate: '',
+          interviewDate: '',
+          closableDate: '',
         },
         // Search for similar app
         searchAppName: '',
@@ -239,6 +246,10 @@
         } else {
           this.searchedApps = [];
         }
+      },
+      'datePicker.interviewDate': function (date) {
+        this.datePicker.closableDate = moment(date).subtract(1, 'days').toDate();
+        this.datePicker.closeDate = this.datePicker.closableDate;
       },
     },
     methods: {
