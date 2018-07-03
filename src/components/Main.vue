@@ -6,6 +6,7 @@
       <appDetail></appDetail>
       <joinus></joinus>
       <qna></qna>
+      <notice></notice>
       <contact></contact>
     </div>
     <footer>
@@ -20,6 +21,7 @@
   import AppDetail from './landing/AppDetail';
   import Joinus from './landing/Joinus';
   import Qna from './landing/Qna';
+  import Notice from '../components/landing/Notice';
   import Contact from './landing/Contact';
   import Copyright from './landing/Copyright';
 
@@ -34,6 +36,7 @@
       appDetail: AppDetail,
       joinus: Joinus,
       qna: Qna,
+      notice: Notice,
       contact: Contact,
       copyright: Copyright,
     },
