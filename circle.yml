@@ -6,7 +6,6 @@ dependencies:
   pre:
     - rm -rf ./node_modules
 
-
 deployment:
   development:
     branch: master
@@ -15,3 +14,10 @@ deployment:
       - npm run build
     heroku:
       appname: dragonwebapp-dev
+  staging:
+    branch: release
+    commands:
+      - npm install --only=dev
+      - npm run build
+    heroku:
+      appname: dragonwebapp-stg
