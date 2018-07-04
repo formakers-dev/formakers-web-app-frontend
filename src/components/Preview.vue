@@ -133,8 +133,8 @@
 
 <script>
   import moment from 'moment';
-  import { getIdFromURL } from 'vue-youtube-embed';
   import HTTP from '../apis/http-common';
+  import { getIdFromURL } from '../../lib/vue-youtube-embed.umd';
   import MyProjectTitle from './MyProjectTitle';
   import defaultOwnerImage from '../assets/project_owner_default_image.png';
 

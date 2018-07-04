@@ -5,9 +5,9 @@ import Vue from 'vue';
 import axios from 'axios';
 import Buefy from 'buefy';
 import VueFire from 'vuefire';
-import VueYouTubeEmbed from 'vue-youtube-embed';
 import 'buefy/lib/buefy.css';
 import 'mdi/css/materialdesignicons.min.css';
+import VueYouTubeEmbed from '../lib/vue-youtube-embed.umd';
 import App from './App';
 import router from './routers';
 
