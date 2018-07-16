@@ -8,7 +8,7 @@ dependencies:
 
 deployment:
   development:
-    branch: master
+    branch: circleci2
     commands:
       - npm install --only=dev
       - npm run build

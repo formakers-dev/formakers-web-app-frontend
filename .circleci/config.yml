@@ -1,0 +1,163 @@
+aliases:
+  - &restore-npm-cache
+    keys:
+      - v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+      - v1-dependencies-{{ .Branch }}-          # fallback to using the latest cache if no exact match is found
+
+  - &save-npm-cache
+    paths:
+      - node_modules
+    key: v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+
+  - &install-dependencies
+    |
+      npm install
+
+  - &update-npm
+    |
+      sudo npm install -g npm@6.1.0
+
+  - &attach-workspace
+    at: ~/dragonwebapp
+
+  - &build
+    name: Build
+    command: |
+      env | grep -i base_url
+      env | grep -i firebase
+      npm run build
+
+  - &delivery-dist
+    root: .
+    paths: dist
+
+  - &setup-heroku
+    name: Setup Heroku
+    command: bash .circleci/setup-heroku.sh $HEROKU_APP
+
+  - &setup-branch-and-commit
+    name: Setup Branch and Commit
+    command: bash .circleci/setup-branch-and-commit.sh heroku-$HEROKU_APP
+
+  - &deploy-to-heroku
+    name: Deploy to Heroku
+    command: |
+      ls; ls dist
+      git push -v heroku `git subtree split --prefix=dist -b heroku-$HEROKU_APP-deploy`:master --force
+      sleep 5
+      heroku restart
+
+  - &verify-for-deploy
+    name: Verify for Deploy
+    command: |
+      git subtree add --prefix=dist_verify https://git.heroku.com/$HEROKU_APP.git master
+      ls dist_test
+
+  - &filter-only-dev
+    branches:
+      only:
+        - master
+
+  - &filter-only-release
+    branches:
+      only:
+        - release
+
+defaults: &defaults
+    working_directory: ~/dragonwebapp # directory where steps will run
+    docker:
+      - image: circleci/node:8.11
+
+version: 2
+jobs:
+  test:                              # runs not using Workflows must have a `build` job as entry point
+    <<: *defaults
+    steps:                            # a collection of executable commands
+      - checkout                      # special step to check out source code to working directory
+      - run: *update-npm
+      - restore_cache: *restore-npm-cache
+      - run: *install-dependencies
+      - save_cache: *save-npm-cache
+      - run:
+          name: test
+          command: npm test
+      - persist_to_workspace:
+          root: .
+          paths: node_modules
+
+  dev-build:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace: *attach-workspace
+      - run: *update-npm
+      - run:
+          name: set environment variables at Runtime
+          command: |
+            echo 'export BASE_URL=$DEV_BASE_URL' >> $BASH_ENV
+            echo 'export FIREBASE_API_KEY=$DEV_FIREBASE_API_KEY' >> $BASH_ENV
+            echo 'export FIREBASE_PROJECT_ID=$DEV_FIREBASE_PROJECT_ID' >> $BASH_ENV
+            echo 'export FIREBASE_STORAGE_BUCKET=$DEV_FIREBASE_STORAGE_BUCKET' >> $BASH_ENV
+            source $BASH_ENV
+      - run: *build
+      - persist_to_workspace: *delivery-dist
+
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace: *attach-workspace
+      - run: *update-npm
+      - run: *build
+      - persist_to_workspace: *delivery-dist
+
+  dev-deploy:
+    <<: *defaults
+    environment:
+      - HEROKU_APP : dragonwebapp-dev
+    steps:
+      - checkout
+      - attach_workspace: *attach-workspace
+      - run: *setup-heroku
+      - run: *setup-branch-and-commit
+      - run: *deploy-to-heroku
+
+  stg-deploy:
+    <<: *defaults
+    environment:
+      - HEROKU_APP : dragonwebapp-stg
+    steps:
+      - checkout
+      - attach_workspace: *attach-workspace
+      - run: *setup-heroku
+      - run: *setup-branch-and-commit
+      - run: *deploy-to-heroku
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      # for common
+      - test
+
+      # for dev
+      - dev-build:
+          requires:
+           - test
+          filters: *filter-only-dev
+      - dev-deploy:
+          requires:
+            - test
+            - dev-build
+          filters: *filter-only-dev
+
+      # for stg
+      - build:
+          requires:
+           - test
+          filters: *filter-only-release
+      - stg-deploy:
+          requires:
+            - test
+            - build
+          filters: *filter-only-release

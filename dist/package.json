@@ -1,0 +1,10 @@
+{
+  "name": "appbee-dragon",
+  "version": "0.0.0",
+  "description": "A Vue.js project",
+  "author": "appbee <appbee0627@gmail.com>",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install express"
+  }
+}
