@@ -85,6 +85,7 @@ jobs:
           root: .
           paths: node_modules
 
+####### TODO : move to a shell script for build
   dev-build:
     <<: *defaults
     steps:
@@ -102,12 +103,20 @@ jobs:
       - run: *build
       - persist_to_workspace: *delivery-dist
 
-  build:
+  stg-build:
     <<: *defaults
     steps:
       - checkout
       - attach_workspace: *attach-workspace
       - run: *update-npm
+      - run:
+          name: set environment variables at Runtime
+          command: |
+            echo 'export BASE_URL=$STG_BASE_URL' >> $BASH_ENV
+            echo 'export FIREBASE_API_KEY=$STG_FIREBASE_API_KEY' >> $BASH_ENV
+            echo 'export FIREBASE_PROJECT_ID=$STG_FIREBASE_PROJECT_ID' >> $BASH_ENV
+            echo 'export FIREBASE_STORAGE_BUCKET=$STG_FIREBASE_STORAGE_BUCKET' >> $BASH_ENV
+            source $BASH_ENV
       - run: *build
       - persist_to_workspace: *delivery-dist
 
@@ -152,12 +161,12 @@ workflows:
           filters: *filter-only-dev
 
       # for stg
-      - build:
+      - stg-build:
           requires:
            - test
           filters: *filter-only-release
       - stg-deploy:
           requires:
             - test
-            - build
+            - stg-build
           filters: *filter-only-release
