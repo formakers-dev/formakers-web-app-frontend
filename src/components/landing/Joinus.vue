@@ -15,7 +15,7 @@
       </div>
       <div class="ui joinus-email-component" v-bind:class="{active: !isActive}">
         <p class="success">
-          <img class="success-img" src="static/image/success.png"/>
+          <img class="success-img" src="/static/image/success.png"/>
           <span class="success-text">
             뉴스레터 신청 성공! 앞으로 재미있는 소식 보내드릴게요.
           </span>

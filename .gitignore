@@ -6,9 +6,18 @@ yarn-error.log*
 test/unit/coverage
 
 # for continuous deploy
-dist/**
-!dist/package.json
-!dist/server.js
+# dist/**
+
+# for heroku
+# !dist/package.json
+# !dist/server.js
+
+# for temporary landing page
+dist/home/**
+dist/static/**
+# !dist/index.html
+# !dist/assets/**
+# !dist/images/**
 
 # Editor directories and files
 .idea

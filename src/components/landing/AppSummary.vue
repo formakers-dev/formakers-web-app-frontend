@@ -3,7 +3,7 @@
     <div class="ui container">
       <p class="summary-title">앱 안에 너 있다</p>
       <p class="summary-description">당신이 사용하는 앱을 보면 당신의 진짜 모습을 알 수 있죠!</p>
-      <img src="static/image/summary.png"/>
+      <img src="/static/image/summary.png"/>
     </div>
   </div>
 </template>
