@@ -56,7 +56,7 @@ aliases:
   - &filter-only-dev
     branches:
       only:
-        - landing-test
+        - master
 
   - &filter-only-release
     branches:
