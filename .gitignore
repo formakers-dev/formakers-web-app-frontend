@@ -16,8 +16,7 @@ test/unit/coverage
 dist/home/**
 dist/static/**
 # !dist/index.html
-# !dist/assets/**
-# !dist/images/**
+# !dist/landing_static/**
 
 # Editor directories and files
 .idea
