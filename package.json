@@ -10,7 +10,7 @@
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "heroku-prebuild": "npm install --only=dev",
-    "serve": "http-server dist/ -p 3000"
+    "serve": "http-server dist -p 1024"
   },
   "dependencies": {
     "axios": "^0.16.2",

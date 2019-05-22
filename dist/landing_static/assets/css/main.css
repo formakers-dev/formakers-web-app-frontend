@@ -100,10 +100,10 @@ input, select, textarea {
 
 	body {
 		background-color: #935d8c;
-		background-image: url("images/overlay.png"), -moz-linear-gradient(45deg, #e37682 15%, #5f4d93 85%);
-		background-image: url("images/overlay.png"), -webkit-linear-gradient(45deg, #e37682 15%, #5f4d93 85%);
-		background-image: url("images/overlay.png"), -ms-linear-gradient(45deg, #e37682 15%, #5f4d93 85%);
-		background-image: url("images/overlay.png"), linear-gradient(45deg, #e37682 15%, #5f4d93 85%);
+		background-image: -moz-linear-gradient(15deg, #194271, #1c83a1 33%, #00bea9 74%, #7bb58e);
+		background-image: -webkit-linear-gradient(15deg, #194271, #1c83a1 33%, #00bea9 74%, #7bb58e);
+		background-image: -ms-linear-gradient(15deg, #194271, #1c83a1 33%, #00bea9 74%, #7bb58e);
+		background-image: linear-gradient(15deg, #194271, #1c83a1 33%, #00bea9 74%, #7bb58e);
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -161,7 +161,6 @@ input, select, textarea {
 		-ms-transition: color 0.2s ease, border-bottom 0.2s ease;
 		transition: color 0.2s ease, border-bottom 0.2s ease;
 		text-decoration: none;
-		border-bottom: dotted 1px;
 		color: inherit;
 	}
 
@@ -1839,13 +1838,13 @@ input, select, textarea {
 		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		border-radius: 8px;
+		border-radius: 4px;
 		border: 0;
 		cursor: pointer;
 		display: inline-block;
 		font-weight: 300;
-		height: 2.75em;
-		line-height: 2.75em;
+		height: 3em;
+		line-height: 3em;
 		min-width: 9.25em;
 		padding: 0 1.5em;
 		text-align: center;
@@ -1924,8 +1923,17 @@ input, select, textarea {
 	button,
 	.button {
 		background-color: transparent;
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-		color: #ffffff !important;
+		border-radius: 4px;
+		border: solid 1px #ffffff;
+		font-family: NotoSansCJKkr;
+		font-size: 11px;
+		font-weight: bold;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: normal;
+		text-align: center;
+		color: #ffffff;
 	}
 
 		input[type="submit"]:hover,
@@ -2393,6 +2401,11 @@ input, select, textarea {
 				width: 100%;
 			}
 
+		.fit-parent {
+			max-width: 90%;
+    	max-height: 90%;
+		}
+
 /* List */
 
 	ol {
@@ -2616,7 +2629,7 @@ input, select, textarea {
 	}
 
 	header.major {
-		margin-bottom: 3em;
+		margin-bottom: 2em;
 	}
 
 		header.major h2 {
@@ -2799,6 +2812,13 @@ input, select, textarea {
 			padding: 0;
 		}
 
+		.features .shorter {
+			width: calc(33.3333333333% - 4em);
+			margin-left: 0;
+			margin-top: 3em;
+			padding: 0;
+		}
+
 			.features li:nth-child(1), .features li:nth-child(2), .features li:nth-child(3) {
 				margin-top: 0;
 			}
@@ -2811,6 +2831,10 @@ input, select, textarea {
 
 			.features li {
 				width: calc(50% - 2em);
+			}
+
+			.features .shorter {
+				width: calc(50%);
 			}
 
 				.features li:nth-child(3) {
@@ -2827,6 +2851,12 @@ input, select, textarea {
 			}
 
 				.features li {
+					width: 100%;
+					margin-left: 0;
+					margin-top: 2em;
+				}
+
+				.features .shorter {
 					width: 100%;
 					margin-left: 0;
 					margin-top: 2em;
@@ -2973,7 +3003,7 @@ input, select, textarea {
 			}
 
 			.spotlight .content header.major {
-				margin: 0 0 2em 0;
+				margin: 0 0 1em 0;
 			}
 
 		.spotlight .image {
@@ -3062,10 +3092,18 @@ input, select, textarea {
 		#header p {
 			font-size: 1.25em;
 			letter-spacing: -0.025em;
+			font-family: NotoSansCJKkr;
+			font-weight: normal;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
+			text-align: center;
+			color: #ffffff;
 		}
 
 		#header.alt {
-			padding: 7em 5em 4em 5em ;
+			padding: 7.35em 5em 4.25em 5em ;
 		}
 
 			#header.alt h1 {
@@ -3097,11 +3135,25 @@ input, select, textarea {
 				margin: 0 0 1.5em 0;
 			}
 
-				#header.alt .logo img {
-					display: block;
-					margin: 0 auto;
-					max-width: 75%;
-				}
+			#header.alt .logo img {
+				display: block;
+				margin: 0 auto;
+				max-width: 75%;
+			}
+
+			#header.alt p {
+			  max-width: 75%;
+				margin: 0.5em auto 1.0em auto;
+			  font-family: NotoSansCJKkr;
+			  font-size: 16px;
+			  font-weight: normal;
+			  font-style: normal;
+			  font-stretch: normal;
+			  line-height: normal;
+			  letter-spacing: normal;
+			  text-align: center;
+			  color: #ffffff;
+			}
 
 		@media screen and (max-width: 1280px) {
 
@@ -3110,7 +3162,7 @@ input, select, textarea {
 			}
 
 				#header.alt {
-					padding: 6em 4em 3em 4em ;
+					padding: 6em 4em 5em 4em ;
 				}
 
 		}
@@ -3122,7 +3174,7 @@ input, select, textarea {
 			}
 
 				#header.alt {
-					padding: 5em 3em 2em 3em ;
+					padding: 5em 3em 4em 3em ;
 				}
 
 		}
@@ -3143,7 +3195,7 @@ input, select, textarea {
 					}
 
 				#header.alt {
-					padding: 4em 2em 1em 2em ;
+					padding: 4em 2em 3em 2em ;
 				}
 
 					#header.alt h1 {
@@ -3159,7 +3211,7 @@ input, select, textarea {
 			}
 
 				#header.alt {
-					padding: 4em 1.5em 1em 1.5em ;
+					padding: 4em 1.5em 2.5em 1.5em ;
 				}
 
 		}
@@ -3171,7 +3223,7 @@ input, select, textarea {
 			}
 
 				#header.alt {
-					padding: 3.5em 1em 0.5em 1em ;
+					padding: 3.5em 1em 1.5em 1em ;
 				}
 
 		}
@@ -3269,6 +3321,14 @@ input, select, textarea {
 					border: 0;
 					border-radius: 8px;
 					box-shadow: inset 0 0 0 1px transparent;
+					font-family: NotoSansCJKkr;
+					font-size: 0.75em;
+					font-weight: normal;
+					font-style: normal;
+					font-stretch: normal;
+					letter-spacing: normal;
+					text-align: center;
+					color: #808080;
 				}
 
 					#nav ul li a:hover {
@@ -3295,7 +3355,14 @@ input, select, textarea {
 			}
 
 				#nav.alt ul li a {
-					font-size: 0.9em;
+					font-family: NotoSansCJKkr;
+					font-size: 0.75em;
+					font-weight: normal;
+					font-style: normal;
+					font-stretch: normal;
+					letter-spacing: normal;
+					text-align: center;
+					color: #808080;
 				}
 
 		@media screen and (max-width: 736px) {
@@ -3330,8 +3397,30 @@ input, select, textarea {
 			color: #636363;
 		}
 
-		#main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {
+		#main h1, #main h3, #main h4, #main h5 {
 			color: #636363;
+		}
+
+		#main h2 {
+			font-family: NotoSansCJKkr;
+			font-size: 1.25em;
+			font-weight: bold;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
+			color: #4a4a4a;
+		}
+
+		#main h6 {
+			font-family: NotoSansCJKkr;
+			font-size: 0.75em;
+			font-weight: bold;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
+			color: #808080;
 		}
 
 		#main blockquote {
@@ -3357,8 +3446,27 @@ input, select, textarea {
 		#main button,
 		#main .button {
 			background-color: transparent;
-			box-shadow: inset 0 0 0 1px #dddddd;
-			color: #636363 !important;
+			border-radius: 4px;
+			border: solid 1px #00bfba;
+			font-family: NotoSansCJKkr;
+			font-size: 11px;
+			font-weight: bold;
+			font-style: normal;
+			font-stretch: normal;
+			letter-spacing: normal;
+			cursor: pointer;
+			display: inline-block;
+			font-weight: 300;
+			height: 3em;
+			line-height: 3em;
+			min-width: 9.25em;
+			text-align: center;
+			color: #00bfba;
+		}
+
+		#main .white {
+			border: solid 1px #ffffff;
+			color: #ffffff;
 		}
 
 			#main input[type="submit"]:hover,
@@ -3524,11 +3632,13 @@ input, select, textarea {
 		}
 
 		#main header.major h2:after {
+			margin-top: 2em;
+			width: 80px;
 			background-color: #dddddd;
-			background-image: -moz-linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
-			background-image: -webkit-linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
-			background-image: -ms-linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
-			background-image: linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
+			border-style: solid;
+			border-width: 1px;
+			border-image-source: linear-gradient(to left, #00dfca, #018586);
+			border-image-slice: 1;
 		}
 
 		#main table tbody tr {
@@ -3582,6 +3692,75 @@ input, select, textarea {
 					border-top-left-radius: 0.25em;
 					border-bottom-right-radius: 0;
 					border-bottom-left-radius: 0;
+				}
+
+				#main .description {
+					font-family: NotoSansCJKkr;
+					font-size: 0.875em;
+					font-weight: normal;
+					font-style: normal;
+					font-stretch: normal;
+					line-height: normal;
+					letter-spacing: normal;
+					color: #808080;
+				}
+
+				#main .wider-bottom {
+					padding-bottom: 1.5em;
+				}
+
+				#main > .dark {
+					border-bottom-right-radius: 0.25em;
+					border-bottom-left-radius: 0.25em;
+					background-color: #4a4a4a;
+				}
+
+				#main .notice-title {
+					font-size: 1.15em;
+					font-family: NotoSansCJKkr;
+					font-weight: bold;
+					font-style: normal;
+					font-stretch: normal;
+					line-height: normal;
+					letter-spacing: normal;
+					text-align: center;
+					color: #00bfba;
+				}
+
+				#main .notice {
+					font-size: 1.85em;
+					font-family: NotoSansCJKkr;
+					font-weight: normal;
+					font-style: normal;
+					font-stretch: normal;
+					letter-spacing: normal;
+					text-align: center;
+					color: #ffffff;
+				}
+
+				#main .interview {
+					font-size: 1em;
+					font-family: NotoSansCJKkr;
+					font-weight: bold;
+					font-style: normal;
+					font-stretch: normal;
+					line-height: normal;
+					letter-spacing: normal;
+					text-align: center;
+					color: #00bfba;
+				}
+
+				#main .interviewer {
+					padding-top: 0.5em;
+					font-size: 0.875em;
+					font-family: NotoSansCJKkr;
+					font-weight: normal;
+					font-style: normal;
+					font-stretch: normal;
+					line-height: normal;
+					letter-spacing: normal;
+					text-align: center;
+					color: #808080;
 				}
 
 		@media screen and (max-width: 1280px) {
@@ -3684,6 +3863,16 @@ input, select, textarea {
 			margin: 2.5em 0 2em 0;
 			font-size: 0.8em;
 			text-align: center;
+		}
+
+		#footer h6 {
+			font-size: 0.75em;
+			color: #ffffff;
+		}
+
+		#footer p {
+			font-size: 0.65em;
+			color: #ffffff;
 		}
 
 		@media screen and (max-width: 1280px) {

@@ -120,4 +120,8 @@
 			speed: 1000
 		});
 
+		$('.button').on('click', function() {
+			location.href = 'https://goo.gl/forms/Cv9b9mpXQAvfOPGg1';
+		});
+
 })(jQuery);
