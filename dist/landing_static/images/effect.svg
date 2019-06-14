@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="203" height="203" viewBox="0 0 203 203">
+    <defs>
+        <circle id="a" cx="101.5" cy="101.5" r="101.5"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <mask id="b" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+        <g mask="url(#b)">
+            <path fill="#00BFBA" d="M-19-25h241v241H-19z"/>
+            <text font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="10" font-weight="bold" transform="translate(-19 -25)">
+                <tspan x="63.365" y="86" fill="#FFF">플레이 시간</tspan>
+            </text>
+            <text font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="10" font-weight="bold" transform="translate(-19 -25)">
+                <tspan x="48.03" y="125" fill="#FFF">특정 게임 트래킹</tspan>
+            </text>
+            <text font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="10" font-weight="bold" transform="translate(-19 -25)">
+                <tspan x="60.3" y="163" fill="#FFF">나이</tspan>
+            </text>
+            <text font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="10" font-weight="bold" transform="translate(-19 -25)">
+                <tspan x="103.3" y="163" fill="#FFF">성별</tspan>
+            </text>
+            <text font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="10" font-weight="bold" transform="translate(-19 -25)">
+                <tspan x="76.965" y="204" fill="#FFF">특정 장르</tspan>
+            </text>
+            <text font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="10" font-weight="bold" transform="translate(-19 -25)">
+                <tspan x="156.3" y="163" fill="#FFF">직업</tspan>
+            </text>
+            <path fill="#FFF" d="M38 50h87v2H38zM27 89h72v2H27zM28 128h45v2H28zM36 168h72v2H36zM77 128h37v2H77zM120 128h52v2h-52z"/>
+            <text font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="20" font-weight="bold" transform="translate(-19 -25)">
+                <tspan x="55.37" y="69" fill="#177D7A">하루 1시간 이상</tspan> <tspan x="45.13" y="108.1" fill="#177D7A">하스스톤을 즐기는</tspan> <tspan x="49.48" y="147.2" fill="#177D7A">20대 남자 직장인</tspan> <tspan x="54.33" y="186.3" fill="#177D7A">카드장르 게이머</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

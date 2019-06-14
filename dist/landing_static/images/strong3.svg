@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="139" height="139" viewBox="0 0 139 139">
+    <g fill="none" fill-rule="evenodd">
+        <circle cx="70" cy="69" r="61" stroke="#D4D4D4"/>
+        <circle cx="69.5" cy="69.5" r="68.5" stroke="#D4D4D4"/>
+        <text fill="#0691BC" font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="25" font-weight="bold">
+            <tspan x="35.5" y="64">데이터</tspan> <tspan x="47" y="100">기반</tspan>
+        </text>
+    </g>
+</svg>
