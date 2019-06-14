@@ -8,13 +8,13 @@
             <use xlink:href="#a"/>
         </mask>
         <g mask="url(#b)">
-            <path fill="#50E3C2" d="M-17-22h241v241H-17z"/>
+            <path fill="#00BFBA" d="M-17-22h241v241H-17z"/>
             <g transform="translate(-3 -62)">
                 <circle cx="67" cy="193" r="4" fill="#FFF"/>
                 <circle cx="53" cy="182" r="7" fill="#FFF"/>
                 <ellipse cx="107" cy="89.5" fill="#FFF" rx="107" ry="89.5"/>
-                <text fill="#868686" font-family="BMDoHyeon-OTF, BM DoHyeon OTF" font-size="14">
-                    <tspan x="49.5" y="103">액션게임은 싫지만</tspan> <tspan x="49.5" y="124.1">리워드가 빵빵하니</tspan> <tspan x="68.4" y="145.2">신청해볼까..</tspan>
+                <text fill="#868686" font-family="NotoSansKR-Regular, Noto Sans KR Regular" font-size="20">
+                    <tspan x="68.44" y="97">유저들이</tspan> <tspan x="66.2" y="125.1">내 게임을</tspan> <tspan x="54.5" y="153.2">좋아해줄까?</tspan>
                 </text>
             </g>
             <g transform="translate(49.578 139.958)">
@@ -45,5 +45,8 @@
                 <path fill="#2894B1" d="M114.787 203.44c-.867-2.386-2.538-4.52-4.783-5.748 1.537-.902 3.473-3.453 5.125-4.013.649-.221 3.447-.104 3.478 1.026-.05-1.865-.538-2.313.133-3.84.466-1.065 1.505-2.184 2.096-3.036 1.335 1.881 3.09 3.46 4.406 5.294-3.886 2.592-6.64 7.426-10.455 10.318"/>
             </g>
         </g>
+        <text fill="#FFF" font-family="NotoSansKR-Bold, Noto Sans KR Bold" font-size="14" font-weight="bold" mask="url(#b)">
+            <tspan x="83.18" y="163">게임사</tspan>
+        </text>
     </g>
 </svg>

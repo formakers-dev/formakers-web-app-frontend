@@ -1926,13 +1926,15 @@ input, select, textarea {
 		border-radius: 4px;
 		border: solid 1px #ffffff;
 		font-family: NotoSansCJKkr;
-		font-size: 11px;
+		font-size: 16px;
 		font-weight: bold;
 		font-style: normal;
 		font-stretch: normal;
 		line-height: normal;
 		letter-spacing: normal;
 		text-align: center;
+    height: 2em;
+    line-height: 2em;
 		color: #ffffff;
 	}
 
@@ -2697,6 +2699,10 @@ input, select, textarea {
 		background-color: rgba(255, 255, 255, 0.35);
 	}
 
+  .dark {
+    color: #4a4a4a;
+  }
+
 /* Table */
 
 	.table-wrapper {
@@ -3323,7 +3329,7 @@ input, select, textarea {
 					box-shadow: inset 0 0 0 1px transparent;
 					font-family: NotoSansCJKkr;
 					font-size: 0.75em;
-					font-weight: normal;
+					font-weight: bold;
 					font-style: normal;
 					font-stretch: normal;
 					letter-spacing: normal;
@@ -3397,13 +3403,13 @@ input, select, textarea {
 			color: #636363;
 		}
 
-		#main h1, #main h3, #main h4, #main h5 {
+		#main h1, #main h3, #main h5 {
 			color: #636363;
 		}
 
 		#main h2 {
 			font-family: NotoSansCJKkr;
-			font-size: 1.25em;
+			font-size: 1.75em;
 			font-weight: bold;
 			font-style: normal;
 			font-stretch: normal;
@@ -3412,18 +3418,29 @@ input, select, textarea {
 			color: #4a4a4a;
 		}
 
-		#main h6 {
+		#main h4 {
 			font-family: NotoSansCJKkr;
-			font-size: 0.75em;
+			font-size: 1em;
 			font-weight: bold;
 			font-style: normal;
 			font-stretch: normal;
 			line-height: normal;
 			letter-spacing: normal;
-			color: #808080;
+			color: #636363;
 		}
 
-		#main blockquote {
+    #main h6 {
+      font-family: NotoSansCJKkr;
+      font-size: 0.75em;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #808080;
+    }
+
+#main blockquote {
 			border-left-color: #dddddd;
 		}
 
@@ -3449,16 +3466,15 @@ input, select, textarea {
 			border-radius: 4px;
 			border: solid 1px #00bfba;
 			font-family: NotoSansCJKkr;
-			font-size: 11px;
+			font-size: 16px;
 			font-weight: bold;
 			font-style: normal;
 			font-stretch: normal;
 			letter-spacing: normal;
 			cursor: pointer;
 			display: inline-block;
-			font-weight: 300;
-			height: 3em;
-			line-height: 3em;
+			height: 2em;
+			line-height: 2em;
 			min-width: 9.25em;
 			text-align: center;
 			color: #00bfba;
@@ -3696,7 +3712,7 @@ input, select, textarea {
 
 				#main .description {
 					font-family: NotoSansCJKkr;
-					font-size: 0.875em;
+					font-size: 1em;
 					font-weight: normal;
 					font-style: normal;
 					font-stretch: normal;
@@ -3739,7 +3755,7 @@ input, select, textarea {
 				}
 
 				#main .interview {
-					font-size: 1em;
+					font-size: 1.2em;
 					font-family: NotoSansCJKkr;
 					font-weight: bold;
 					font-style: normal;
@@ -3866,12 +3882,12 @@ input, select, textarea {
 		}
 
 		#footer h6 {
-			font-size: 0.75em;
+			font-size: 1em;
 			color: #ffffff;
 		}
 
 		#footer p {
-			font-size: 0.65em;
+			font-size: 0.8em;
 			color: #ffffff;
 		}
 

@@ -31,3 +31,4 @@ package-lock.json
 .firebaserc
 firebase.json
 deployRelease.sh
+.firebase/
