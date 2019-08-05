@@ -121,10 +121,12 @@
 		});
 
 		$('.button').on('click', function(e) {
-		  if(e.target.textContent === "상담 신청하기") {
+		  if(e.target.textContent === "테스트 문의하기") {
 		    location.href = 'https://goo.gl/forms/Cv9b9mpXQAvfOPGg1';
-      } else {
+      } else if(e.target.textContent === "소개서 다운로드") {
         location.href = 'https://fomes-b2b.s3.ap-northeast-2.amazonaws.com/public/%E1%84%91%E1%85%A9%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A5%E1%84%89%E1%85%B3_%E1%84%89%E1%85%A1%E1%84%8B%E1%85%A5%E1%86%B8%E1%84%89%E1%85%A9%E1%84%80%E1%85%A2%E1%84%89%E1%85%A5_2019%E1%84%8B%E1%85%A5%E1%86%B8%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%B3.pdf';
+      } else {
+        location.href = 'https://forms.gle/oNzR3ja5wc7c8bVx5';
       }
 		});
 
