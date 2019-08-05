@@ -3480,6 +3480,18 @@ input, select, textarea {
 			color: #00bfba;
 		}
 
+    #main button, .white-active {
+      background-color: #ffffff;
+      border: solid 1px #ffffff;
+      color: #00bfba;
+    }
+
+    #main .black-active {
+      background-color: #ffffff;
+      border: solid 1px #ffffff;
+      color: #4a4a4a;
+    }
+
 		#main .white {
 			border: solid 1px #ffffff;
 			color: #ffffff;
