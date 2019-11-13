@@ -29,6 +29,6 @@ package-lock.json
 
 # Firebase 배포관련
 .firebaserc
-firebase.json
+# firebase.json 는 리다이렉션 이용을 위해 gitignore에서 제거
 deployRelease.sh
 .firebase/

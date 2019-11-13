@@ -1,0 +1,15 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [ {
+      "source": "**",
+      "destination": "https://www.sixshop.com/formakers/home",
+      "type": 302
+    } ]
+  }
+}
